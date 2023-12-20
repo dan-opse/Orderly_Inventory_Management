@@ -1,0 +1,38 @@
+/*
+
+@LoginScene.FXML
+
+*/
+
+
+/* Minimize buttons */
+#minimizeButton {
+-fx-background-color:transparent;
+}
+#minimizeButton:hover {
+-fx-background-color:#E1E0DD;
+-fx-background-radius:0;
+}
+
+/* Close buttons */
+#closeButton {
+-fx-background-color:transparent;
+}
+#closeButton:hover {
+-fx-background-color:#CD5C5C;
+-fx-background-radius:0;
+}
+
+/* Checkbox */
+.check-box .box{
+-fx-background-color: transparent;
+-fx-border-color:#6665DD;
+-fx-border-radius:0;
+-fx-background-size: 10;
+}
+.check-box:selected .mark {
+-fx-background-color:white;
+}
+.check-box:selected .box {
+-fx-background-color:#6665DD;
+}
