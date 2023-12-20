@@ -14,37 +14,46 @@ import java.sql.Statement;
 public class LoginSceneController {
     private Stage stage;
 
-    // User info
+    /*
+    *
+    *   Login buttons
+    *
+    * */
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
     @FXML
     private Label loginMessage;
+    @FXML
+    private CheckBox rememberDevice;
 
 
-    // Buttons
+    /*
+     *
+     *   TopBar Buttons
+     *
+     * */
     @FXML
     private Button loginButton;
     @FXML
     private Button quitButton;
     @FXML
     private Button minimizeButton;
-
-    // Misc
-    @FXML
-    private CheckBox rememberDevice;
-
     public void minimizeAction(ActionEvent e) {
         Stage stage = (Stage)minimizeButton.getScene().getWindow();
         stage.setIconified(true);
     }
-
     public void quitOnAction(ActionEvent e) {
         stage = (Stage)quitButton.getScene().getWindow();
         stage.close();
     }
 
+    /*
+    *
+    *   Login method
+    *
+    * */
     public void login(ActionEvent e) throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -53,19 +62,25 @@ public class LoginSceneController {
 
         // If populated
         if (!username.isBlank() && !password.isBlank()) {
-//            System.out.println("Sufficient Information");
+
             if(validateLogin()) {
-                m.changeScene("WelcomeScene.fxml");
+                m.changeScene("DashboardScene.fxml");
             }
+
         } else {
             loginMessage.setText("Insufficient Information.");
         }
     }
 
-    // Database connection
+    /*
+    *
+    *   Validates the login given the database
+    *   executes a query and returns true if the username and password the user has entered is valid
+    *
+    * */
     public boolean validateLogin() {
         try {
-            // Create DB instance
+
             DatabaseConnection connectNow = new DatabaseConnection();
             Connection connectDB = connectNow.getUserInfoConnection();
 
