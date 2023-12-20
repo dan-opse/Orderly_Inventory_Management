@@ -1,8 +1,5 @@
 package com.example.orderly_inventory_management;
 
-
-
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -21,18 +18,17 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.Objects;
 
-
-
-
 public class Main extends Application {
     public static Stage stg;
 
-
-    // Start
+    /*
+    *
+    *   Start
+    *
+    * */
     @Override
     public void start(Stage stage) throws IOException {
         stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/Assets/AppIcon.png"))));
-//        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginScene.fxml")));
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginScene.fxml")));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/Stylesheets/Login.css")).toExternalForm());
@@ -44,7 +40,11 @@ public class Main extends Application {
         stage.show();
         centerStage(stage);
 
-        // Lambda method - Prompts logout
+        /*
+        *
+        *   Prompts logout
+        *
+        * */
         stage.setOnCloseRequest(event -> {
             try {
                 event.consume();
@@ -55,7 +55,11 @@ public class Main extends Application {
         });
     }
 
-    // Scene switch
+    /*
+    *
+    *   Changes scene
+    *
+    * */
     public void changeScene(String fxml) throws IOException{
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxml)));
         Parent root = loader.load();
@@ -65,7 +69,11 @@ public class Main extends Application {
     }
 
 
-    // Center the stage
+    /*
+    *
+    *   Centers stage
+    *
+    * */
     public void centerStage(Stage stg) {
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
@@ -76,7 +84,11 @@ public class Main extends Application {
         stg.setY(centerY);
     }
 
-    // Logout message
+    /*
+    *
+    *   Logout
+    *
+    * */
     public void logout(Stage stage) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");

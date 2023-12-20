@@ -7,7 +7,6 @@ public class Items {
     int id;
     String Component, Value, Amount, DateLastBought, Link;
 
-
     // This follows the query fields or Table View columns sequence
     public Items(int id, String component, String value, String amount, String DateLastBought, String link) {
         this.id = id;

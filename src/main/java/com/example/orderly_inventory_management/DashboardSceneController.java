@@ -19,7 +19,11 @@ import java.util.logging.Logger;
 
 public class DashboardSceneController implements Initializable {
 
-    /* Side-view Buttons */
+    /*
+    *
+    *   Main buttons
+    *
+    * */
     @FXML
     private Button dashboardButton;
     @FXML
@@ -32,20 +36,23 @@ public class DashboardSceneController implements Initializable {
     private Button settingButton;
 
 
-    /* Draggable topBar */
+    /*
+    *
+    *   Draggable topBar + topBar actions
+    *
+    * */
     @FXML
     private AnchorPane topBar;
     double x = 0;
     double y = 0;
 
-
-    /*  TopBar Buttons */
     @FXML
     private Button closeButton;
     @FXML
     private Button minimizeButton;
     @FXML
     private Button fullScreenButton;
+
     public void fullScreenAction() {
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
         if (stage.isMaximized()) {
@@ -63,19 +70,23 @@ public class DashboardSceneController implements Initializable {
         stage.close();
     }
 
-    /* Updating label */
+    /*
+    *
+    *   Label that updates whenever you switch to a new page
+    *
+    * */
     @FXML
     private Label currentView;
     public void updateLabel() {
-
-
     }
 
-    /* Tableview & populating */
-    /* Keyword search */
+    /*
+    *
+    *   Tableview + keyword search
+    *
+    * */
     @FXML
     private TextField keywordTextField;
-
 
     @FXML
     private TableView<Items> table_items;
@@ -91,40 +102,33 @@ public class DashboardSceneController implements Initializable {
     private TableColumn<Items, String> col_dlb;
     @FXML
     private TableColumn<Items, String> col_link;
-    ObservableList<Items> componentSearchModelObservableList = FXCollections.observableArrayList();
 
+    ObservableList<Items> componentSearchModelObservableList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Draggable topBar
         topBar.setOnMousePressed(mouseEvent-> {
             x = mouseEvent.getSceneX();
             y = mouseEvent.getSceneY();
         });
-
-
         topBar.setOnMouseDragged(mouseEvent-> {
             Main.stg.setX(mouseEvent.getScreenX()-x);
             Main.stg.setY(mouseEvent.getScreenY()-y);
         });
 
-
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getUserInfoConnection();
-
 
         // SQL Query - Executed in the backend database
         String componentViewQuery = "SELECT Id, Component, Value, Amount, DateLastBought, Link FROM componentList";
 
-
         try {
-
 
             Statement statement = connectDB.createStatement();
             ResultSet queryOutput = statement.executeQuery(componentViewQuery);
 
-
             while(queryOutput.next()) {
-
 
                 Integer queryID = queryOutput.getInt("Id");
                 String queryComponent = queryOutput.getString("Component");
@@ -133,13 +137,12 @@ public class DashboardSceneController implements Initializable {
                 String queryDateLastBought = queryOutput.getString("DateLastBought");
                 String queryLink = queryOutput.getString("Link");
 
-
-                // Populate the ObservableList
+                // Populate the ObservableList variable with parameters specific to the componentList found in MySQL
                 componentSearchModelObservableList.add(new Items(queryID, queryComponent, queryValue, queryAmount, queryDateLastBought, queryLink));
+
             }
 
-
-            // PropertyValueFactory corresponds to the new ProductSearchModel fields
+            // PropertyValueFactory corresponds to the new componentSearchModel fields
             // The table column is the one you annotate above.
             col_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
             col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));
@@ -148,26 +151,20 @@ public class DashboardSceneController implements Initializable {
             col_dlb.setCellValueFactory(new PropertyValueFactory<>("DateLastBought"));
             col_link.setCellValueFactory(new PropertyValueFactory<>("Link"));
 
-
             table_items.setItems(componentSearchModelObservableList);
-
 
             // Initial filtered list
             FilteredList<Items> filteredData = new FilteredList<>(componentSearchModelObservableList, b -> true);
 
-
             keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
                 filteredData.setPredicate(Items -> {
-
 
                     // If no search value then display all records or whatever records it currently holds. no changes.
                     if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
                         return true;
                     }
 
-
                     String searchKeyword = newValue.toLowerCase();
-
 
                     // If the search keyword matches a component name (any > -1)
                     if (Items.getComponent().toLowerCase().contains(searchKeyword)) {
@@ -185,23 +182,18 @@ public class DashboardSceneController implements Initializable {
                 });
             });
 
-
+            // Create a new list using filteredData
             SortedList<Items> sortedData = new SortedList<>(filteredData);
-
 
             // Bind sorted result with Table View
             sortedData.comparatorProperty().bind(table_items.comparatorProperty());
 
-
             // Apply filtered and sorted data to the Table View
             table_items.setItems(sortedData);
 
-
-        } catch (SQLException e) {
+        } catch (SQLException e) { // If no data can be extracted from the SQL
             Logger.getLogger(DashboardSceneController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
-
-
     }
 }
