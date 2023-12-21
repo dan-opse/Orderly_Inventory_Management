@@ -55,11 +55,7 @@ public class DashboardSceneController implements Initializable {
 
     public void fullScreenAction() {
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
-        if (stage.isMaximized()) {
-            stage.setMaximized(false);
-        } else {
-            stage.setMaximized(true);
-        }
+        stage.setMaximized(!stage.isMaximized());
     }
     public void minimizeAction() {
         Stage stage = (Stage)minimizeButton.getScene().getWindow();
@@ -68,16 +64,6 @@ public class DashboardSceneController implements Initializable {
     public void quitOnAction() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
-    }
-
-    /*
-    *
-    *   Label that updates whenever you switch to a new page
-    *
-    * */
-    @FXML
-    private Label currentView;
-    public void updateLabel() {
     }
 
     /*

@@ -181,4 +181,3 @@ public class TransactionSceneController implements Initializable {
             e.printStackTrace();
         }
     }
-}

@@ -1,3 +1,39 @@
+#generateLinksButton {
+-fx-background-color: #343A40;
+-fx-background-radius:8;
+-fx-border-color: #6C757D;
+-fx-border-radius:8;
+-fx-border-width:1;
+-fx-text-fill:#6C757D;
+}
+#generateLinksButton:hover {
+-fx-background-color: #6C757D;
+-fx-background-radius:8;
+-fx-border-color: #343A40;
+-fx-border-radius:8;
+-fx-border-width:1;
+-fx-text-fill:white;
+}
+
+#exportCSVButton {
+-fx-background-color:transparent;
+-fx-text-fill:#6c757d
+}
+#exportCSVButton:hover {
+-fx-background-color:#6c757d;
+-fx-background-radius:8;
+-fx-text-fill:white;
+}
+#importCSVButton {
+-fx-background-color:transparent;
+-fx-text-fill:#6c757d
+}
+#importCSVButton:hover {
+-fx-background-color:#6c757d;
+-fx-background-radius:8;
+-fx-text-fill:white;
+}
+
 /*TABLE VIEW:*/
 
 /*

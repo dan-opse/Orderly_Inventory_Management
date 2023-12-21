@@ -4,7 +4,6 @@
 
 */
 
-
 /* Minimize buttons */
 #minimizeButton {
 -fx-background-color:transparent;
@@ -35,4 +34,34 @@
 }
 .check-box:selected .box {
 -fx-background-color:#6665DD;
+}
+
+/* Login button */
+#loginButton {
+-fx-background-color: #694EFF;
+-fx-background-radius:20;
+-fx-text-fill:white;
+}
+#loginButton:hover {
+-fx-background-color: transparent;
+-fx-background-radius:20;
+-fx-border-width:2;
+-fx-border-radius:20;
+-fx-border-color:#694EFF;
+-fx-text-fill:#694EFF;
+}
+
+/* Quit button */
+#quitButton {
+-fx-background-color: #694EFF;
+-fx-background-radius:20;
+-fx-text-fill:white;
+}
+#quitButton:hover {
+-fx-background-color: transparent;
+-fx-background-radius:20;
+-fx-border-width:2;
+-fx-border-radius:20;
+-fx-border-color:#694EFF;
+-fx-text-fill:#694EFF;
 }
