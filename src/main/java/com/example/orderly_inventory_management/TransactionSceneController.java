@@ -1,4 +1,4 @@
-package Controllers;
+package com.example.orderly_inventory_management;
 
 import com.example.orderly_inventory_management.DatabaseConnection;
 import com.example.orderly_inventory_management.Items;
