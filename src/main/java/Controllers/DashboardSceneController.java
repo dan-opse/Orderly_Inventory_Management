@@ -1,4 +1,4 @@
-package com.example.orderly_inventory_management;
+package Controllers;
 
 import com.example.orderly_inventory_management.DatabaseConnection;
 import com.example.orderly_inventory_management.Items;
@@ -21,13 +21,36 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TransactionSceneController implements Initializable {
-    
+public class DashboardSceneController implements Initializable {
+
     /*
-     *
-     *   Draggable topBar + topBar actions
-     *
-     * */
+    *
+    *   Switching Scenes
+    *
+    * */
+    Main m = new Main();
+
+    public void switchToDashboard() throws IOException {
+        m.changeScene("DashboardScene.fxml");
+    }
+
+    public void switchToSetting() throws IOException {
+        m.changeScene("SettingScene.fxml");
+    }
+
+    public void switchToSignIn() throws IOException {
+        m.changeScene("SignInScene.fxml");
+    }
+
+    public void switchToTransaction() throws IOException {
+        m.changeScene("TransactionScene.fxml");
+    }
+
+    /*
+    *
+    *   Draggable topBar + topBar actions
+    *
+    * */
     @FXML
     private AnchorPane topBar;
     double x = 0;
@@ -54,13 +77,12 @@ public class TransactionSceneController implements Initializable {
     }
 
     /*
-     *
-     *   Tableview + keyword search
-     *
-     * */
+    *
+    *   Tableview + keyword search
+    *
+    * */
     @FXML
     private TextField keywordTextField;
-
     @FXML
     private TableView<Items> table_items;
     @FXML

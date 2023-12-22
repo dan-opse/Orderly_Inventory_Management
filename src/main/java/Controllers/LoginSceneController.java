@@ -1,17 +1,30 @@
-package com.example.orderly_inventory_management;
+package Controllers;
 
+import com.example.orderly_inventory_management.AnimationUtils;
+import com.example.orderly_inventory_management.DatabaseConnection;
+import com.example.orderly_inventory_management.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
 public class LoginSceneController {
+
+//    @Override
+//    public void initialize(URL location, ResourceBundle resources) {
+//        AnimationUtils.applyButtonHoverClickAnimations(loginButton);
+//        AnimationUtils.applyButtonHoverClickAnimations(quitButton);
+//    }
+
     private Stage stage;
 
     /*

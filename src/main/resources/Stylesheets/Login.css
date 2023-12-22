@@ -1,3 +1,9 @@
+
+@font-face {
+    font-family: 'helvetica';
+    src:url('src/main/resources/Fonts/Helvetica.ttf');
+}
+
 /*
 
 @LoginScene.FXML
@@ -38,30 +44,48 @@
 
 /* Login button */
 #loginButton {
--fx-background-color: #694EFF;
--fx-background-radius:20;
+-fx-border-color: #4527a0;
+-fx-border-width:2.5px;
+-fx-border-radius:5;
+-fx-background-color: linear-gradient(to top left, #422CBF, #512da8);
+-fx-background-insets: 0, 2;
+-fx-background-radius: 5;
+-fx-transition: all 0.5s ease; /* Transition for smooth animation */
 -fx-text-fill:white;
 }
 #loginButton:hover {
--fx-background-color: transparent;
--fx-background-radius:20;
--fx-border-width:2;
--fx-border-radius:20;
--fx-border-color:#694EFF;
--fx-text-fill:#694EFF;
+-fx-scale-x: 1.05;
+-fx-scale-y: 1.05;
+-fx-opacity: 1;
+-fx-transition: all 0.5s ease; /* Smooth transition on hover */
+}
+#loginButton:active {
+-fx-scale-x: 0.95;
+-fx-scale-y: 0.95;
+-fx-transition: all 0.5s ease; /* Smooth transition on click */
 }
 
 /* Quit button */
 #quitButton {
--fx-background-color: #694EFF;
--fx-background-radius:20;
+-fx-border-color: #4527a0;
+-fx-border-width:2.5px;
+-fx-border-radius:5;
+-fx-background-color: linear-gradient(to top left, #422CBF, #512da8);
+-fx-background-insets: 0, 2;
+-fx-background-radius: 5;
+-fx-transition: all 0.5s ease; /* Transition for smooth animation */
 -fx-text-fill:white;
 }
 #quitButton:hover {
--fx-background-color: transparent;
--fx-background-radius:20;
--fx-border-width:2;
--fx-border-radius:20;
--fx-border-color:#694EFF;
--fx-text-fill:#694EFF;
+-fx-scale-x: 1.05;
+-fx-scale-y: 1.05;
+-fx-opacity: 1;
+-fx-transition: all 0.5s ease; /* Smooth transition on hover */
 }
+#quitButton:active {
+-fx-scale-x: 0.95;
+-fx-scale-y: 0.95;
+-fx-transition: all 0.5s ease; /* Smooth transition on click */
+}
+
+/* ----------------------------------------------------------------------- */

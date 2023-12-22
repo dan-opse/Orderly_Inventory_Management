@@ -7,4 +7,6 @@ module com.example.login {
 
     opens com.example.orderly_inventory_management to javafx.fxml;
     exports com.example.orderly_inventory_management;
+    exports Controllers;
+    opens Controllers to javafx.fxml;
 }
