@@ -1,5 +1,8 @@
-package com.example.orderly_inventory_management;
+package Controllers;
 
+import com.example.orderly_inventory_management.DatabaseConnection;
+import com.example.orderly_inventory_management.Items;
+import com.example.orderly_inventory_management.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,35 +14,43 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TransactionSceneController implements Initializable {
+public class DashboardSceneController implements Initializable {
 
     /*
-     *
-     *   Main buttons
-     *
-     * */
-    @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button signInButton;
-    @FXML
-    private Button transactionButton;
-    @FXML
-    private Button notiButton;
-    @FXML
-    private Button settingButton;
+    *
+    *   Switching Scenes
+    *
+    * */
+    Main m = new Main();
+
+    public void switchToDashboard() throws IOException {
+        m.changeScene("DashboardScene.fxml");
+    }
+
+    public void switchToSetting() throws IOException {
+        m.changeScene("SettingScene.fxml");
+    }
+
+    public void switchToSignIn() throws IOException {
+        m.changeScene("SignInScene.fxml");
+    }
+
+    public void switchToTransaction() throws IOException {
+        m.changeScene("TransactionScene.fxml");
+    }
 
     /*
-     *
-     *   Draggable topBar + topBar actions
-     *
-     * */
+    *
+    *   Draggable topBar + topBar actions
+    *
+    * */
     @FXML
     private AnchorPane topBar;
     double x = 0;
@@ -66,13 +77,12 @@ public class TransactionSceneController implements Initializable {
     }
 
     /*
-     *
-     *   Tableview + keyword search
-     *
-     * */
+    *
+    *   Tableview + keyword search
+    *
+    * */
     @FXML
     private TextField keywordTextField;
-
     @FXML
     private TableView<Items> table_items;
     @FXML

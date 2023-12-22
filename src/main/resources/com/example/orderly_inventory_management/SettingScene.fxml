@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.orderly_inventory_management.SettingSceneController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SettingSceneController">
    <children>
       <BorderPane style="-fx-background-color: #495057;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
@@ -60,7 +60,7 @@
          <left>
             <AnchorPane minHeight="-Infinity" prefHeight="712.0" prefWidth="200.0" style="-fx-background-color: #212529; -fx-background-radius: 8;">
                <children>
-                  <Button fx:id="transactionButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="233.0" mnemonicParsing="false" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Transactions" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="160.0">
+                  <Button fx:id="transactionButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="233.0" mnemonicParsing="false" onAction="#switchToTransaction" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Transactions" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="160.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -68,7 +68,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="signInButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Student Sign-In" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
+                  <Button fx:id="signInButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignIn" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Student Sign-In" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -76,7 +76,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -97,7 +97,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="settingButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" text="Settings" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                  <Button fx:id="settingButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToSetting" stylesheets="@../../../Stylesheets/Global.css" text="Settings" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

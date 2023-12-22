@@ -1,5 +1,6 @@
 package com.example.orderly_inventory_management;
 
+import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -11,8 +12,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-
+import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -54,6 +54,7 @@ public class Main extends Application {
             }
         });
     }
+
 
     /*
     *

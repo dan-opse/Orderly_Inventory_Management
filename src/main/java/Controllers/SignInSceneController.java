@@ -1,32 +1,40 @@
-package com.example.orderly_inventory_management;
+package Controllers;
 
+import com.example.orderly_inventory_management.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SettingSceneController implements Initializable {
+public class SignInSceneController implements Initializable {
 
     /*
      *
-     *   Main buttons
+     *   Switching Scenes
      *
      * */
-    @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button signInButton;
-    @FXML
-    private Button transactionButton;
-    @FXML
-    private Button notiButton;
-    @FXML
-    private Button settingButton;
+    Main m = new Main();
 
+    public void switchToDashboard() throws IOException {
+        m.changeScene("DashboardScene.fxml");
+    }
+
+    public void switchToSetting() throws IOException {
+        m.changeScene("SettingScene.fxml");
+    }
+
+    public void switchToSignIn() throws IOException {
+        m.changeScene("SignInScene.fxml");
+    }
+
+    public void switchToTransaction() throws IOException {
+        m.changeScene("TransactionScene.fxml");
+    }
 
     /*
      *
@@ -57,14 +65,6 @@ public class SettingSceneController implements Initializable {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
-
-    /*
-     *
-     *   Tableview + keyword search
-     *
-     * */
-    @FXML
-    private TextField keywordTextField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
