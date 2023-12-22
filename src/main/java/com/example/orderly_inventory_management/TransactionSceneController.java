@@ -22,30 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TransactionSceneController implements Initializable {
-
-    /*
-     *
-     *   Switching Scenes
-     *
-     * */
-    Main m = new Main();
-
-    public void switchToDashboard() throws IOException {
-        m.changeScene("DashboardScene.fxml");
-    }
-
-    public void switchToSetting() throws IOException {
-        m.changeScene("SettingScene.fxml");
-    }
-
-    public void switchToSignIn() throws IOException {
-        m.changeScene("SignInScene.fxml");
-    }
-
-    public void switchToTransaction() throws IOException {
-        m.changeScene("TransactionScene.fxml");
-    }
-
+    
     /*
      *
      *   Draggable topBar + topBar actions
