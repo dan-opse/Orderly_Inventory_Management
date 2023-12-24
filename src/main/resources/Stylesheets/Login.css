@@ -1,4 +1,4 @@
-
+/*
 @font-face {
     font-family: 'helvetica';
     src:url('src/main/resources/Fonts/Helvetica.ttf');
@@ -44,10 +44,7 @@
 
 /* Login button */
 #loginButton {
--fx-border-color: #4527a0;
--fx-border-width:2.5px;
--fx-border-radius:5;
--fx-background-color: linear-gradient(to top left, #422CBF, #512da8);
+-fx-background-color: linear-gradient(to top left, #2B22BB, #512da8);
 -fx-background-insets: 0, 2;
 -fx-background-radius: 5;
 -fx-transition: all 0.5s ease; /* Transition for smooth animation */
@@ -67,10 +64,7 @@
 
 /* Quit button */
 #quitButton {
--fx-border-color: #4527a0;
--fx-border-width:2.5px;
--fx-border-radius:5;
--fx-background-color: linear-gradient(to top left, #422CBF, #512da8);
+-fx-background-color: linear-gradient(to top left, #2B22BB, #512da8);
 -fx-background-insets: 0, 2;
 -fx-background-radius: 5;
 -fx-transition: all 0.5s ease; /* Transition for smooth animation */

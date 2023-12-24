@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,15 +18,27 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class LoginSceneController {
+public class LoginSceneController implements Initializable {
+    @FXML
+    private BorderPane root;
+    double x = 0;
+    double y = 0;
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//        AnimationUtils.applyButtonHoverClickAnimations(loginButton);
-//        AnimationUtils.applyButtonHoverClickAnimations(quitButton);
-//    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        AnimationUtils.applyButtonHoverClickAnimations(loginButton);
+        AnimationUtils.applyButtonHoverClickAnimations(quitButton);
 
-    private Stage stage;
+        // Draggable topBar
+        root.setOnMousePressed(mouseEvent-> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+        root.setOnMouseDragged(mouseEvent-> {
+            Main.stg.setX(mouseEvent.getScreenX()-x);
+            Main.stg.setY(mouseEvent.getScreenY()-y);
+        });
+    }
 
     /*
     *
@@ -53,12 +66,12 @@ public class LoginSceneController {
     private Button quitButton;
     @FXML
     private Button minimizeButton;
-    public void minimizeAction(ActionEvent e) {
+    public void minimizeAction() {
         Stage stage = (Stage)minimizeButton.getScene().getWindow();
         stage.setIconified(true);
     }
-    public void quitOnAction(ActionEvent e) {
-        stage = (Stage)quitButton.getScene().getWindow();
+    public void quitOnAction() {
+        Stage stage = (Stage) quitButton.getScene().getWindow();
         stage.close();
     }
 
@@ -67,7 +80,7 @@ public class LoginSceneController {
     *   Login method
     *
     * */
-    public void login(ActionEvent e) throws IOException {
+    public void login() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 

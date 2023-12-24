@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginSceneController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginSceneController">
     <left>
         <AnchorPane prefHeight="407.0" prefWidth="228.0" style="-fx-background-color: #694EFF;" BorderPane.alignment="CENTER">
             <children>
@@ -39,7 +39,8 @@
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
-                    </cursor></TextField>
+                    </cursor>
+            </TextField>
                 <Button fx:id="loginButton" layoutX="25.0" layoutY="280.0" mnemonicParsing="false" onAction="#login" prefHeight="29.0" prefWidth="123.0" stylesheets="@../../../Stylesheets/Login.css" text="Login" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="280.0">
                     <font>
                         <Font name="System Bold" size="15.0" />
@@ -62,7 +63,8 @@
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
-                    </cursor></PasswordField>
+                    </cursor>
+            </PasswordField>
                 <Label alignment="CENTER" layoutY="128.0" text="Please enter your details" textFill="#6665dd80" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
                     <font>
                         <Font name="Microsoft Sans Serif" size="11.0" />

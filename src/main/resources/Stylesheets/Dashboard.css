@@ -1,68 +1,35 @@
-/*TABLE VIEW:*/
-
 /*
-.table-button {
-  -fx-background-color: white;
-  -fx-cursor: hand;
-}
-.table-button:hover{
-  -fx-background-color: transparent;
-}
-.table-view {
-  -fx-border-color: transparent;
-  -fx-background-color: transparent;
-}
-.table-view .column-header-background,
-.table-view .column-header-background .filler,
-.table-view .corner {
-  -fx-background-color: transparent;
-}
-.table-view .column-header {
-  -fx-background-color: -fx-light-grey-color;
-  -fx-border-color: -fx-grey-color;
-}
-.table-view .column-header .label{
-  -fx-font-weight: bold;
-  -fx-alignment: center;
-  -fx-text-fill:white;
-}
-.table-row-cell:filled {
-  -fx-background-color: transparent;
-  -fx-border-color: transparent -fx-lightest-grey-color -fx-lightest-grey-color -fx-lightest-grey-color, transparent;
-  -fx-border-insets: 0, 1;
-}
-.table-row-cell:empty {
-  -fx-background-color: transparent;
-}
-.table-row-cell:filled:hover {
-  -fx-background-color: transparent;
-}
-.table-row-cell:filled:selected:hover {
-  -fx-background-color: -fx-light-grey-color;
-}
-.table-row-cell:filled:selected {
-  -fx-background-color: #transparent;
-  -fx-background-insets: 0.0;
-  -fx-background-radius: 0.0;
-}
-.table-row-cell:filled:selected .table-cell {
-  -fx-text-fill: white;
-}
-.table-view .cell:filled{
-  -fx-cell-size: 30;
-  -fx-alignment: center-left;
-}
-.check-box-table-cell > .check-box:selected .box .mark {
-  -fx-background-color: white;
-}
-.check-box-table-cell > .check-box:selected .box{
-  -fx-background-color: white;
-}
-.table-view .placeholder .label {
-  -fx-text-fill: red;
-  -fx-padding:20px;
-}
-.table-view .text{
--fx-text-fill-color: white;
-}
+
+@Dashboard.fxml
+
 */
+
+
+/* Select Sort */
+.choice-box {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: #6C757D; /* Border color */
+    -fx-border-width: 1; /* Border width */
+    -fx-border-radius:5;
+}
+
+.choice-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.choice-box .arrow-button .arrow {
+    -fx-background-color: transparent;
+}
+
+.choice-box .menu-item {
+    -fx-text-fill: white; /* Text color for unselected items */
+}
+
+.choice-box .menu-item:selected {
+    -fx-text-fill: black; /* Text color for the selected item */
+}
+
+.choice-box .label {
+    -fx-text-fill:black;
+}

@@ -39,7 +39,7 @@ public class TransactionSceneController implements Initializable {
     }
 
     public void switchToSignIn() throws IOException {
-        m.changeScene("SignInScene.fxml");
+        m.changeScene("SignOutScene.fxml");
     }
 
     public void switchToTransaction() throws IOException {

@@ -1,6 +1,5 @@
 package com.example.orderly_inventory_management;
 
-import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -12,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
-
 
 import java.io.IOException;
 import java.util.Objects;
@@ -39,7 +36,6 @@ public class Main extends Application {
         stg = stage;
         stage.show();
         centerStage(stage);
-
         /*
         *
         *   Prompts logout
@@ -66,7 +62,6 @@ public class Main extends Application {
         Parent root = loader.load();
         stg.getScene().setRoot(root);
         stg.sizeToScene();
-        centerStage(stg);
     }
 
 
@@ -74,7 +69,7 @@ public class Main extends Application {
     *
     *   Centers stage
     *
-    * */
+    * */    
     public void centerStage(Stage stg) {
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
