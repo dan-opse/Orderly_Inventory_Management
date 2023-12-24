@@ -1,7 +1,6 @@
 package Controllers;
 
 import com.example.orderly_inventory_management.Main;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -30,7 +29,7 @@ public class SettingSceneController implements Initializable {
     }
 
     public void switchToSignIn() throws IOException {
-        m.changeScene("SignInScene.fxml");
+        m.changeScene("SignOutScene.fxml");
     }
 
     public void switchToTransaction() throws IOException {

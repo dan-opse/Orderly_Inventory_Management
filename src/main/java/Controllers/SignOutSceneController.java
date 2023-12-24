@@ -1,13 +1,12 @@
 package Controllers;
 
 import com.example.orderly_inventory_management.DatabaseConnection;
-import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
+import com.example.orderly_inventory_management.SignOut;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -17,18 +16,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DashboardSceneController implements Initializable {
+public class SignOutSceneController implements Initializable {
 
     /*
-    *
-    *   Switching Scenes
-    *
-    * */
+     *
+     *   Switching Scenes
+     *
+     * */
     Main m = new Main();
 
     public void switchToDashboard() throws IOException {
@@ -48,10 +50,10 @@ public class DashboardSceneController implements Initializable {
     }
 
     /*
-    *
-    *   Draggable topBar + topBar actions
-    *
-    * */
+     *
+     *   Draggable topBar + topBar actions
+     *
+     * */
     @FXML
     private AnchorPane topBar;
     double x = 0;
@@ -78,43 +80,26 @@ public class DashboardSceneController implements Initializable {
     }
 
     /*
-    *
-    *   Select Sort, e.g. "Sort by type" -> Resistors, LEDs, Photo resistors
-    *
-    * */
-    @FXML
-    private ChoiceBox<String> selectSort;
-    @FXML
-    private TextField addSortTextField;
-    @FXML
-    void addInputToComboBox() {
-        selectSort.getItems().add(addSortTextField.getText());
-        addSortTextField.clear();
-    }
-
-    /*
-    *
-    *   Tableview + keyword search
-    *
-    * */
+     *
+     *   Tableview + keyword search
+     *
+     * */
     @FXML
     private TextField keywordTextField;
     @FXML
-    private TableView<Items> table_items;
+    private TableView<SignOut> table_students;
     @FXML
-    private TableColumn<Items, Integer> col_id;
+    private TableColumn<SignOut, Integer> col_id;
     @FXML
-    private TableColumn<Items, String> col_component;
+    private TableColumn<SignOut, String> col_fName;
     @FXML
-    private TableColumn<Items, String> col_value;
+    private TableColumn<SignOut, String> col_lName;
     @FXML
-    private TableColumn<Items, String> col_amount;
+    private TableColumn<SignOut, String> col_component;
     @FXML
-    private TableColumn<Items, String> col_dlb;
-    @FXML
-    private TableColumn<Items, String> col_link;
+    private TableColumn<SignOut, String> col_dso;
 
-    ObservableList<Items> componentSearchModelObservableList = FXCollections.observableArrayList();
+    ObservableList<SignOut> signOutSearchModelObservableList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,50 +113,45 @@ public class DashboardSceneController implements Initializable {
             Main.stg.setY(mouseEvent.getScreenY()-y);
         });
 
-        // ComboBox - SelectSort
-        selectSort.setItems(FXCollections.observableArrayList("Resistor", "LED", "Arduino"));
-
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getUserInfoConnection();
 
         // SQL Query - Executed in the backend database
-        String componentViewQuery = "SELECT Id, Component, Value, Amount, DateLastBought, Link FROM componentList";
+        String signoutViewQuery = "SELECT Id, FirstName, LastName, Component, DateSignedOut FROM studentsignout";
 
         try {
 
             Statement statement = connectDB.createStatement();
-            ResultSet queryOutput = statement.executeQuery(componentViewQuery);
+            ResultSet queryOutput = statement.executeQuery(signoutViewQuery);
 
             while(queryOutput.next()) {
 
                 Integer queryID = queryOutput.getInt("Id");
+                String queryfName = queryOutput.getString("FirstName");
+                String querylName = queryOutput.getString("LastName");
                 String queryComponent = queryOutput.getString("Component");
-                String queryValue = queryOutput.getString("Value");
-                String queryAmount = queryOutput.getString("Amount");
-                String queryDateLastBought = queryOutput.getString("DateLastBought");
-                String queryLink = queryOutput.getString("Link");
+                String queryDateSignedOut = queryOutput.getString("DateSignedOut");
 
                 // Populate the ObservableList variable with parameters specific to the componentList found in MySQL
-                componentSearchModelObservableList.add(new Items(queryID, queryComponent, queryValue, queryAmount, queryDateLastBought, queryLink));
+                signOutSearchModelObservableList.add(new SignOut(queryID, queryfName, querylName, queryComponent, queryDateSignedOut));
 
             }
 
             // PropertyValueFactory corresponds to the new componentSearchModel fields
             // The table column is the one you annotate above.
             col_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
+            col_fName.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
+            col_lName.setCellValueFactory(new PropertyValueFactory<>("LastName"));
             col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));
-            col_value.setCellValueFactory(new PropertyValueFactory<>("Value"));
-            col_amount.setCellValueFactory(new PropertyValueFactory<>("Amount"));
-            col_dlb.setCellValueFactory(new PropertyValueFactory<>("DateLastBought"));
-            col_link.setCellValueFactory(new PropertyValueFactory<>("Link"));
+            col_dso.setCellValueFactory(new PropertyValueFactory<>("DateSignedOut"));
 
-            table_items.setItems(componentSearchModelObservableList);
+            table_students.setItems(signOutSearchModelObservableList);
 
             // Initial filtered list
-            FilteredList<Items> filteredData = new FilteredList<>(componentSearchModelObservableList, b -> true);
+            FilteredList<SignOut> filteredData = new FilteredList<>(signOutSearchModelObservableList, b -> true);
 
             keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(Items -> {
+                filteredData.setPredicate(Signout -> {
 
                     // If no search value then display all records or whatever records it currently holds. no changes.
                     if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -180,30 +160,27 @@ public class DashboardSceneController implements Initializable {
 
                     String searchKeyword = newValue.toLowerCase();
 
-                    // If the search keyword matches a component name (any > -1)
-                    if (Items.getComponent().toLowerCase().contains(searchKeyword)) {
-                        return true; // Means we found a match in ComponentName
-                    } else if (Items.getValue().toLowerCase().contains(searchKeyword)) {
-                        return true; // Means we found a match in Value
-                    } else if (Items.getAmount().toLowerCase().contains(searchKeyword)) {
-                        return true; // Means we found a match in Amount
-                    } else if (Items.getDateLastBought().toLowerCase().contains(searchKeyword)) {
-                        return true; // Means we found a match in Date Last Bought
-                    } else if (Items.getLink().toLowerCase().contains(searchKeyword)) {
-                        return true; // Means we found a match in Link
+                    if (Signout.getFirstName().toLowerCase().contains(searchKeyword)) {
+                        return true;
+                    } else if (Signout.getLastName().toLowerCase().contains(searchKeyword)) {
+                        return true;
+                    } else if (Signout.getComponent().toLowerCase().contains(searchKeyword)) {
+                        return true;
+                    } else if (Signout.getDateSignedOut().toLowerCase().contains(searchKeyword)) {
+                        return true;
                     }
-                    return false; // No match found
+                    return false;
                 });
             });
 
             // Create a new list using filteredData
-            SortedList<Items> sortedData = new SortedList<>(filteredData);
+            SortedList<SignOut> sortedData = new SortedList<>(filteredData);
 
             // Bind sorted result with Table View
-            sortedData.comparatorProperty().bind(table_items.comparatorProperty());
+            sortedData.comparatorProperty().bind(table_students.comparatorProperty());
 
             // Apply filtered and sorted data to the Table View
-            table_items.setItems(sortedData);
+            table_students.setItems(sortedData);
 
         } catch (SQLException e) { // If no data can be extracted from the SQL
             Logger.getLogger(DashboardSceneController.class.getName()).log(Level.SEVERE, null, e);
