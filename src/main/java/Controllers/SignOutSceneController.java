@@ -2,7 +2,7 @@ package Controllers;
 
 import com.example.orderly_inventory_management.DatabaseConnection;
 import com.example.orderly_inventory_management.Main;
-import com.example.orderly_inventory_management.SignOut;
+import com.example.orderly_inventory_management.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -87,19 +87,19 @@ public class SignOutSceneController implements Initializable {
     @FXML
     private TextField keywordTextField;
     @FXML
-    private TableView<SignOut> table_students;
+    private TableView<Student> table_students;
     @FXML
-    private TableColumn<SignOut, Integer> col_id;
+    private TableColumn<Student, Integer> col_id;
     @FXML
-    private TableColumn<SignOut, String> col_fName;
+    private TableColumn<Student, String> col_fName;
     @FXML
-    private TableColumn<SignOut, String> col_lName;
+    private TableColumn<Student, String> col_lName;
     @FXML
-    private TableColumn<SignOut, String> col_component;
+    private TableColumn<Student, String> col_component;
     @FXML
-    private TableColumn<SignOut, String> col_dso;
+    private TableColumn<Student, String> col_dso;
 
-    ObservableList<SignOut> signOutSearchModelObservableList = FXCollections.observableArrayList();
+    ObservableList<Student> studentSearchModelObservableList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -133,7 +133,7 @@ public class SignOutSceneController implements Initializable {
                 String queryDateSignedOut = queryOutput.getString("DateSignedOut");
 
                 // Populate the ObservableList variable with parameters specific to the componentList found in MySQL
-                signOutSearchModelObservableList.add(new SignOut(queryID, queryfName, querylName, queryComponent, queryDateSignedOut));
+                studentSearchModelObservableList.add(new Student(queryID, queryfName, querylName, queryComponent, queryDateSignedOut));
 
             }
 
@@ -145,13 +145,13 @@ public class SignOutSceneController implements Initializable {
             col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));
             col_dso.setCellValueFactory(new PropertyValueFactory<>("DateSignedOut"));
 
-            table_students.setItems(signOutSearchModelObservableList);
+            table_students.setItems(studentSearchModelObservableList);
 
             // Initial filtered list
-            FilteredList<SignOut> filteredData = new FilteredList<>(signOutSearchModelObservableList, b -> true);
+            FilteredList<Student> filteredData = new FilteredList<>(studentSearchModelObservableList, b -> true);
 
             keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(Signout -> {
+                filteredData.setPredicate(signout -> {
 
                     // If no search value then display all records or whatever records it currently holds. no changes.
                     if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -160,13 +160,13 @@ public class SignOutSceneController implements Initializable {
 
                     String searchKeyword = newValue.toLowerCase();
 
-                    if (Signout.getFirstName().toLowerCase().contains(searchKeyword)) {
+                    if (signout.getFirstName().toLowerCase().contains(searchKeyword)) {
                         return true;
-                    } else if (Signout.getLastName().toLowerCase().contains(searchKeyword)) {
+                    } else if (signout.getLastName().toLowerCase().contains(searchKeyword)) {
                         return true;
-                    } else if (Signout.getComponent().toLowerCase().contains(searchKeyword)) {
+                    } else if (signout.getComponent().toLowerCase().contains(searchKeyword)) {
                         return true;
-                    } else if (Signout.getDateSignedOut().toLowerCase().contains(searchKeyword)) {
+                    } else if (signout.getDateSignedOut().toLowerCase().contains(searchKeyword)) {
                         return true;
                     }
                     return false;
@@ -174,7 +174,7 @@ public class SignOutSceneController implements Initializable {
             });
 
             // Create a new list using filteredData
-            SortedList<SignOut> sortedData = new SortedList<>(filteredData);
+            SortedList<Student> sortedData = new SortedList<>(filteredData);
 
             // Bind sorted result with Table View
             sortedData.comparatorProperty().bind(table_students.comparatorProperty());

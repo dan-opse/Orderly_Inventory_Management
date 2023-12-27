@@ -1,85 +1,68 @@
 package com.example.orderly_inventory_management;
 
 
+import javafx.scene.control.CheckBox;
+
 public class Items {
 
 
-    int id;
-    String Component, Value, Amount, DateLastBought, Link;
+    private int id;
+    private String Component, Value, Amount, DateLastBought, Link;
 
-    // This follows the query fields or Table View columns sequence
-    public Items(int id, String component, String value, String amount, String DateLastBought, String link) {
+    public Items(int id, String component, String value, String amount, String dateLastBought, String link) {
         this.id = id;
-        this.Component = component;
-        this.Value = value;
-        this.Amount = amount;
-        this.DateLastBought = DateLastBought;
-        this.Link = link;
+        Component = component;
+        Value = value;
+        Amount = amount;
+        DateLastBought = dateLastBought;
+        Link = link;
     }
 
-
-    // Getters
-
-
-    public int getId(){
+    public int getId() {
         return id;
     }
-
-
-    public String getComponent() {
-        return Component;
-    }
-
-
-    public String getValue() {
-        return Value;
-    }
-
-
-    public String getAmount() {
-        return Amount;
-    }
-
-
-    public String getDateLastBought() {
-        return DateLastBought;
-    }
-
-
-    public String getLink() {
-        return Link;
-    }
-
-
-    // Setters
-
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getComponent() {
+        return Component;
+    }
 
     public void setComponent(String component) {
-        this.Component = component;
+        Component = component;
     }
 
+    public String getValue() {
+        return Value;
+    }
 
     public void setValue(String value) {
-        this.Value = value;
+        Value = value;
     }
 
+    public String getAmount() {
+        return Amount;
+    }
 
     public void setAmount(String amount) {
-        this.Amount = amount;
+        Amount = amount;
     }
 
+    public String getDateLastBought() {
+        return DateLastBought;
+    }
 
     public void setDateLastBought(String dateLastBought) {
-        this.DateLastBought = dateLastBought;
+        DateLastBought = dateLastBought;
     }
 
+    public String getLink() {
+        return Link;
+    }
 
     public void setLink(String link) {
-        this.Link = link;
+        Link = link;
     }
 }

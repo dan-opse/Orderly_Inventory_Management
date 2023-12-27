@@ -79,18 +79,91 @@ public class DashboardSceneController implements Initializable {
 
     /*
     *
-    *   Select Sort, e.g. "Sort by type" -> Resistors, LEDs, Photo resistors
+    *   Adding, deleting and modifying entries
     *
     * */
     @FXML
-    private ChoiceBox<String> selectSort;
+    private TextField tf_component;
     @FXML
-    private TextField addSortTextField;
+    private ComboBox<String> cb_value;
     @FXML
-    void addInputToComboBox() {
-        selectSort.getItems().add(addSortTextField.getText());
-        addSortTextField.clear();
+    private TextField tf_amount;
+    @FXML
+    private TextField tf_dlb;
+    @FXML
+    private TextField tf_link;
+
+    public void confirmEdit() {
+
     }
+
+    @FXML
+    public void confirmAdd() {
+        String nComponent = tf_component.getText();
+        String nValue = cb_value.getValue();
+        String nAmount = tf_amount.getText();
+        String nDlb = tf_dlb.getText();
+        String nLink = tf_link.getText();
+
+        // If not enough information
+        if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING");
+            alert.setHeaderText("Insufficient information.");
+            alert.setContentText("Please fill in all spaces.");
+            alert.showAndWait();
+        } else {
+            // Insert query
+            String query = "INSERT INTO componentList (Component, Value, Amount, DateLastBought, Link) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+
+            // Connect to the DB
+            DatabaseConnection connectNow = new DatabaseConnection();
+            Connection connectDB = connectNow.getUserInfoConnection();
+
+            try (PreparedStatement preparedStatement = connectDB.prepareStatement(query)) {
+                preparedStatement.setString(1, nComponent);
+                preparedStatement.setString(2, nValue);
+                preparedStatement.setString(3, nAmount);
+                preparedStatement.setDate(4, java.sql.Date.valueOf(nDlb)); // Assuming nDlb is a valid date in the format "yyyy-MM-dd"
+                preparedStatement.setString(5, nLink);
+
+                int queryOutput = preparedStatement.executeUpdate();
+
+                if (queryOutput > 0) {
+                    System.out.println("Entry added successfully!");
+
+                } else {
+                    System.out.println("Failed to add entry.");
+                }
+
+                // Refresh the table view
+                ObservableList<Items> updatedList = FXCollections.observableArrayList();
+                ResultSet resultSet = connectDB.createStatement().executeQuery("SELECT Id, Component, Value, Amount, DateLastBought, Link FROM componentList");
+
+                while (resultSet.next()) {
+                    updatedList.add(new Items(
+                            resultSet.getInt("Id"),
+                            resultSet.getString("Component"),
+                            resultSet.getString("Value"),
+                            resultSet.getString("Amount"),
+                            resultSet.getString("DateLastBought"),
+                            resultSet.getString("Link")
+                    ));
+                }
+                table_items.setItems(FXCollections.observableArrayList(updatedList));
+
+            } catch (SQLException e) {
+                Logger.getLogger(DashboardSceneController.class.getName()).log(Level.SEVERE, null, e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void confirmDelete() {
+
+    }
+
 
     /*
     *
@@ -128,8 +201,7 @@ public class DashboardSceneController implements Initializable {
             Main.stg.setY(mouseEvent.getScreenY()-y);
         });
 
-        // ComboBox - SelectSort
-        selectSort.setItems(FXCollections.observableArrayList("Resistor", "LED", "Arduino"));
+        cb_value.setItems(FXCollections.observableArrayList("1Ω", "10Ω", "100Ω", "1KΩ", "10KΩ", "100KΩ", "1MΩ", "RED", "GREEN", "BLUE", "WHITE","N/A"));
 
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getUserInfoConnection();
@@ -204,6 +276,7 @@ public class DashboardSceneController implements Initializable {
 
             // Apply filtered and sorted data to the Table View
             table_items.setItems(sortedData);
+
 
         } catch (SQLException e) { // If no data can be extracted from the SQL
             Logger.getLogger(DashboardSceneController.class.getName()).log(Level.SEVERE, null, e);

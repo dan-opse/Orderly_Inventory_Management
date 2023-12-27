@@ -36,6 +36,7 @@ public class Main extends Application {
         stg = stage;
         stage.show();
         centerStage(stage);
+
         /*
         *
         *   Prompts logout

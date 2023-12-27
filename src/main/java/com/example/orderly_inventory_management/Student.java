@@ -1,11 +1,11 @@
 package com.example.orderly_inventory_management;
 
-public class SignOut {
+public class Student {
 
     int id;
     private String FirstName, LastName, Component, DateSignedOut;
 
-    public SignOut(int id, String FirstName, String LastName, String Component, String DateSignedOut) {
+    public Student(int id, String FirstName, String LastName, String Component, String DateSignedOut) {
         this.id = id;
         this.FirstName = FirstName;
         this.LastName = LastName;
