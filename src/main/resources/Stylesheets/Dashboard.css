@@ -5,31 +5,38 @@
 */
 
 
-/* Select Sort */
-.choice-box {
+/*  Modifying Entries Buttons   */
+.text-field {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-border-color: #6C757D; /* Border color */
-    -fx-border-width: 1; /* Border width */
+    -fx-background-radius:5;
+    -fx-border-color: #6C757D;
     -fx-border-radius:5;
+    -fx-border-width:1;
+    -fx-text-fill:white;
 }
 
-.choice-box .arrow-button {
-    -fx-background-color: transparent;
+.button {
+    -fx-cursor: hand;
+    -fx-background-color: #343A40;
+    -fx-background-radius:8;
+    -fx-text-fill:#6C757D;
+}
+.button:hover {
+    -fx-background-color: #6C757D;
+    -fx-background-radius:8;
+    -fx-text-fill:white;
 }
 
-.choice-box .arrow-button .arrow {
-    -fx-background-color: transparent;
+#resetAll {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
 }
+#resetAll:hover {
+    -fx-background-color: #2980b9;
 
-.choice-box .menu-item {
-    -fx-text-fill: white; /* Text color for unselected items */
-}
-
-.choice-box .menu-item:selected {
-    -fx-text-fill: black; /* Text color for the selected item */
-}
-
-.choice-box .label {
-    -fx-text-fill:black;
 }

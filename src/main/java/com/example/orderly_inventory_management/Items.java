@@ -1,29 +1,16 @@
 package com.example.orderly_inventory_management;
 
 
-import javafx.scene.control.CheckBox;
-
 public class Items {
 
-
-    private int id;
     private String Component, Value, Amount, DateLastBought, Link;
 
-    public Items(int id, String component, String value, String amount, String dateLastBought, String link) {
-        this.id = id;
+    public Items(String component, String value, String amount, String dateLastBought, String link) {
         Component = component;
         Value = value;
         Amount = amount;
         DateLastBought = dateLastBought;
         Link = link;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getComponent() {
