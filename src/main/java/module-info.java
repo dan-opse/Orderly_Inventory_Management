@@ -4,6 +4,9 @@ module com.example.login {
     requires java.sql;
     requires javafx.graphics;
     requires mysql.connector.j;
+    requires org.mongodb.driver.sync.client;
+    requires org.mongodb.driver.core;
+    requires org.mongodb.bson;
 
     opens com.example.orderly_inventory_management to javafx.fxml;
     exports com.example.orderly_inventory_management;

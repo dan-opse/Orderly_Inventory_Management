@@ -125,8 +125,6 @@ public class TransactionSceneController implements Initializable {
             ResultSet queryOutput = statement.executeQuery(componentViewQuery);
 
             while(queryOutput.next()) {
-
-                Integer queryID = queryOutput.getInt("Id");
                 String queryComponent = queryOutput.getString("Component");
                 String queryValue = queryOutput.getString("Value");
                 String queryAmount = queryOutput.getString("Amount");
@@ -134,13 +132,12 @@ public class TransactionSceneController implements Initializable {
                 String queryLink = queryOutput.getString("Link");
 
                 // Populate the ObservableList variable with parameters specific to the componentList found in MySQL
-                componentSearchModelObservableList.add(new Items(queryID, queryComponent, queryValue, queryAmount, queryDateLastBought, queryLink));
+                componentSearchModelObservableList.add(new Items(queryComponent, queryValue, queryAmount, queryDateLastBought, queryLink));
 
             }
 
             // PropertyValueFactory corresponds to the new componentSearchModel fields
             // The table column is the one you annotate above.
-            col_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
             col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));
             col_value.setCellValueFactory(new PropertyValueFactory<>("Value"));
             col_amount.setCellValueFactory(new PropertyValueFactory<>("Amount"));
