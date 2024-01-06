@@ -1,3 +1,3 @@
-**Orderly** is an inventory management system created to keep tabs on electrical components in room 228 @ WCSS.
+**Orderly** is an inventory management system created to keep tabs on electrical components.
 
-@authors: Daniel, Krishna
+@author: Daniel
