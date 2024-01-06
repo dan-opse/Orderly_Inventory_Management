@@ -1,9 +1,34 @@
 package com.example.orderly_inventory_management;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
 
 public class Items {
 
+    private final SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
+    public boolean isSelected() {
+        return selected.get();
+    }
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+    public SimpleBooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    @BsonId
+    private ObjectId id;
+    public ObjectId getId() {
+        return id;
+    }
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     private String Component, Value, Amount, DateLastBought, Link;
+
+    public Items() {}
 
     public Items(String component, String value, String amount, String dateLastBought, String link) {
         Component = component;

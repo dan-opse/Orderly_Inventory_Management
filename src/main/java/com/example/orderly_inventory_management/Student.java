@@ -1,55 +1,78 @@
 package com.example.orderly_inventory_management;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
+
 public class Student {
 
-    int id;
-    private String FirstName, LastName, Component, DateSignedOut;
-
-    public Student(int id, String FirstName, String LastName, String Component, String DateSignedOut) {
-        this.id = id;
-        this.FirstName = FirstName;
-        this.LastName = LastName;
-        this.Component = Component;
-        this.DateSignedOut = DateSignedOut;
+    private final SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
+    public boolean isSelected() {
+        return selected.get();
+    }
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+    public SimpleBooleanProperty selectedProperty() {
+        return selected;
     }
 
-    public int getId() {
+    @BsonId
+    private ObjectId id;
+    public ObjectId getId() {
         return id;
     }
-
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String Name, Item, Amount, Returned, Date;
+
+    public Student(String name, String item, String amount, String returned, String date) {
+        Name = name;
+        Item = item;
+        Amount = amount;
+        Returned = returned;
+        Date = date;
     }
 
-    public void setFirstName(String firstName) {
-        this.FirstName = firstName;
+    public String getName() {
+        return Name;
     }
 
-    public String getLastName() {
-        return LastName;
+    public void setName(String name) {
+        Name = name;
     }
 
-    public void setLastName(String lastName) {
-        this.LastName = lastName;
+    public String getItem() {
+        return Item;
     }
 
-    public String getComponent() {
-        return Component;
+    public void setItem(String item) {
+        Item = item;
     }
 
-    public void setComponent(String component) {
-        this.Component = component;
+    public String getAmount() {
+        return Amount;
     }
 
-    public String getDateSignedOut() {
-        return DateSignedOut;
+    public void setAmount(String amount) {
+        Amount = amount;
     }
 
-    public void setDateSignedOut(String dateSignedOut) {
-        this.DateSignedOut = dateSignedOut;
+    public String getReturned() {
+        return Returned;
+    }
+
+    public void setReturned(String returned) {
+        Returned = returned;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
     }
 }

@@ -5,109 +5,120 @@
 
 */
 
-#settingButton {
-    -fx-background-color: #343A40;
-    -fx-background-radius:8;
-    -fx-border-color: #6C757D;
-    -fx-border-radius:8;
-    -fx-border-width:1;
-    -fx-text-fill:#6C757D;
-}
-#settingButton:hover {
-    -fx-background-color: #6C757D;
-    -fx-background-radius:8;
-    -fx-text-fill:white;
-}
-#checkoutButton {
-    -fx-background-color: #343A40;
-    -fx-background-radius:8;
-    -fx-border-color: #6C757D;
-    -fx-border-radius:8;
-    -fx-border-width:1;
-    -fx-text-fill:#6C757D;
-}
-#checkoutButton:hover {
-    -fx-background-color: #6C757D;
-    -fx-background-radius:8;
-    -fx-text-fill:white;
-}
-#notiButton {
-    -fx-background-color:transparent;
-    -fx-text-fill:#6c757d
-}
-#notiButton:hover {
-    -fx-background-color:#6c757d;
-    -fx-background-radius:8;
-    -fx-text-fill:white;
-}
-#transactionButton {
-    -fx-background-color:transparent;
-    -fx-text-fill:#6c757d
-}
-#transactionButton:hover {
-    -fx-background-color:#6c757d;
-    -fx-background-radius:8;
-    -fx-text-fill:white;
-}
-#signInButton {
-    -fx-background-color:transparent;
-    -fx-text-fill:#6c757d
-}
-#signInButton:hover {
-    -fx-background-color:#6c757d;
-    -fx-background-radius:8;
-    -fx-text-fill:white;
-}
-#dashboardButton {
-    -fx-background-color:transparent;
-    -fx-text-fill:#6c757d
-}
-#dashboardButton:hover {
-    -fx-background-color:#6c757d;
-    -fx-background-radius:8;
-    -fx-text-fill:white;
-}
 
-/* Minimize buttons */
-#minimizeButton {
-    -fx-background-color:transparent;
-}
-#minimizeButton:hover {
-    -fx-background-color:#343A40;
-    -fx-background-radius:0;
-}
-/* Close buttons */
-#closeButton {
-    -fx-background-color:transparent;
-}
-#closeButton:hover {
-    -fx-background-color:#CD5C5C;
-    -fx-background-radius:0;
-}
-/* Full-screen Button */
-#fullScreenButton {
-    -fx-background-color:transparent;
-}
-#fullScreenButton:hover {
-    -fx-background-color:#343A40;
-    -fx-background-radius:0;
-}
 
-/* Search field */
-#keywordTextField {
+/*  DEFAULT TEXT FIELD  */
+.text-field {
     -fx-background-color: transparent;
     -fx-background-radius:5;
-    -fx-border-color: #6C757D;
+    -fx-border-color: #989898;
     -fx-border-radius:5;
     -fx-border-width:1;
     -fx-text-fill:white;
 }
 
+
+
+/*  DEFAULT BUTTON     */
+.button {
+    -fx-cursor: hand;
+    -fx-background-color: #282828;
+    -fx-background-radius:5;
+    -fx-text-fill:#989898;
+}
+.button:hover {
+    -fx-border-color:#989898;
+    -fx-border-radius:5;
+    -fx-text-fill:white;
+}
+
+
+
+/*  MENU BUTTONS    */
+#dashboardButton {
+    -fx-background-color:transparent;
+    -fx-text-fill:#989898;
+}
+#dashboardButton:hover {
+    -fx-border-color:#989898;
+    -fx-border-radius:5;
+    -fx-text-fill:white;
+}
+#signInButton {
+    -fx-background-color:transparent;
+    -fx-text-fill:#989898;
+}
+#signInButton:hover {
+    -fx-border-color:#989898;
+    -fx-border-radius:5;
+    -fx-text-fill:white;
+}
+#transactionButton {
+    -fx-background-color:transparent;
+    -fx-text-fill:#989898;
+}
+#transactionButton:hover {
+    -fx-border-color:#989898;
+    -fx-border-radius:5;
+    -fx-text-fill:white;
+}
+#notiButton {
+    -fx-background-color:transparent;
+    -fx-text-fill:#989898;
+}
+#notiButton:hover {
+    -fx-border-color:#989898;
+    -fx-border-radius:5;
+    -fx-text-fill:white;
+}
+
+
+
+/* Window view buttons */
+#minimizeButton {
+    -fx-background-color:transparent;
+}
+#minimizeButton:hover {
+    -fx-background-color:#989898;
+    -fx-background-radius:3;
+    -fx-border-color:transparent;
+}
+#closeButton {
+    -fx-background-color:transparent;
+}
+#closeButton:hover {
+    -fx-background-color:#CD5C5C;
+    -fx-background-radius:3;
+    -fx-border-color:transparent;
+}
+#fullScreenButton {
+    -fx-background-color:transparent;
+}
+#fullScreenButton:hover {
+    -fx-background-color:#989898;
+    -fx-background-radius:3;
+    -fx-border-color:transparent;
+}
+
+
+
+/* Search field */
+#keywordTextField {
+    -fx-background-color: transparent;
+    -fx-background-radius:5;
+    -fx-border-color: #989898;
+    -fx-border-radius:5;
+    -fx-border-width:1;
+    -fx-text-fill:white;
+}
+
+
+
 /*  Select Value || Sort  */
 .combo-box {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-border-color: #6C757D; /* Border color */
+    -fx-border-color: #989898; /* Border color */
     -fx-border-width: 1; /* Border width */
     -fx-border-radius:5;
 }
@@ -119,10 +130,43 @@
 }
 
 
-/*  Tableview   */
+
+/*  Checkbox    */
+.check-box .box{
+    -fx-background-color: transparent;
+    -fx-border-color:White;
+    -fx-border-radius:3;
+    -fx-background-size: 10;
+}
+.check-box:selected .box {
+    -fx-background-color:white;
+}
+.check-box:selected .box {
+    -fx-background-color:#white;
+}
 
 
 
+#resetAll {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+#resetAll:hover {
+    -fx-background-color: #2980b9;
+}
+
+
+
+/*
+
+Tableview
+
+*/
 
 
 /* Set background color for the entire TableView */
@@ -133,7 +177,7 @@
 
 /* Set background color for table headers */
 .table-view .column-header{
-    -fx-background-color: #212529;
+    -fx-background-color: #1c1c1c;
     -fx-text-fill: white; /* Header text color */
 }
 
@@ -143,13 +187,13 @@
 
 /* Set background color for even rows */
 .table-row-cell:even {
-    -fx-background-color: #343A40; /* Alternate row background color */
+    -fx-background-color: #282828; /* Alternate row background color */
     -fx-border-color: transparent;
 }
 
 /* Set background color for odd rows */
 .table-row-cell:odd {
-    -fx-background-color: #212529; /* Alternate row background color */
+    -fx-background-color: #1c1c1c; /* Alternate row background color */
     -fx-border-color: transparent;
 }
 

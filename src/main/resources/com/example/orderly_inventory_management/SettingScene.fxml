@@ -13,9 +13,9 @@
 
 <AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SettingSceneController">
    <children>
-      <BorderPane style="-fx-background-color: #495057;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane style="-fx-background-color: #101010;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
-            <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #212529; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
@@ -29,7 +29,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Line endX="280.0" startX="16.0" stroke="#6c757d" strokeWidth="2.0" AnchorPane.topAnchor="60.0" />
+                              <Line endX="280.0" startX="16.0" stroke="#989898" strokeWidth="2.0" AnchorPane.topAnchor="60.0" />
                            </children>
                            <BorderPane.margin>
                               <Insets />
@@ -58,7 +58,7 @@
             </AnchorPane>
          </right>
          <left>
-            <AnchorPane minHeight="-Infinity" prefHeight="712.0" prefWidth="200.0" style="-fx-background-color: #212529; -fx-background-radius: 8;">
+            <AnchorPane minHeight="-Infinity" prefHeight="712.0" prefWidth="200.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;">
                <children>
                   <Button fx:id="transactionButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="233.0" mnemonicParsing="false" onAction="#switchToTransaction" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Transactions" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="160.0">
                      <font>
@@ -112,7 +112,7 @@
             </AnchorPane>
          </left>
          <top>
-            <AnchorPane fx:id="topBar" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #212529; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="topBar" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
@@ -146,7 +146,7 @@
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #343A40; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" top="5.0" />
                </BorderPane.margin>
