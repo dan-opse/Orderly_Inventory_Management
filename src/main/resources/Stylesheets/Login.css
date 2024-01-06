@@ -12,74 +12,81 @@
 
 /* Minimize buttons */
 #minimizeButton {
--fx-background-color:transparent;
+    -fx-background-color:transparent;
 }
 #minimizeButton:hover {
--fx-background-color:#E1E0DD;
--fx-background-radius:0;
+    -fx-background-color:#E1E0DD;
+    -fx-background-radius:0;
 }
 
 /* Close buttons */
 #closeButton {
--fx-background-color:transparent;
+    -fx-background-color:transparent;
 }
 #closeButton:hover {
--fx-background-color:#CD5C5C;
--fx-background-radius:0;
+    -fx-background-color:#CD5C5C;
+    -fx-background-radius:0;
 }
 
-/* Checkbox */
-.check-box .box{
--fx-background-color: transparent;
--fx-border-color:#6665DD;
--fx-border-radius:0;
--fx-background-size: 10;
+/*  Checkbox    */
+#rememberDevice .box{
+    -fx-background-color: white;
+    -fx-border-radius:2;
+    -fx-background-size: 5;
 }
-.check-box:selected .mark {
--fx-background-color:white;
+#rememberDevice:selected .mark {
+    -fx-background-color:white;
+    -fx-background-radius:2;
+    -fx-shape: "M3 3 L11 11 M3 11 L11 3";
+    -fx-scale-shape: false;
+    -fx-stroke-type: outside;
+    -fx-stroke-width: 2;
+    -fx-stroke: white;
 }
-.check-box:selected .box {
--fx-background-color:#6665DD;
+#rememberDevice:selected .box {
+    -fx-background-color:#8d99ae;
 }
 
 /* Login button */
 #loginButton {
--fx-background-color: linear-gradient(to top left, #2B22BB, #512da8);
--fx-background-insets: 0, 2;
--fx-background-radius: 5;
--fx-transition: all 0.5s ease; /* Transition for smooth animation */
--fx-text-fill:white;
+    -fx-background-color: #50576D;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 2;
+    -fx-transition: all 0.5s ease; /* Transition for smooth animation */
+    -fx-text-fill:white;
 }
 #loginButton:hover {
--fx-scale-x: 1.05;
--fx-scale-y: 1.05;
--fx-opacity: 1;
--fx-transition: all 0.5s ease; /* Smooth transition on hover */
+    -fx-background-color: #2b2d42;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-opacity: 1;
+    -fx-transition: all 0.5s ease; /* Smooth transition on hover */
 }
 #loginButton:active {
--fx-scale-x: 0.95;
--fx-scale-y: 0.95;
--fx-transition: all 0.5s ease; /* Smooth transition on click */
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-transition: all 0.5s ease; /* Smooth transition on click */
 }
 
 /* Quit button */
 #quitButton {
--fx-background-color: linear-gradient(to top left, #2B22BB, #512da8);
--fx-background-insets: 0, 2;
--fx-background-radius: 5;
--fx-transition: all 0.5s ease; /* Transition for smooth animation */
--fx-text-fill:white;
+    -fx-background-color: #50576D;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 2;
+    -fx-transition: all 0.5s ease; /* Transition for smooth animation */
+    -fx-text-fill:white;
 }
 #quitButton:hover {
--fx-scale-x: 1.05;
--fx-scale-y: 1.05;
--fx-opacity: 1;
--fx-transition: all 0.5s ease; /* Smooth transition on hover */
+    -fx-background-color: #2b2d42;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-opacity: 1;
+    -fx-transition: all 0.5s ease; /* Smooth transition on hover */
 }
 #quitButton:active {
--fx-scale-x: 0.95;
--fx-scale-y: 0.95;
--fx-transition: all 0.5s ease; /* Smooth transition on click */
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-transition: all 0.5s ease; /* Smooth transition on click */
 }
 
 /* ----------------------------------------------------------------------- */

@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
+
     public static Stage stg;
+
 
     /*
     *
@@ -25,6 +27,7 @@ public class Main extends Application {
     * */
     @Override
     public void start(Stage stage) throws IOException {
+
         stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/Assets/AppIcon.png"))));
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginScene.fxml")));
         Scene scene = new Scene(root);
@@ -36,6 +39,7 @@ public class Main extends Application {
         stg = stage;
         stage.show();
         centerStage(stage);
+
 
         /*
         *
@@ -50,6 +54,7 @@ public class Main extends Application {
                 throw new RuntimeException(e);
             }
         });
+
     }
 
 
@@ -59,10 +64,12 @@ public class Main extends Application {
     *
     * */
     public void changeScene(String fxml) throws IOException{
+
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxml)));
         Parent root = loader.load();
         stg.getScene().setRoot(root);
         stg.sizeToScene();
+
     }
 
 
@@ -72,6 +79,7 @@ public class Main extends Application {
     *
     * */    
     public void centerStage(Stage stg) {
+
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
         // Calculate centered position
@@ -79,6 +87,7 @@ public class Main extends Application {
         double centerY = bounds.getMinY() + (bounds.getHeight() - stg.getHeight()) / 2;
         stg.setX(centerX);
         stg.setY(centerY);
+
     }
 
     /*
@@ -87,6 +96,7 @@ public class Main extends Application {
     *
     * */
     public void logout(Stage stage) throws IOException {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You're about to be logged out!");
@@ -96,9 +106,11 @@ public class Main extends Application {
             System.out.println("You successfully logged out!");
             stage.close();
         }
+
     }
 
     public static void main(String[] args) {
         launch();
     }
+
 }

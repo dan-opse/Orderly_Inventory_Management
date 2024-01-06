@@ -1,33 +1,44 @@
 package Controllers;
 
-import com.example.orderly_inventory_management.DatabaseConnection;
 import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DashboardSceneController implements Initializable {
+
 
     /*
     *
     *   Switching Scenes
     *
     * */
-    Main m = new Main();
+    private final Main m = new Main();
     public void switchToDashboard() throws IOException {
         m.changeScene("DashboardScene.fxml");
     }
@@ -40,6 +51,7 @@ public class DashboardSceneController implements Initializable {
     public void switchToTransaction() throws IOException {
         m.changeScene("TransactionScene.fxml");
     }
+
 
     /*
     *
@@ -69,9 +81,10 @@ public class DashboardSceneController implements Initializable {
         stage.close();
     }
 
+
     /*
     *
-    *   Adding, deleting and modifying entries
+    *   Entry modifications
     *
     * */
     @FXML
@@ -84,10 +97,11 @@ public class DashboardSceneController implements Initializable {
     private TextField tf_dlb;
     @FXML
     private TextField tf_link;
-
-    /*  Add entry on entry clicked/entered */
+    private ObjectId originalId;
+    private Items originalEntry;
     @FXML
     public void addEntry() {
+
         String nComponent = tf_component.getText();
         String nValue = cb_value.getValue();
         String nAmount = tf_amount.getText();
@@ -96,7 +110,6 @@ public class DashboardSceneController implements Initializable {
 
         // Check if any of the fields are empty
         if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
-            // Show a warning or error message to the user
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Add Component Entry");
             alert.setHeaderText("Insufficient Information.");
@@ -115,83 +128,142 @@ public class DashboardSceneController implements Initializable {
                 .append("DateLastBought", nDlb)
                 .append("Link", nLink);
 
-        // Insert the document into the MongoDB collection
-        getCollection().insertOne(document);
-
-        // Refresh the table view
+        getCollection("componentList").insertOne(document);
         refreshTableView();
-    }
 
-    /*  Delete entry on entry clicked/entered */
+    }
     @FXML
     public void deleteEntry() {
-        String componentToDelete = tf_component.getText();
 
-        // Check if the component name is provided
-        if (componentToDelete.isBlank()) {
-            // Show a warning or error message to the user
-            return;
+        ObservableList<Items> selectedItems = table_items.getItems();
+        MongoCollection<Document> targetCollection = getCollection("componentList");
+
+        // Loop over selected items
+        for (Items selectedItem : selectedItems) {
+            boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
+
+            if (isSelected) {
+                String component = col_component.getCellData(selectedItem);
+                String value = col_value.getCellData(selectedItem);
+                String amount = col_amount.getCellData(selectedItem);
+                String dateLastBought = col_dlb.getCellData(selectedItem);
+                String link = col_link.getCellData(selectedItem);
+
+                Document document = new Document("Component", component).append("Value", value).append("Amount", amount).append("DateLastBought", dateLastBought).append("Link", link);
+
+                targetCollection.deleteOne(document);
+                refreshTableView();
+            }
         }
 
         // Define the filter to find the document to delete
-        Bson filter = Filters.eq("Component", componentToDelete);
+        Bson filter = Filters.eq("_id", originalId);
 
         // Delete the document from the MongoDB collection
-        getCollection().deleteOne(filter);
-
-        // Refresh the table view
+        getCollection("componentList").deleteOne(filter);
         refreshTableView();
-    }
 
-    /*  Update on confirm button    */
+    }
     @FXML
     private void updateEntry() {
-        // Get the values from the text fields
-        String nComponent = tf_component.getText();
-        String nValue = cb_value.getValue();
-        String nAmount = tf_amount.getText();
-        String nDlb = tf_dlb.getText();
-        String nLink = tf_link.getText();
 
-        // Check if any of the fields are empty
-        if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
-            // Show a warning or error message to the user
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Add Component Entry");
-            alert.setHeaderText("Insufficient Information.");
-            alert.setContentText("Please add the sufficient information.");
+        if (originalEntry != null && originalEntry.getId() != null) {
+            originalId = originalEntry.getId();
 
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                alert.close();
+            // Get the values from the text fields
+            String nComponent = tf_component.getText();
+            String nValue = cb_value.getValue();
+            String nAmount = tf_amount.getText();
+            String nDlb = tf_dlb.getText();
+            String nLink = tf_link.getText();
+
+            // Check if any of the fields are empty
+            if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
+                showAlert("Error", "Insufficient information", "Please fill in text fields.");
+                return;
             }
-            return;
+
+            // Create filter: Find the entry selected by using "ObjectId" -- Unique id generated when an entry is created by MongoDB
+            Bson filter = Filters.eq("_id", originalId);
+
+            // Create a new entry
+            Document updatedDocument = new Document("Component", nComponent)
+                    .append("Value", nValue)
+                    .append("Amount", nAmount)
+                    .append("DateLastBought", nDlb)
+                    .append("Link", nLink);
+            Bson update = new Document("$set", updatedDocument);
+
+            // Update the document in the MongoDB collection
+            getCollection("componentList").updateOne(filter, update);
+            refreshTableView();
+
+            // Reset entry values
+            originalEntry = null;
+            originalId = null;
+
+        } else {
+            showAlert("Error", "Failed to update", "Retry?");
         }
 
-        // Define the filter to find the document to update
-        Bson filter = Filters.eq("DateLastBought", nDlb);
-
-        // Create a new document with the updated values
-        Document updatedDocument = new Document("Component", nComponent).append("Value", nValue).append("Amount", nAmount).append("DateLastBought", nDlb).append("Link", nLink);
-
-        // Define the update operation
-        Bson update = new Document("$set", updatedDocument);
-
-        // Update the document in the MongoDB collection
-        getCollection().updateOne(filter, update);
-
-        // Refresh the table view
-        refreshTableView();
     }
-
-    // Helper method to refresh the table view
     private void refreshTableView() {
+
         ObservableList<Items> updatedList = retrieveDataFromMongoDB();
         table_items.setItems(updatedList);
+
+    }
+    private void showAlert(String title, String header, String content) {
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+
+    }
+    // Exports data from selected boxes to transactionList
+    @FXML
+    private void moveToTransactions() {
+
+        TransactionSceneController transactionSceneController = new TransactionSceneController();
+        ObservableList<Items> selectedItems = table_items.getItems();
+        MongoCollection<Document> targetCollection = getCollection("transactionList");
+
+        // Loop over selected items
+        for (Items selectedItem : selectedItems) {
+            System.out.println("Testing...");
+            // Access the checkbox value for each row
+            boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
+
+            // If the checkbox is selected, perform export logic
+            if (isSelected) {
+                String component = col_component.getCellData(selectedItem);
+                System.out.println(component);
+                String value = col_value.getCellData(selectedItem);
+                String amount = col_amount.getCellData(selectedItem);
+                String dateLastBought = col_dlb.getCellData(selectedItem); // Adjust if needed
+                String link = col_link.getCellData(selectedItem);
+
+                // Perform export operation to MongoDB
+                // Create a new document with the extracted data
+                Document document = new Document("Component", component).append("Value", value).append("Amount", amount).append("DateLastBought", dateLastBought).append("Link", link);
+                // Insert the document into the target MongoDB collection
+                targetCollection.insertOne(document);
+            }
+        }
+        transactionSceneController.refreshTableView();
+
     }
 
-    // Search method
+    /*
+    *
+    *   Tableview + keyword search
+    *
+    * */
     @FXML
     public void searchTable(String keyword) {
+
         String lowerCaseKeyword = keyword.toLowerCase();
 
         ObservableList<Items> filteredList = retrieveDataFromMongoDB().filtered(item ->
@@ -203,13 +275,8 @@ public class DashboardSceneController implements Initializable {
         );
 
         table_items.setItems(filteredList);
-    }
 
-    /*
-    *
-    *   Tableview + keyword search
-    *
-    * */
+    }
     @FXML
     private TextField keywordTextField;
     @FXML
@@ -224,9 +291,27 @@ public class DashboardSceneController implements Initializable {
     private TableColumn<Items, String> col_dlb;
     @FXML
     private TableColumn<Items, String> col_link;
+    @FXML
+    private TableColumn<Items, Boolean> col_select;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        col_select.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<Items, Boolean>, ObservableValue<Boolean>>() {
+                    @Override
+                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Items, Boolean> param) {
+                        Items entry = param.getValue();
+                        SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(entry.isSelected());
+                        booleanProp.addListener((observable, oldValue, newValue) -> entry.setSelected(newValue));
+                        return booleanProp;
+                    }
+                }
+        );
+        col_select.setCellFactory(CheckBoxTableCell.forTableColumn(col_select));
+
+
         // Draggable topBar
         topBar.setOnMousePressed(mouseEvent-> {
             x = mouseEvent.getSceneX();
@@ -237,9 +322,13 @@ public class DashboardSceneController implements Initializable {
             Main.stg.setY(mouseEvent.getScreenY()-y);
         });
 
+
         // Add a listener to the selection property of the table view
         table_items.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+                originalEntry = newSelection;
+                originalId = newSelection.getId();
+                System.out.println(originalId);
                 // Update the text fields with the properties of the selected item
                 tf_component.setText(newSelection.getComponent());
                 cb_value.setValue(newSelection.getValue());
@@ -256,7 +345,8 @@ public class DashboardSceneController implements Initializable {
             }
         });
 
-        cb_value.setItems(FXCollections.observableArrayList("1Ω", "10Ω", "100Ω", "1KΩ", "10KΩ", "100KΩ", "1MΩ", "RED", "GREEN", "BLUE", "WHITE","N/A"));
+
+        cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "100Ω", "1KΩ", "10KΩ", "100KΩ", "220Ω","220KΩ", "270Ω", "270KΩ", "470Ω", "4.7KΩ", "47KΩ", "470KΩ"));
 
         ObservableList<Items> componentList = retrieveDataFromMongoDB();
 
@@ -272,10 +362,12 @@ public class DashboardSceneController implements Initializable {
         keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchTable(newValue);
         });
+
     }
 
     // Retrieve data from 'componentList' collection in ORDERLY database
     private ObservableList<Items> retrieveDataFromMongoDB() {
+
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
         String collectionName = "componentList";
@@ -299,21 +391,25 @@ public class DashboardSceneController implements Initializable {
                         document.getString("Link")
                         // ... add more fields based on your document structure
                 );
+                component.setId(document.getObjectId("_id"));
                 componentList.add(component);
             }
 
             return componentList;
         }
+
     }
 
     // Helper method to get the MongoDB collection
-    private MongoCollection<Document> getCollection() {
+    private MongoCollection<Document> getCollection(String collectionName) {
+
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
-        String collectionName = "componentList";
 
         MongoClient mongoClient = MongoClients.create(connectionString);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
         return database.getCollection(collectionName);
+
     }
+
 }

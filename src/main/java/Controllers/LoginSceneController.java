@@ -1,33 +1,29 @@
 package Controllers;
 
-import com.example.orderly_inventory_management.AnimationUtils;
-import com.example.orderly_inventory_management.DatabaseConnection;
 import com.example.orderly_inventory_management.Main;
-import javafx.event.ActionEvent;
+import com.mongodb.client.*;
+
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
+
 
 public class LoginSceneController implements Initializable {
     @FXML
-    private BorderPane root;
-    double x = 0;
-    double y = 0;
+    private AnchorPane root;
+    private double x = 0;
+    private double y = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        AnimationUtils.applyButtonHoverClickAnimations(loginButton);
-        AnimationUtils.applyButtonHoverClickAnimations(quitButton);
 
         // Draggable topBar
         root.setOnMousePressed(mouseEvent-> {
@@ -39,6 +35,7 @@ public class LoginSceneController implements Initializable {
             Main.stg.setY(mouseEvent.getScreenY()-y);
         });
     }
+
 
     /*
     *
@@ -75,6 +72,7 @@ public class LoginSceneController implements Initializable {
         stage.close();
     }
 
+
     /*
     *
     *   Login method
@@ -98,6 +96,8 @@ public class LoginSceneController implements Initializable {
         }
     }
 
+
+
     /*
     *
     *   Validates the login given the database
@@ -106,24 +106,26 @@ public class LoginSceneController implements Initializable {
     * */
     public boolean validateLogin() {
         try {
+            String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
+            String databaseName = "ORDERLY";
+            String collectionName = "userInformation";
 
-            DatabaseConnection connectNow = new DatabaseConnection();
-            Connection connectDB = connectNow.getUserInfoConnection();
+            try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+                MongoDatabase database = mongoClient.getDatabase(databaseName);
+                MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            // Store the query to be executed to check for a matching account
-            String verifyLogin = "SELECT count(1) FROM UserAccount WHERE Username = '" + usernameField.getText() + "' AND Password = '" + passwordField.getText() + "'";
+                Document query = new Document("Username", usernameField.getText()).append("Password", passwordField.getText());
 
-            Statement statement = connectDB.createStatement();
-            ResultSet queryResult = statement.executeQuery(verifyLogin);
-
-            while (queryResult.next()) {
-                // If there is one unique username found
-                if (queryResult.getInt(1) == 1) {
-                    loginMessage.setText("Welcome, " + usernameField.getText());
-                    return true;
-                } else {
-                    loginMessage.setText("Invalid login. Please try again.");
-                    return false;
+                // Execute the query
+                try (MongoCursor<Document> cursor = collection.find(query).iterator()) {
+                    // If a matching document is found
+                    if (cursor.hasNext()) {
+                        loginMessage.setText("Welcome, " + usernameField.getText());
+                        return true;
+                    } else {
+                        loginMessage.setText("Invalid login. Please try again.");
+                        return false;
+                    }
                 }
             }
         } catch (Exception e) {
