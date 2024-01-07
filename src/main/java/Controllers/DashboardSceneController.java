@@ -4,21 +4,17 @@ import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
@@ -27,7 +23,6 @@ import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DashboardSceneController implements Initializable {
@@ -45,11 +40,51 @@ public class DashboardSceneController implements Initializable {
     public void switchToSetting() throws IOException {
         m.changeScene("SettingScene.fxml");
     }
-    public void switchToSignIn() throws IOException {
+    public void switchToSignOut() throws IOException {
         m.changeScene("SignOutScene.fxml");
     }
     public void switchToTransaction() throws IOException {
         m.changeScene("TransactionScene.fxml");
+    }
+
+
+    /*
+    *
+    *   Buttons
+    *
+    * */
+    @FXML
+    private Button dashboardButton;
+    @FXML
+    private Button signOutButton;
+    @FXML
+    private Button transactionButton;
+    @FXML
+    private Button notiButton;
+    private Button lastClicked;
+    @FXML
+    private void handleButtonClick(ActionEvent e) throws IOException {
+        if (lastClicked != null) {
+            lastClicked.getStyleClass().remove("clicked");
+            lastClicked.getStyleClass().add("hover");
+        }
+
+        Button clickedButton = (Button)e.getSource();
+        String buttonName = clickedButton.getId();
+        System.out.println(buttonName);
+        clickedButton.getStyleClass().remove("hover");
+        clickedButton.getStyleClass().add("clicked");
+
+        lastClicked = clickedButton;
+
+        switch(buttonName) {
+            case "dashboardButton":
+                switchToDashboard();
+            case "signOutButton":
+                switchToSignOut();
+            case "transactionButton":
+                switchToTransaction();
+        }
     }
 
 
@@ -207,22 +242,6 @@ public class DashboardSceneController implements Initializable {
         }
 
     }
-    private void refreshTableView() {
-
-        ObservableList<Items> updatedList = retrieveDataFromMongoDB();
-        table_items.setItems(updatedList);
-
-    }
-    private void showAlert(String title, String header, String content) {
-
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-
-    }
-    // Exports data from selected boxes to transactionList
     @FXML
     private void moveToTransactions() {
 
@@ -255,6 +274,22 @@ public class DashboardSceneController implements Initializable {
         transactionSceneController.refreshTableView();
 
     }
+    private void refreshTableView() {
+
+        ObservableList<Items> updatedList = retrieveDataFromMongoDB();
+        table_items.setItems(updatedList);
+
+    }
+    private void showAlert(String title, String header, String content) {
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+
+    }
+
 
     /*
     *

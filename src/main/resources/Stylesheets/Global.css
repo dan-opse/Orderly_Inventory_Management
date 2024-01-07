@@ -31,6 +31,11 @@
     -fx-border-radius:5;
     -fx-text-fill:white;
 }
+.button.clicked {
+    -fx-background-color:white;
+    -fx-background-radius:5;
+    -fx-text-fill:black;
+}
 
 
 
@@ -40,17 +45,27 @@
     -fx-text-fill:#989898;
 }
 #dashboardButton:hover {
-    -fx-border-color:#989898;
-    -fx-border-radius:5;
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
     -fx-text-fill:white;
 }
-#signInButton {
+#dashboardButton.clicked {
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
+    -fx-text-fill:white;
+}
+#signOutButton {
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
 }
-#signInButton:hover {
-    -fx-border-color:#989898;
-    -fx-border-radius:5;
+#signOutButton:hover {
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
+    -fx-text-fill:white;
+}
+#signOutButton.clicked {
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
     -fx-text-fill:white;
 }
 #transactionButton {
@@ -58,8 +73,13 @@
     -fx-text-fill:#989898;
 }
 #transactionButton:hover {
-    -fx-border-color:#989898;
-    -fx-border-radius:5;
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
+    -fx-text-fill:white;
+}
+#transactionButton.clicked {
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
     -fx-text-fill:white;
 }
 #notiButton {
@@ -67,8 +87,8 @@
     -fx-text-fill:#989898;
 }
 #notiButton:hover {
-    -fx-border-color:#989898;
-    -fx-border-radius:5;
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
     -fx-text-fill:white;
 }
 
@@ -79,7 +99,7 @@
     -fx-background-color:transparent;
 }
 #minimizeButton:hover {
-    -fx-background-color:#989898;
+    -fx-background-color:#3d3d3d;
     -fx-background-radius:3;
     -fx-border-color:transparent;
 }
@@ -95,7 +115,7 @@
     -fx-background-color:transparent;
 }
 #fullScreenButton:hover {
-    -fx-background-color:#989898;
+    -fx-background-color:#3d3d3d;
     -fx-background-radius:3;
     -fx-border-color:transparent;
 }
