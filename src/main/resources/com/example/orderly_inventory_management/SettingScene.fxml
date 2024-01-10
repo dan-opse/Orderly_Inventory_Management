@@ -3,60 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SettingSceneController">
    <children>
       <BorderPane style="-fx-background-color: #101010;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <right>
-            <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin>
-               <children>
-                  <BorderPane layoutX="59.0" layoutY="213.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <top>
-                        <AnchorPane prefHeight="52.0" prefWidth="300.0">
-                           <children>
-                              <Label layoutX="64.0" layoutY="38.0" text="Welcome, John Doe" textFill="WHITE" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="15.0">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Line endX="280.0" startX="16.0" stroke="#989898" strokeWidth="2.0" AnchorPane.topAnchor="60.0" />
-                           </children>
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </AnchorPane>
-                     </top>
-                     <bottom>
-                        <AnchorPane maxHeight="-Infinity" prefHeight="650.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Button fx:id="checkoutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" text="Confirm" textAlignment="CENTER" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </AnchorPane>
-                     </bottom>
-                  </BorderPane>
-               </children>
-            </AnchorPane>
-         </right>
          <left>
             <AnchorPane minHeight="-Infinity" prefHeight="712.0" prefWidth="200.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;">
                <children>
@@ -68,9 +27,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="signInButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignIn" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Student Sign-In" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
+                  <Button fx:id="signOutButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignOut" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Student Sign-Out" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="17.5" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -97,7 +56,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="settingButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToSetting" stylesheets="@../../../Stylesheets/Global.css" text="Settings" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                  <Button fx:id="settingButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToSetting" style="-fx-background-color: #4d4d4d; -fx-background-radius: 5; -fx-text-fill: white;" text="Settings" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -148,10 +107,10 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="5.0" top="5.0" />
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
                <children>
-                  <Label layoutX="114.0" layoutY="49.0" text="Theme" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                  <Label layoutX="114.0" layoutY="49.0" text="Themes" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -166,7 +125,19 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="25.0" layoutY="210.0" text="Classes" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="300.0">
+                  <Button fx:id="applyChangesButton" layoutX="973.0" layoutY="650.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" text="Apply Changes" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <ComboBox layoutX="63.0" layoutY="55.0" prefWidth="150.0" promptText="Default Dark" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="60.0">
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
+                  </ComboBox>
+                  <Label layoutX="15.0" layoutY="246.0" text="Export .CSV Directory:" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="245.0" />
+                  <TextField layoutX="196.0" layoutY="241.0" promptText="C://User/Downloads" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="135.0" AnchorPane.topAnchor="241.0" />
+                  <Label layoutX="29.0" layoutY="294.0" text="Miscellaneous" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="300.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
