@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -116,15 +117,15 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="signOutButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignOut" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Student Sign-In" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
+                  <Button fx:id="signOutButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignOut" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Student Sign-Out" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="17.5" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="50.0" style="-fx-background-color: #3d3d3d; -fx-background-radius: 5; -fx-text-fill: white;" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -179,6 +180,9 @@
                      <image>
                         <Image url="@../../../Assets/AppIcon.png" />
                      </image>
+                     <effect>
+                        <ColorAdjust brightness="0.75" />
+                     </effect>
                   </ImageView>
                   <Label alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">
                      <font>
@@ -222,7 +226,10 @@
                   </TextField>
                   <Line endX="-100.0" endY="24.5" layoutX="247.0" layoutY="12.0" startX="-100.0" startY="45.0" stroke="#989898" strokeWidth="2.0" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="11.0" />
                   <Label layoutX="160.0" layoutY="14.0" text="Sort by" textFill="WHITE" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="14.0" />
-                  <ComboBox layoutX="319.0" layoutY="19.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="10.0" />
+                  <ComboBox layoutX="319.0" layoutY="19.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" promptText="..." stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="10.0">
+                     <effect>
+                        <ColorAdjust />
+                     </effect></ComboBox>
                   <Button layoutX="659.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveToTransactions" stylesheets="@../../../Stylesheets/Global.css" text="Add to Transactions" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                </children>
             </AnchorPane>
