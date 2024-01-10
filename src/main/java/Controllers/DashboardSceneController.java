@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -45,46 +44,6 @@ public class DashboardSceneController implements Initializable {
     }
     public void switchToTransaction() throws IOException {
         m.changeScene("TransactionScene.fxml");
-    }
-
-
-    /*
-    *
-    *   Buttons
-    *
-    * */
-    @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button signOutButton;
-    @FXML
-    private Button transactionButton;
-    @FXML
-    private Button notiButton;
-    private Button lastClicked;
-    @FXML
-    private void handleButtonClick(ActionEvent e) throws IOException {
-        if (lastClicked != null) {
-            lastClicked.getStyleClass().remove("clicked");
-            lastClicked.getStyleClass().add("hover");
-        }
-
-        Button clickedButton = (Button)e.getSource();
-        String buttonName = clickedButton.getId();
-        System.out.println(buttonName);
-        clickedButton.getStyleClass().remove("hover");
-        clickedButton.getStyleClass().add("clicked");
-
-        lastClicked = clickedButton;
-
-        switch(buttonName) {
-            case "dashboardButton":
-                switchToDashboard();
-            case "signOutButton":
-                switchToSignOut();
-            case "transactionButton":
-                switchToTransaction();
-        }
     }
 
 
