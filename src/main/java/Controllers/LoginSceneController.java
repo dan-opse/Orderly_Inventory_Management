@@ -17,6 +17,15 @@ import java.util.ResourceBundle;
 
 
 public class LoginSceneController implements Initializable {
+
+
+    /*--------------------------------------------------------------------------------*/
+
+    /*
+    *
+    *   Draggable topBar + topBar actions
+    *
+    * */
     @FXML
     private AnchorPane root;
     private double x = 0;
@@ -34,7 +43,26 @@ public class LoginSceneController implements Initializable {
             Main.stg.setX(mouseEvent.getScreenX()-x);
             Main.stg.setY(mouseEvent.getScreenY()-y);
         });
+
     }
+
+    @FXML
+    private Button loginButton;
+    @FXML
+    private Button quitButton;
+    @FXML
+    private Button minimizeButton;
+    public void minimizeAction() {
+        Stage stage = (Stage)minimizeButton.getScene().getWindow();
+        stage.setIconified(true);
+    }
+    public void quitOnAction() {
+        Stage stage = (Stage) quitButton.getScene().getWindow();
+        stage.close();
+    }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -52,25 +80,7 @@ public class LoginSceneController implements Initializable {
     private CheckBox rememberDevice;
 
 
-    /*
-     *
-     *   TopBar Buttons
-     *
-     * */
-    @FXML
-    private Button loginButton;
-    @FXML
-    private Button quitButton;
-    @FXML
-    private Button minimizeButton;
-    public void minimizeAction() {
-        Stage stage = (Stage)minimizeButton.getScene().getWindow();
-        stage.setIconified(true);
-    }
-    public void quitOnAction() {
-        Stage stage = (Stage) quitButton.getScene().getWindow();
-        stage.close();
-    }
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -95,7 +105,6 @@ public class LoginSceneController implements Initializable {
             loginMessage.setText("Insufficient Information.");
         }
     }
-
 
 
     /*

@@ -3,7 +3,6 @@ module com.example.login {
     requires javafx.fxml;
     requires java.sql;
     requires javafx.graphics;
-    requires mysql.connector.j;
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.driver.core;
     requires org.mongodb.bson;

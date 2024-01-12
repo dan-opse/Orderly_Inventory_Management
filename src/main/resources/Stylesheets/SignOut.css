@@ -3,3 +3,13 @@
 @SignOut.FXML
 
 */
+
+#signOutButton {
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
+    -fx-text-fill:white;
+}
+#signOutButton:hover {
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}

@@ -24,8 +24,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class DashboardSceneController implements Initializable {
 
+    /*--------------------------------------------------------------------------------*/
 
     /*
     *
@@ -45,6 +47,9 @@ public class DashboardSceneController implements Initializable {
     public void switchToTransaction() throws IOException {
         m.changeScene("TransactionScene.fxml");
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -74,6 +79,9 @@ public class DashboardSceneController implements Initializable {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -204,7 +212,6 @@ public class DashboardSceneController implements Initializable {
     @FXML
     private void moveToTransactions() {
 
-        TransactionSceneController transactionSceneController = new TransactionSceneController();
         ObservableList<Items> selectedItems = table_items.getItems();
         MongoCollection<Document> targetCollection = getCollection("transactionList");
 
@@ -230,8 +237,6 @@ public class DashboardSceneController implements Initializable {
                 targetCollection.insertOne(document);
             }
         }
-        transactionSceneController.refreshTableView();
-
     }
     private void refreshTableView() {
 
@@ -248,6 +253,9 @@ public class DashboardSceneController implements Initializable {
         alert.showAndWait();
 
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -287,6 +295,9 @@ public class DashboardSceneController implements Initializable {
     private TableColumn<Items, String> col_link;
     @FXML
     private TableColumn<Items, Boolean> col_select;
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     @Override
@@ -358,6 +369,10 @@ public class DashboardSceneController implements Initializable {
         });
 
     }
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     // Retrieve data from 'componentList' collection in ORDERLY database
     private ObservableList<Items> retrieveDataFromMongoDB() {
