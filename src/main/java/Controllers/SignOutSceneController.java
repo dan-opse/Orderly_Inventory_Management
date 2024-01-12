@@ -1,6 +1,5 @@
 package Controllers;
 
-import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
 import com.example.orderly_inventory_management.Student;
 import com.mongodb.client.MongoClient;
@@ -35,6 +34,9 @@ import java.util.ResourceBundle;
 public class SignOutSceneController implements Initializable {
 
 
+    /*--------------------------------------------------------------------------------*/
+
+
     /*
      *
      *   Switching Scenes
@@ -47,12 +49,15 @@ public class SignOutSceneController implements Initializable {
     public void switchToSetting() throws IOException {
         m.changeScene("SettingScene.fxml");
     }
-    public void switchToSignIn() throws IOException {
+    public void switchToSignOut() throws IOException {
         m.changeScene("SignOutScene.fxml");
     }
     public void switchToTransaction() throws IOException {
         m.changeScene("TransactionScene.fxml");
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -82,6 +87,9 @@ public class SignOutSceneController implements Initializable {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -235,6 +243,9 @@ public class SignOutSceneController implements Initializable {
     }
 
 
+    /*--------------------------------------------------------------------------------*/
+
+
     /*
      *
      *   Tableview + keyword search
@@ -272,9 +283,13 @@ public class SignOutSceneController implements Initializable {
     private TableColumn<Student, Boolean> col_select;
 
 
+    /*--------------------------------------------------------------------------------*/
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        // Initialize 'Select' column in table-view
         col_select.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<Student, Boolean>, ObservableValue<Boolean>>() {
                     @Override
@@ -322,9 +337,10 @@ public class SignOutSceneController implements Initializable {
             }
         });
 
-
+        // Initialize 'Returned' value in table-view
         cb_returned.setItems(FXCollections.observableArrayList("No", "Yes"));
 
+        // Grab initial list of students & populate table-view
         ObservableList<Student> signOutList = retrieveDataFromMongoDB();
 
         col_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -341,6 +357,9 @@ public class SignOutSceneController implements Initializable {
         });
 
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     // Retrieve data from 'componentList' collection in ORDERLY database

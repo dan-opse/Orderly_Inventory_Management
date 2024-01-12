@@ -13,28 +13,31 @@ import java.util.ResourceBundle;
 
 public class SettingSceneController implements Initializable {
 
+
+    /*--------------------------------------------------------------------------------*/
+
+
     /*
      *
      *   Switching Scenes
      *
      * */
-    Main m = new Main();
-
+    private final Main m = new Main();
     public void switchToDashboard() throws IOException {
         m.changeScene("DashboardScene.fxml");
     }
-
     public void switchToSetting() throws IOException {
         m.changeScene("SettingScene.fxml");
     }
-
-    public void switchToSignIn() throws IOException {
+    public void switchToSignOut() throws IOException {
         m.changeScene("SignOutScene.fxml");
     }
-
     public void switchToTransaction() throws IOException {
         m.changeScene("TransactionScene.fxml");
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -46,14 +49,12 @@ public class SettingSceneController implements Initializable {
     private AnchorPane topBar;
     double x = 0;
     double y = 0;
-
     @FXML
     private Button closeButton;
     @FXML
     private Button minimizeButton;
     @FXML
     private Button fullScreenButton;
-
     public void fullScreenAction() {
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
@@ -66,6 +67,10 @@ public class SettingSceneController implements Initializable {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     /*
      *

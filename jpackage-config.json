@@ -1,0 +1,8 @@
+{
+  "name": "ORDERLY",
+  "version": "1.0",
+  "input": "target",
+  "main-jar": "Main.jar",
+  "main-class": "com.example.orderly_inventory_management",
+  "runtime-image": "${java.home}"
+}

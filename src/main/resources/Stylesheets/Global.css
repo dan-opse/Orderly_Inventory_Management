@@ -27,9 +27,8 @@
     -fx-text-fill:#989898;
 }
 .button:hover {
-    -fx-border-color:#989898;
-    -fx-border-radius:5;
-    -fx-text-fill:white;
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
 }
 .button.clicked {
     -fx-background-color:white;

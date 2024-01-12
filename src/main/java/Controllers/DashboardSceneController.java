@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -25,8 +24,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class DashboardSceneController implements Initializable {
 
+    /*--------------------------------------------------------------------------------*/
 
     /*
     *
@@ -47,46 +48,7 @@ public class DashboardSceneController implements Initializable {
         m.changeScene("TransactionScene.fxml");
     }
 
-
-    /*
-    *
-    *   Buttons
-    *
-    * */
-    @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button signOutButton;
-    @FXML
-    private Button transactionButton;
-    @FXML
-    private Button notiButton;
-    private Button lastClicked;
-    @FXML
-    private void handleButtonClick(ActionEvent e) throws IOException {
-        if (lastClicked != null) {
-            lastClicked.getStyleClass().remove("clicked");
-            lastClicked.getStyleClass().add("hover");
-        }
-
-        Button clickedButton = (Button)e.getSource();
-        String buttonName = clickedButton.getId();
-        System.out.println(buttonName);
-        clickedButton.getStyleClass().remove("hover");
-        clickedButton.getStyleClass().add("clicked");
-
-        lastClicked = clickedButton;
-
-        switch(buttonName) {
-            case "dashboardButton":
-                switchToDashboard();
-            case "signOutButton":
-                switchToSignOut();
-            case "transactionButton":
-                switchToTransaction();
-        }
-    }
-
+    /*--------------------------------------------------------------------------------*/
 
     /*
     *
@@ -115,6 +77,9 @@ public class DashboardSceneController implements Initializable {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -245,7 +210,6 @@ public class DashboardSceneController implements Initializable {
     @FXML
     private void moveToTransactions() {
 
-        TransactionSceneController transactionSceneController = new TransactionSceneController();
         ObservableList<Items> selectedItems = table_items.getItems();
         MongoCollection<Document> targetCollection = getCollection("transactionList");
 
@@ -271,8 +235,6 @@ public class DashboardSceneController implements Initializable {
                 targetCollection.insertOne(document);
             }
         }
-        transactionSceneController.refreshTableView();
-
     }
     private void refreshTableView() {
 
@@ -289,6 +251,9 @@ public class DashboardSceneController implements Initializable {
         alert.showAndWait();
 
     }
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     /*
@@ -328,6 +293,9 @@ public class DashboardSceneController implements Initializable {
     private TableColumn<Items, String> col_link;
     @FXML
     private TableColumn<Items, Boolean> col_select;
+
+
+    /*--------------------------------------------------------------------------------*/
 
 
     @Override
@@ -399,6 +367,10 @@ public class DashboardSceneController implements Initializable {
         });
 
     }
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     // Retrieve data from 'componentList' collection in ORDERLY database
     private ObservableList<Items> retrieveDataFromMongoDB() {

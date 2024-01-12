@@ -27,6 +27,10 @@ import java.util.ResourceBundle;
 
 public class TransactionSceneController implements Initializable {
 
+
+    /*--------------------------------------------------------------------------------*/
+
+
     /*
      *
      *   Switching Scenes
@@ -39,12 +43,16 @@ public class TransactionSceneController implements Initializable {
     public void switchToSetting() throws IOException {
         m.changeScene("SettingScene.fxml");
     }
-    public void switchToSignIn() throws IOException {
+    public void switchToSignOut() throws IOException {
         m.changeScene("SignOutScene.fxml");
     }
     public void switchToTransaction() throws IOException {
         m.changeScene("TransactionScene.fxml");
     }
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     /*
      *
@@ -55,14 +63,12 @@ public class TransactionSceneController implements Initializable {
     private AnchorPane topBar;
     double x = 0;
     double y = 0;
-
     @FXML
     private Button closeButton;
     @FXML
     private Button minimizeButton;
     @FXML
     private Button fullScreenButton;
-
     public void fullScreenAction() {
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
@@ -75,6 +81,10 @@ public class TransactionSceneController implements Initializable {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     /*
     *
@@ -115,6 +125,10 @@ public class TransactionSceneController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     /*
      *
@@ -255,6 +269,10 @@ public class TransactionSceneController implements Initializable {
         alert.showAndWait();
     }
 
+
+    /*--------------------------------------------------------------------------------*/
+
+
     /*
     *
     *   Search Table Method
@@ -296,6 +314,10 @@ public class TransactionSceneController implements Initializable {
     private TableColumn<Items, String> col_link;
     @FXML
     private TableColumn<Items, Boolean> col_select;
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -363,6 +385,10 @@ public class TransactionSceneController implements Initializable {
             searchTable(newValue);
         });
     }
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     /*
     *
