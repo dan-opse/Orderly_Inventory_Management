@@ -12,7 +12,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SettingSceneController">
@@ -109,7 +108,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="5.0" top="5.0" />
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
                <children>
                   <Label layoutX="114.0" layoutY="49.0" text="Themes" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
@@ -133,6 +132,7 @@
                      </font>
                   </Button>
                   <ComboBox layoutX="63.0" layoutY="55.0" prefWidth="150.0" promptText="Default Dark" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="65.0">
+                  <ComboBox layoutX="63.0" layoutY="55.0" prefWidth="150.0" promptText="Default Dark" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="60.0">
                      <effect>
                         <ColorAdjust brightness="1.0" />
                      </effect>
@@ -149,6 +149,9 @@
                   </Label>
                   <Line endX="50.0" endY="-92.0" layoutX="499.0" layoutY="92.0" startX="50.0" startY="595.5" stroke="#101010" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   <Label layoutX="15.0" layoutY="425.0" text="Accounts" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="425.0">
+                  <Label layoutX="15.0" layoutY="246.0" text="Export .CSV Directory:" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="245.0" />
+                  <TextField layoutX="196.0" layoutY="241.0" promptText="C://User/Downloads" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="135.0" AnchorPane.topAnchor="241.0" />
+                  <Label layoutX="29.0" layoutY="294.0" text="Miscellaneous" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="300.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
