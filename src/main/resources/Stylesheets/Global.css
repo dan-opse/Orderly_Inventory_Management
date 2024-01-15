@@ -1,42 +1,15 @@
+
 /*
 
 @Global.css styles that most fxml files use
 
 */
 
+/*
 
+Targeted CSS
 
-/*  DEFAULT TEXT FIELD  */
-.text-field {
-    -fx-background-color: transparent;
-    -fx-background-radius:5;
-    -fx-border-color: #989898;
-    -fx-border-radius:5;
-    -fx-border-width:1;
-    -fx-text-fill:white;
-}
-
-
-
-/*  DEFAULT BUTTON     */
-.button {
-    -fx-cursor: hand;
-    -fx-background-color: #282828;
-    -fx-background-radius:5;
-    -fx-text-fill:#989898;
-}
-.button:hover {
-    -fx-scale-y: 1.05;
-    -fx-scale-x: 1.05;
-}
-.button.clicked {
-    -fx-background-color:white;
-    -fx-background-radius:5;
-    -fx-text-fill:black;
-}
-
-
-
+*/
 /*  MENU BUTTONS    */
 #dashboardButton {
     -fx-background-color:transparent;
@@ -47,11 +20,21 @@
     -fx-background-radius:5;
     -fx-text-fill:white;
 }
+#dashboardButton.clicked {
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
+    -fx-text-fill:white;
+}
 #signOutButton {
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
 }
 #signOutButton:hover {
+    -fx-background-color:#3d3d3d;
+    -fx-background-radius:5;
+    -fx-text-fill:white;
+}
+#signOutButton.clicked {
     -fx-background-color:#3d3d3d;
     -fx-background-radius:5;
     -fx-text-fill:white;
@@ -81,7 +64,6 @@
 }
 
 
-
 /* Window view buttons */
 #minimizeButton {
     -fx-background-color:transparent;
@@ -109,7 +91,51 @@
 }
 
 
+#resetAll {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+#resetAll:hover {
+    -fx-background-color: #2980b9;
+}
 
+
+
+/*
+
+Not targeted CSS
+
+*/
+/*  DEFAULT TEXT FIELD  */
+.text-field {
+    -fx-background-color: transparent;
+    -fx-background-radius:5;
+    -fx-border-color: #989898;
+    -fx-border-radius:5;
+    -fx-border-width:1;
+    -fx-text-fill:white;
+}
+/*  DEFAULT BUTTON     */
+.button {
+    -fx-cursor: hand;
+    -fx-background-color: #282828;
+    -fx-background-radius:5;
+    -fx-text-fill:#989898;
+}
+.button:hover {
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}
+.button.clicked {
+    -fx-background-color:white;
+    -fx-background-radius:5;
+    -fx-text-fill:black;
+}
 /*  Select Value || Sort  */
 .combo-box {
     -fx-background-color: transparent;
@@ -124,9 +150,6 @@
 .combo-box .label {
     -fx-text-fill:white;
 }
-
-
-
 /*  Checkbox    */
 .check-box .box{
     -fx-background-color: transparent;
@@ -134,28 +157,18 @@
     -fx-border-radius:3;
     -fx-background-size: 10;
 }
-.check-box:selected .box {
+.check-box:selected .mark {
     -fx-background-color:white;
+    -fx-background-radius:2;
+    -fx-shape: "M3 3 L11 11 M3 11 L11 3";
+    -fx-scale-shape: false;
+    -fx-stroke-type: outside;
+    -fx-stroke-width: 2;
+    -fx-stroke: white;
 }
 .check-box:selected .box {
     -fx-background-color:#white;
 }
-
-
-
-#resetAll {
-    -fx-background-color: #3498db;
-    -fx-text-fill: #fff;
-    -fx-font-size: 16px;
-    -fx-border-color: transparent;
-    -fx-cursor: hand;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-}
-#resetAll:hover {
-    -fx-background-color: #2980b9;
-}
-
 
 
 /*

@@ -76,8 +76,6 @@ public class LoginSceneController implements Initializable {
     private PasswordField passwordField;
     @FXML
     private Label loginMessage;
-    @FXML
-    private CheckBox rememberDevice;
 
 
     /*--------------------------------------------------------------------------------*/
@@ -89,6 +87,7 @@ public class LoginSceneController implements Initializable {
     *
     * */
     public void login() throws IOException {
+
         String username = usernameField.getText();
         String password = passwordField.getText();
 
