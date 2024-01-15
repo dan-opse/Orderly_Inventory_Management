@@ -84,8 +84,18 @@ public class SignOutSceneController implements Initializable {
         stage.setIconified(true);
     }
     public void quitOnAction() {
+
         Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You're about to be logged out!");
+        alert.setContentText("Do you want to save before exiting?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            System.out.println("You successfully logged out!");
+            stage.close();
+        }
     }
 
 
@@ -121,7 +131,7 @@ public class SignOutSceneController implements Initializable {
         // Check if any of the fields are empty
         if (nName.isBlank() || nItem == null || nAmount.isBlank() || nReturned == null || nDate.isBlank()) {
 
-            showAlert("Error", "Insufficient information.", "Please add the sufficient information.");
+            showWarning("Error", "Insufficient information.", "Please add the sufficient information.");
             return;
 
         }
@@ -185,7 +195,7 @@ public class SignOutSceneController implements Initializable {
 
             // Check if any of the fields are empty
             if (nName.isBlank() || nItem.isBlank() || nAmount.isBlank() || nReturned == null || nDate.isBlank()) {
-                showAlert("Error", "Insufficient information", "Please fill in text fields.");
+                showWarning("Error", "Insufficient information", "Please fill in text fields.");
                 return;
             }
 
@@ -224,8 +234,22 @@ public class SignOutSceneController implements Initializable {
             originalId = null;
 
         } else {
-            showAlert("Error", "Failed to update", "Retry?");
+            showWarning("Error", "Failed to update", "Retry?");
         }
+
+    }
+    @FXML
+    private void resetSelection() {
+
+        // Deselect all entries in table-view
+        table_students.getSelectionModel().clearSelection();
+
+        // Clear individual text fields
+        tf_name.clear();
+        tf_item.clear();
+        tf_amount.clear();
+        cb_returned.setValue(null);
+        tf_date.clear();
 
     }
     private void refreshTableView() {
@@ -234,7 +258,7 @@ public class SignOutSceneController implements Initializable {
         table_students.setItems(updatedList);
 
     }
-    private void showAlert(String title, String header, String content) {
+    private void showWarning(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(header);

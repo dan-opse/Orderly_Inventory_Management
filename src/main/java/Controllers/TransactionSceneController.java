@@ -78,8 +78,18 @@ public class TransactionSceneController implements Initializable {
         stage.setIconified(true);
     }
     public void quitOnAction() {
+
         Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You're about to be logged out!");
+        alert.setContentText("Do you want to save before exiting?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            System.out.println("You successfully logged out!");
+            stage.close();
+        }
     }
 
 
@@ -230,7 +240,7 @@ public class TransactionSceneController implements Initializable {
             // Check if any of the fields are empty
             if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
                 // Show a warning or error message to the user
-                showAlert("Error", "Insufficient information", "Please fill in text fields.");
+                showWarning("Error", "Insufficient information", "Please fill in text fields.");
                 return;
             }
 
@@ -254,14 +264,28 @@ public class TransactionSceneController implements Initializable {
             originalId = null;
 
         } else {
-            showAlert("Error", "Failed to update", "Retry?");
+            showWarning("Error", "Failed to update", "Retry?");
         }
+    }
+    @FXML
+    private void resetSelection() {
+
+        // Deselect all entries in table-view
+        table_items.getSelectionModel().clearSelection();
+
+        // Clear individual text fields
+        tf_component.clear();
+        cb_value.setValue(null);
+        tf_amount.clear();
+        tf_dlb.clear();
+        tf_link.clear();
+
     }
     public void refreshTableView() {
         ObservableList<Items> updatedList = retrieveDataFromMongoDB();
         table_items.setItems(updatedList);
     }
-    private void showAlert(String title, String header, String content) {
+    private void showWarning(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -321,6 +345,8 @@ public class TransactionSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        // Initialize 'Select' column in table-view
         col_select.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<Items, Boolean>, ObservableValue<Boolean>>() {
                     @Override

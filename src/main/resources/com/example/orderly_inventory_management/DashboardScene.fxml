@@ -91,7 +91,7 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font></Button>
                               <Line endX="280.0" layoutX="2.0" layoutY="480.0" startX="16.0" stroke="#989898" strokeWidth="2.0" AnchorPane.bottomAnchor="168.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" />
-                              <Button fx:id="resetAll" layoutX="15.0" layoutY="428.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../../../Stylesheets/Global.css" text="Reset All" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="426.0">
+                              <Button fx:id="resetAll" layoutX="15.0" layoutY="428.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#resetSelection" prefHeight="40.0" stylesheets="@../../../Stylesheets/Global.css" text="Reset All" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="426.0">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>

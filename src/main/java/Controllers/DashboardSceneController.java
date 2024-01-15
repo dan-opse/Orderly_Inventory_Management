@@ -29,12 +29,10 @@ public class DashboardSceneController implements Initializable {
 
     /*--------------------------------------------------------------------------------*/
 
-    /*
-    *
-    *   Switching Scenes
-    *
-    * */
+    // Switching Scenes
+
     private final Main m = new Main();
+
     public void switchToDashboard() throws IOException {
         m.changeScene("DashboardScene.fxml");
     }
@@ -48,25 +46,23 @@ public class DashboardSceneController implements Initializable {
         m.changeScene("TransactionScene.fxml");
     }
 
-
     /*--------------------------------------------------------------------------------*/
 
+    // Draggable topBar + topBar actions
 
-    /*
-    *
-    *   Draggable topBar + topBar actions
-    *
-    * */
     @FXML
     private AnchorPane topBar;
+
     double x = 0;
     double y = 0;
+
     @FXML
     private Button closeButton;
     @FXML
     private Button minimizeButton;
     @FXML
     private Button fullScreenButton;
+
     public void fullScreenAction() {
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
@@ -76,19 +72,26 @@ public class DashboardSceneController implements Initializable {
         stage.setIconified(true);
     }
     public void quitOnAction() {
+
         Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You're about to be logged out!");
+        alert.setContentText("Do you want to save before exiting?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            System.out.println("You successfully logged out!");
+            stage.close();
+        }
     }
 
 
     /*--------------------------------------------------------------------------------*/
 
 
-    /*
-    *
-    *   Entry modifications
-    *
-    * */
+    // Entry modifications
+
     @FXML
     private TextField tf_component;
     @FXML
@@ -98,9 +101,11 @@ public class DashboardSceneController implements Initializable {
     @FXML
     private TextField tf_dlb;
     @FXML
+
     private TextField tf_link;
     private ObjectId originalId;
     private Items originalEntry;
+
     @FXML
     public void addEntry() {
 
@@ -181,7 +186,7 @@ public class DashboardSceneController implements Initializable {
 
             // Check if any of the fields are empty
             if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
-                showAlert("Error", "Insufficient information", "Please fill in text fields.");
+                showWarning("Error", "Insufficient information", "Please fill in text fields.");
                 return;
             }
 
@@ -205,8 +210,22 @@ public class DashboardSceneController implements Initializable {
             originalId = null;
 
         } else {
-            showAlert("Error", "Failed to update", "Retry?");
+            showWarning("Error", "Failed to update", "Retry?");
         }
+
+    }
+    @FXML
+    private void resetSelection() {
+
+        // Deselect all entries in table-view
+        table_items.getSelectionModel().clearSelection();
+
+        // Clear individual text fields
+        tf_component.clear();
+        cb_value.setValue(null);
+        tf_amount.clear();
+        tf_dlb.clear();
+        tf_link.clear();
 
     }
     @FXML
@@ -244,7 +263,7 @@ public class DashboardSceneController implements Initializable {
         table_items.setItems(updatedList);
 
     }
-    private void showAlert(String title, String header, String content) {
+    private void showWarning(String title, String header, String content) {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -258,16 +277,15 @@ public class DashboardSceneController implements Initializable {
     /*--------------------------------------------------------------------------------*/
 
 
-    /*
-    *
-    *   Tableview + keyword search
-    *
-    * */
+    // Tableview + keyword search
+
     @FXML
     public void searchTable(String keyword) {
 
+        // Convert to lowercase for broader/flexible search
         String lowerCaseKeyword = keyword.toLowerCase();
 
+        // Create a filtered list & check if any item has the 'lowerCaseKeyword'
         ObservableList<Items> filteredList = retrieveDataFromMongoDB().filtered(item ->
                 item.getComponent().toLowerCase().contains(lowerCaseKeyword) ||
                         item.getValue().toLowerCase().contains(lowerCaseKeyword) ||
@@ -276,6 +294,7 @@ public class DashboardSceneController implements Initializable {
                         item.getLink().toLowerCase().contains(lowerCaseKeyword)
         );
 
+        // Set table-view to the filtered list to update live
         table_items.setItems(filteredList);
 
     }
@@ -303,6 +322,7 @@ public class DashboardSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        // Initialize 'Select' column in table-view
         col_select.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<Items, Boolean>, ObservableValue<Boolean>>() {
                     @Override
@@ -350,7 +370,7 @@ public class DashboardSceneController implements Initializable {
             }
         });
 
-
+        // Initialize choice box values
         cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "100Ω", "1KΩ", "10KΩ", "100KΩ", "220Ω","220KΩ", "270Ω", "270KΩ", "470Ω", "4.7KΩ", "47KΩ", "470KΩ"));
 
         ObservableList<Items> componentList = retrieveDataFromMongoDB();

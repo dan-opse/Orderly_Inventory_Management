@@ -163,7 +163,7 @@
                   </Label>
                   <Line endX="433.0" layoutX="115.0" layoutY="111.0" startX="-100.0" stroke="#101010" AnchorPane.leftAnchor="14.5" />
                   <Line endX="433.0" layoutX="115.0" layoutY="294.0" startX="-100.0" stroke="#101010" />
-                  <Label layoutX="30.0" layoutY="213.0" text="Low quantity reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="210.0">
+                  <Label layoutX="30.0" layoutY="213.0" text="Late sign-out reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="210.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -181,9 +181,9 @@
                   <Button layoutX="465.0" layoutY="473.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="475.0" />
                   <Button layoutX="449.0" layoutY="513.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" text="Change" />
                   <Line endX="433.0" layoutX="115.0" layoutY="417.0" startX="-100.0" stroke="#101010" />
-                  <CheckBox layoutX="490.0" layoutY="252.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
-                  <CheckBox layoutX="490.0" layoutY="212.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
-                  <CheckBox layoutX="490.0" layoutY="172.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
+                  <CheckBox fx:id="allBox" layoutX="490.0" layoutY="252.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
+                  <CheckBox fx:id="lateSignOutBox" layoutX="490.0" layoutY="212.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
+                  <CheckBox fx:id="lowQuantityBox" layoutX="490.0" layoutY="172.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
                </children>
             </AnchorPane>
          </center>
