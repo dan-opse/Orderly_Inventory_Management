@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class SettingSceneController implements Initializable {
+public class SettingController implements Initializable {
 
 
     /*--------------------------------------------------------------------------------*/
@@ -80,7 +80,7 @@ public class SettingSceneController implements Initializable {
 
     // Settings
 
-    private static final String CONFIG_FILE = "src/main/resources/Config-Files/config.properties";
+    private static final String CONFIG_FILE = "src/main/resources/Config-Files/config.settings";
     @FXML
     private CheckBox lowQuantityBox;
     @FXML

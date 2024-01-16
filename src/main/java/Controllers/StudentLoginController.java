@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class LoginSceneController implements Initializable {
+public class StudentLoginController implements Initializable {
 
 
     /*--------------------------------------------------------------------------------*/
@@ -52,6 +52,7 @@ public class LoginSceneController implements Initializable {
     private Button quitButton;
     @FXML
     private Button minimizeButton;
+
     public void minimizeAction() {
         Stage stage = (Stage)minimizeButton.getScene().getWindow();
         stage.setIconified(true);
@@ -70,6 +71,9 @@ public class LoginSceneController implements Initializable {
     *   Login buttons
     *
     * */
+
+    Main m = new Main();
+
     @FXML
     private TextField usernameField;
     @FXML
@@ -77,6 +81,9 @@ public class LoginSceneController implements Initializable {
     @FXML
     private Label loginMessage;
 
+    public void switchToAdminLogin() throws IOException {
+        m.changeScene("AdminLoginScene.fxml");
+    }
 
     /*--------------------------------------------------------------------------------*/
 
@@ -91,13 +98,11 @@ public class LoginSceneController implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        Main m = new Main();
-
         // If populated
         if (!username.isBlank() && !password.isBlank()) {
 
             if(validateLogin()) {
-                m.changeScene("DashboardScene.fxml");
+                m.changeScene("StudentSignOutScene.fxml");
             }
 
         } else {
@@ -116,7 +121,7 @@ public class LoginSceneController implements Initializable {
         try {
             String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
             String databaseName = "ORDERLY";
-            String collectionName = "userInformation";
+            String collectionName = "studentAccounts";
 
             try (MongoClient mongoClient = MongoClients.create(connectionString)) {
                 MongoDatabase database = mongoClient.getDatabase(databaseName);
