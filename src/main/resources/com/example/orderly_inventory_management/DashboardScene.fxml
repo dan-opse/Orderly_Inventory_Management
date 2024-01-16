@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DashboardSceneController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DashboardController">
    <children>
       <BorderPane style="-fx-background-color: #101010;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
@@ -31,7 +31,7 @@
                            <children>
                               <Label alignment="CENTER" layoutX="64.0" layoutY="38.0" stylesheets="@../../../Stylesheets/Global.css" text="MODIFICATIONS" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
                                  <font>
-                                    <Font name="System Bold Italic" size="18.0" />
+                                    <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
                               <Line endX="280.0" startX="16.0" stroke="#989898" strokeWidth="2.0" AnchorPane.topAnchor="60.0" />
@@ -126,16 +126,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="50.0" stylesheets="@../../../Stylesheets/Dashboard.css" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
                   <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="50.0" style="-fx-background-color: #3d3d3d; -fx-background-radius: 5; -fx-text-fill: white;" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="notiButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="283.0" mnemonicParsing="false" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Notifications" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="210.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -183,7 +174,7 @@
                         <Image url="@../../../Assets/AppIcon.png" />
                      </image>
                      <effect>
-                        <ColorAdjust brightness="0.75" />
+                        <ColorAdjust brightness="1.0" />
                      </effect>
                   </ImageView>
                   <Label alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">

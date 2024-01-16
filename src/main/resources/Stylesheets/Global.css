@@ -140,8 +140,8 @@ Not targeted CSS
 .combo-box {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-border-color: #989898; /* Border color */
-    -fx-border-width: 1; /* Border width */
+    -fx-border-color: #989898;
+    -fx-border-width: 1;
     -fx-border-radius:5;
 }
 .combo-box .arrow-button {
@@ -153,12 +153,12 @@ Not targeted CSS
 /*  Checkbox    */
 .check-box .box{
     -fx-background-color: transparent;
-    -fx-border-color:White;
+    -fx-border-color: white;
     -fx-border-radius:3;
     -fx-background-size: 10;
 }
 .check-box:selected .mark {
-    -fx-background-color:white;
+    -fx-background-color: white;
     -fx-background-radius:2;
     -fx-shape: "M3 3 L11 11 M3 11 L11 3";
     -fx-scale-shape: false;
@@ -167,7 +167,7 @@ Not targeted CSS
     -fx-stroke: white;
 }
 .check-box:selected .box {
-    -fx-background-color:#white;
+    -fx-background-color: white;
 }
 
 

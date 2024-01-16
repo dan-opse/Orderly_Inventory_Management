@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoadingSceneController implements Initializable {
+public class LoadingController implements Initializable {
 
     @FXML
     private AnchorPane root;

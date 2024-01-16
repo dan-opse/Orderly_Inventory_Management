@@ -1,10 +1,4 @@
 /*
-@font-face {
-    font-family: 'helvetica';
-    src:url('src/main/resources/Fonts/Helvetica.ttf');
-}
-
-/*
 
 @LoginScene.FXML
 
@@ -49,7 +43,7 @@
 
 /* Login button */
 #loginButton {
-    -fx-background-color: #50576D;
+    -fx-background-color: #3a405a;
     -fx-background-insets: 0, 2;
     -fx-background-radius: 2;
     -fx-transition: all 0.5s ease; /* Transition for smooth animation */
@@ -70,7 +64,7 @@
 
 /* Quit button */
 #quitButton {
-    -fx-background-color: #50576D;
+    -fx-background-color: #3a405a;
     -fx-background-insets: 0, 2;
     -fx-background-radius: 2;
     -fx-transition: all 0.5s ease; /* Transition for smooth animation */

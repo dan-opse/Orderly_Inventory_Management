@@ -1,17 +1,13 @@
 package Controllers;
 
+import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
-import com.example.orderly_inventory_management.Student;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -26,23 +22,17 @@ import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
-
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class SignOutSceneController implements Initializable {
-
+public class DashboardController implements Initializable {
 
     /*--------------------------------------------------------------------------------*/
 
+    // Switching Scenes
 
-    /*
-     *
-     *   Switching Scenes
-     *
-     * */
-    Main m = new Main();
+    private final Main m = new Main();
+
     public void switchToDashboard() throws IOException {
         m.changeScene("DashboardScene.fxml");
     }
@@ -56,25 +46,23 @@ public class SignOutSceneController implements Initializable {
         m.changeScene("TransactionScene.fxml");
     }
 
-
     /*--------------------------------------------------------------------------------*/
 
+    // Draggable topBar + topBar actions
 
-    /*
-     *
-     *   Draggable topBar + topBar actions
-     *
-     * */
     @FXML
     private AnchorPane topBar;
+
     double x = 0;
     double y = 0;
+
     @FXML
     private Button closeButton;
     @FXML
     private Button minimizeButton;
     @FXML
     private Button fullScreenButton;
+
     public void fullScreenAction() {
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
@@ -102,70 +90,73 @@ public class SignOutSceneController implements Initializable {
     /*--------------------------------------------------------------------------------*/
 
 
-    /*
-     *
-     *   Entry modifications
-     *
-     * */
+    // Entry modifications
+
     @FXML
-    private TextField tf_name;
+    private TextField tf_component;
     @FXML
-    private TextField tf_item;
+    private ComboBox<String> cb_value;
     @FXML
     private TextField tf_amount;
     @FXML
-    private ComboBox<String> cb_returned;
+    private TextField tf_dlb;
     @FXML
-    private TextField tf_date;
+
+    private TextField tf_link;
     private ObjectId originalId;
-    private Student originalEntry;
+    private Items originalEntry;
+
     @FXML
     public void addEntry() {
 
-        String nName = tf_name.getText();
-        String nItem = tf_item.getText();
+        String nComponent = tf_component.getText();
+        String nValue = cb_value.getValue();
         String nAmount = tf_amount.getText();
-        String nReturned = cb_returned.getValue();
-        String nDate = tf_date.getText();
+        String nDlb = tf_dlb.getText();
+        String nLink = tf_link.getText();
 
         // Check if any of the fields are empty
-        if (nName.isBlank() || nItem == null || nAmount.isBlank() || nReturned == null || nDate.isBlank()) {
+        if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Add Component Entry");
+            alert.setHeaderText("Insufficient Information.");
+            alert.setContentText("Please add the sufficient information.");
 
-            showWarning("Error", "Insufficient information.", "Please add the sufficient information.");
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                alert.close();
+            }
             return;
-
         }
 
         // Create a new document with the input data
-        Document document = new Document("Name", nName)
-                .append("Item", nItem)
+        Document document = new Document("Component", nComponent)
+                .append("Value", nValue)
                 .append("Amount", nAmount)
-                .append("Returned", nReturned)
-                .append("Date", nDate);
+                .append("DateLastBought", nDlb)
+                .append("Link", nLink);
 
-        // Insert the document into the MongoDB collection
-        getCollection("signOutList").insertOne(document);
+        getCollection("componentList").insertOne(document);
         refreshTableView();
 
     }
     @FXML
     public void deleteEntry() {
 
-        ObservableList<Student> selectedStudents = table_students.getItems();
-        MongoCollection<Document> targetCollection = getCollection("signOutList");
+        ObservableList<Items> selectedItems = table_items.getItems();
+        MongoCollection<Document> targetCollection = getCollection("componentList");
 
         // Loop over selected items
-        for (Student selectedStudent : selectedStudents) {
-            boolean isSelected = col_select.getCellObservableValue(selectedStudent).getValue();
+        for (Items selectedItem : selectedItems) {
+            boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
 
             if (isSelected) {
-                String name = col_name.getCellData(selectedStudent);
-                String item = col_item.getCellData(selectedStudent);
-                String amount = String.valueOf(col_amount.getCellData(selectedStudent));
-                String returned = String.valueOf(col_returned.getCellData(selectedStudent));
-                String date = col_date.getCellData(selectedStudent);
+                String component = col_component.getCellData(selectedItem);
+                String value = col_value.getCellData(selectedItem);
+                String amount = col_amount.getCellData(selectedItem);
+                String dateLastBought = col_dlb.getCellData(selectedItem);
+                String link = col_link.getCellData(selectedItem);
 
-                Document document = new Document("Name", name).append("Item", item).append("Amount", amount).append("Returned", returned).append("Date", date);
+                Document document = new Document("Component", component).append("Value", value).append("Amount", amount).append("DateLastBought", dateLastBought).append("Link", link);
 
                 targetCollection.deleteOne(document);
                 refreshTableView();
@@ -176,7 +167,7 @@ public class SignOutSceneController implements Initializable {
         Bson filter = Filters.eq("_id", originalId);
 
         // Delete the document from the MongoDB collection
-        getCollection("signOutList").deleteOne(filter);
+        getCollection("componentList").deleteOne(filter);
         refreshTableView();
 
     }
@@ -187,46 +178,31 @@ public class SignOutSceneController implements Initializable {
             originalId = originalEntry.getId();
 
             // Get the values from the text fields
-            String nName = tf_name.getText();
-            String nItem = tf_item.getText();
+            String nComponent = tf_component.getText();
+            String nValue = cb_value.getValue();
             String nAmount = tf_amount.getText();
-            String nReturned = cb_returned.getValue();
-            String nDate = tf_date.getText();
+            String nDlb = tf_dlb.getText();
+            String nLink = tf_link.getText();
 
             // Check if any of the fields are empty
-            if (nName.isBlank() || nItem.isBlank() || nAmount.isBlank() || nReturned == null || nDate.isBlank()) {
+            if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
                 showWarning("Error", "Insufficient information", "Please fill in text fields.");
                 return;
             }
 
-            // Define the filter to find the document to update
+            // Create filter: Find the entry selected by using "ObjectId" -- Unique id generated when an entry is created by MongoDB
             Bson filter = Filters.eq("_id", originalId);
 
-            // Create a new document with the updated values
-            Document updatedDocument = new Document("Name", nName)
-                    .append("Item", nItem)
+            // Create a new entry
+            Document updatedDocument = new Document("Component", nComponent)
+                    .append("Value", nValue)
                     .append("Amount", nAmount)
-                    .append("Returned", nReturned)
-                    .append("Date", nDate);
+                    .append("DateLastBought", nDlb)
+                    .append("Link", nLink);
             Bson update = new Document("$set", updatedDocument);
 
             // Update the document in the MongoDB collection
-            getCollection("signOutList").updateOne(filter, update);
-
-            // If 'Returned' value updated as 'Yes' prompt user to remove entry
-            if (Objects.equals(cb_returned.getValue(), "Yes")) {
-
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setHeaderText("Returned has been set to true.");
-                alert.setContentText("Would you like to remove this entry?");
-
-                if (alert.showAndWait().get() == ButtonType.OK) {
-                    alert.close();
-                    deleteEntry();
-                }
-
-            }
-
+            getCollection("componentList").updateOne(filter, update);
             refreshTableView();
 
             // Reset entry values
@@ -242,69 +218,102 @@ public class SignOutSceneController implements Initializable {
     private void resetSelection() {
 
         // Deselect all entries in table-view
-        table_students.getSelectionModel().clearSelection();
+        table_items.getSelectionModel().clearSelection();
 
         // Clear individual text fields
-        tf_name.clear();
-        tf_item.clear();
+        tf_component.clear();
+        cb_value.setValue(null);
         tf_amount.clear();
-        cb_returned.setValue(null);
-        tf_date.clear();
+        tf_dlb.clear();
+        tf_link.clear();
 
+    }
+    @FXML
+    private void moveToTransactions() {
+
+        ObservableList<Items> selectedItems = table_items.getItems();
+        MongoCollection<Document> targetCollection = getCollection("transactionList");
+
+        // Loop over selected items
+        for (Items selectedItem : selectedItems) {
+            System.out.println("Testing...");
+            // Access the checkbox value for each row
+            boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
+
+            // If the checkbox is selected, perform export logic
+            if (isSelected) {
+                String component = col_component.getCellData(selectedItem);
+                System.out.println(component);
+                String value = col_value.getCellData(selectedItem);
+                String amount = col_amount.getCellData(selectedItem);
+                String dateLastBought = col_dlb.getCellData(selectedItem); // Adjust if needed
+                String link = col_link.getCellData(selectedItem);
+
+                // Perform export operation to MongoDB
+                // Create a new document with the extracted data
+                Document document = new Document("Component", component).append("Value", value).append("Amount", amount).append("DateLastBought", dateLastBought).append("Link", link);
+                // Insert the document into the target MongoDB collection
+                targetCollection.insertOne(document);
+            }
+        }
     }
     private void refreshTableView() {
 
-        ObservableList<Student> updatedList = retrieveDataFromMongoDB();
-        table_students.setItems(updatedList);
+        ObservableList<Items> updatedList = retrieveDataFromMongoDB();
+        table_items.setItems(updatedList);
 
     }
     private void showWarning(String title, String header, String content) {
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+
     }
 
 
     /*--------------------------------------------------------------------------------*/
 
 
-    /*
-     *
-     *   Tableview + keyword search
-     *
-     * */
+    // Tableview + keyword search
+
     @FXML
     public void searchTable(String keyword) {
+
+        // Convert to lowercase for broader/flexible search
         String lowerCaseKeyword = keyword.toLowerCase();
 
-        ObservableList<Student> filteredList = retrieveDataFromMongoDB().filtered(student ->
-                student.getName().toLowerCase().contains(lowerCaseKeyword) ||
-                        student.getItem().toLowerCase().contains(lowerCaseKeyword) ||
-                        student.getAmount().toLowerCase().contains(lowerCaseKeyword) ||
-                        student.getReturned().toLowerCase().contains(lowerCaseKeyword) ||
-                        student.getDate().toLowerCase().contains(lowerCaseKeyword)
+        // Create a filtered list & check if any item has the 'lowerCaseKeyword'
+        ObservableList<Items> filteredList = retrieveDataFromMongoDB().filtered(item ->
+                item.getComponent().toLowerCase().contains(lowerCaseKeyword) ||
+                        item.getValue().toLowerCase().contains(lowerCaseKeyword) ||
+                        item.getAmount().toLowerCase().contains(lowerCaseKeyword) ||
+                        item.getDateLastBought().toLowerCase().contains(lowerCaseKeyword) ||
+                        item.getLink().toLowerCase().contains(lowerCaseKeyword)
         );
 
-        table_students.setItems(filteredList);
+        // Set table-view to the filtered list to update live
+        table_items.setItems(filteredList);
+
     }
     @FXML
     private TextField keywordTextField;
     @FXML
-    private TableView<Student> table_students;
+    private TableView<Items> table_items;
     @FXML
-    private TableColumn<Student, String> col_name;
+    private TableColumn<Items, String> col_component;
     @FXML
-    private TableColumn<Student, String> col_item;
+    private TableColumn<Items, String> col_value;
     @FXML
-    private TableColumn<Student, Integer> col_amount;
+    private TableColumn<Items, String> col_amount;
     @FXML
-    private TableColumn<Student, Boolean> col_returned;
+    private TableColumn<Items, String> col_dlb;
     @FXML
-    private TableColumn<Student, String> col_date;
+    private TableColumn<Items, String> col_link;
     @FXML
-    private TableColumn<Student, Boolean> col_select;
+    private TableColumn<Items, Boolean> col_select;
 
 
     /*--------------------------------------------------------------------------------*/
@@ -315,10 +324,10 @@ public class SignOutSceneController implements Initializable {
 
         // Initialize 'Select' column in table-view
         col_select.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<Student, Boolean>, ObservableValue<Boolean>>() {
+                new Callback<TableColumn.CellDataFeatures<Items, Boolean>, ObservableValue<Boolean>>() {
                     @Override
-                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Student, Boolean> param) {
-                        Student entry = param.getValue();
+                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Items, Boolean> param) {
+                        Items entry = param.getValue();
                         SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(entry.isSelected());
                         booleanProp.addListener((observable, oldValue, newValue) -> entry.setSelected(newValue));
                         return booleanProp;
@@ -340,40 +349,39 @@ public class SignOutSceneController implements Initializable {
 
 
         // Add a listener to the selection property of the table view
-        table_students.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        table_items.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 originalEntry = newSelection;
                 originalId = newSelection.getId();
                 System.out.println(originalId);
                 // Update the text fields with the properties of the selected item
-                tf_name.setText(newSelection.getName());
-                tf_item.setText(newSelection.getItem());
+                tf_component.setText(newSelection.getComponent());
+                cb_value.setValue(newSelection.getValue());
                 tf_amount.setText(newSelection.getAmount());
-                cb_returned.setValue(newSelection.getReturned());
-                tf_date.setText(newSelection.getDate());
+                tf_dlb.setText(newSelection.getDateLastBought());
+                tf_link.setText(newSelection.getLink());
             } else {
                 // Clear the text fields if no item is selected
-                tf_name.clear();
-                tf_item.clear();
+                tf_component.clear();
+                cb_value.setValue(null);
                 tf_amount.clear();
-                cb_returned.setValue(null);
-                tf_date.clear();
+                tf_dlb.clear();
+                tf_link.clear();
             }
         });
 
-        // Initialize 'Returned' value in table-view
-        cb_returned.setItems(FXCollections.observableArrayList("No", "Yes"));
+        // Initialize choice box values
+        cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "100Ω", "1KΩ", "10KΩ", "100KΩ", "220Ω","220KΩ", "270Ω", "270KΩ", "470Ω", "4.7KΩ", "47KΩ", "470KΩ"));
 
-        // Grab initial list of students & populate table-view
-        ObservableList<Student> signOutList = retrieveDataFromMongoDB();
+        ObservableList<Items> componentList = retrieveDataFromMongoDB();
 
-        col_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        col_item.setCellValueFactory(new PropertyValueFactory<>("Item"));
+        col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));
+        col_value.setCellValueFactory(new PropertyValueFactory<>("Value"));
         col_amount.setCellValueFactory(new PropertyValueFactory<>("Amount"));
-        col_returned.setCellValueFactory(new PropertyValueFactory<>("Returned"));
-        col_date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        col_dlb.setCellValueFactory(new PropertyValueFactory<>("DateLastBought"));
+        col_link.setCellValueFactory(new PropertyValueFactory<>("Link"));
 
-        table_students.setItems(signOutList);
+        table_items.setItems(componentList);
 
         // Search
         keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -387,11 +395,11 @@ public class SignOutSceneController implements Initializable {
 
 
     // Retrieve data from 'componentList' collection in ORDERLY database
-    private ObservableList<Student> retrieveDataFromMongoDB() {
+    private ObservableList<Items> retrieveDataFromMongoDB() {
 
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
-        String collectionName = "signOutList";
+        String collectionName = "componentList";
 
         try (var mongoClient = MongoClients.create(connectionString)) {
             var database = mongoClient.getDatabase(databaseName);
@@ -399,24 +407,24 @@ public class SignOutSceneController implements Initializable {
 
             var cursor = collection.find().iterator();
 
-            ObservableList<Student> signOutList = FXCollections.observableArrayList();
+            ObservableList<Items> componentList = FXCollections.observableArrayList();
 
             while (cursor.hasNext()) {
                 var document = cursor.next();
 
-                var student = new Student(
-                        document.getString("Name"),
-                        document.getString("Item"),
+                var component = new Items(
+                        document.getString("Component"),
+                        document.getString("Value"),
                         document.getString("Amount"),
-                        document.getString("Returned"),
-                        document.getString("Date")
-                        // ... add more fields based on document structure
+                        document.getString("DateLastBought"),
+                        document.getString("Link")
+                        // ... add more fields based on your document structure
                 );
-                student.setId(document.getObjectId("_id"));
-                signOutList.add(student);
+                component.setId(document.getObjectId("_id"));
+                componentList.add(component);
             }
 
-            return signOutList;
+            return componentList;
         }
 
     }
@@ -432,4 +440,5 @@ public class SignOutSceneController implements Initializable {
         return database.getCollection(collectionName);
 
     }
+
 }

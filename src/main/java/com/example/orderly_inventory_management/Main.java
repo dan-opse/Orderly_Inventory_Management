@@ -29,7 +29,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
 
         stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/Assets/AppIcon.png"))));
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginScene.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("StudentLoginScene.fxml")));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/Stylesheets/Login.css")).toExternalForm());
         stage.initStyle(StageStyle.UNDECORATED);
@@ -89,6 +89,7 @@ public class Main extends Application {
         stg.setY(centerY);
 
     }
+
 
     /*
     *
