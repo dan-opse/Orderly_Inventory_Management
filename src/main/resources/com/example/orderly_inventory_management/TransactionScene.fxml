@@ -52,36 +52,36 @@
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
                                         </Button>
-                              <TextField fx:id="tf_component" layoutX="136.0" layoutY="38.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
+                              <TextField fx:id="tf_component" layoutX="136.0" layoutY="38.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="55.0" />
                               <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="39.0" prefHeight="20.0" prefWidth="115.0" text="Component" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="89.0" prefWidth="115.0" text="Value" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="100.0">
+                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="89.0" prefWidth="115.0" text="Value" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="95.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tf_amount" layoutX="170.0" layoutY="95.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="215.0" />
-                              <Label alignment="BASELINE_LEFT" layoutX="26.0" layoutY="138.0" prefWidth="115.0" text="Amount" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="185.0">
+                              <TextField fx:id="tf_amount" layoutX="170.0" layoutY="95.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="220.0" />
+                              <Label alignment="BASELINE_LEFT" layoutX="26.0" layoutY="138.0" prefWidth="115.0" text="Amount" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="180.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label alignment="BASELINE_LEFT" layoutX="26.0" layoutY="188.0" prefWidth="118.0" text="Date Last Bought" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
+                              <Label alignment="BASELINE_LEFT" layoutX="26.0" layoutY="188.0" prefWidth="118.0" text="Date Last Bought" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="265.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="238.0" prefWidth="115.0" text="Link" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="355.0">
+                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="238.0" prefWidth="115.0" text="Link" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="350.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tf_dlb" layoutX="170.0" layoutY="145.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="300.0" />
-                              <TextField fx:id="tf_link" layoutX="170.0" layoutY="195.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="385.0" />
-                              <ComboBox fx:id="cb_value" layoutX="15.0" layoutY="120.0" prefHeight="25.0" prefWidth="135.0" promptText="Choose" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="130.0" />
+                              <TextField fx:id="tf_dlb" layoutX="170.0" layoutY="145.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="305.0" />
+                              <TextField fx:id="tf_link" layoutX="170.0" layoutY="195.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="390.0" />
+                              <ComboBox fx:id="cb_value" layoutX="15.0" layoutY="120.0" prefHeight="30.0" prefWidth="135.0" promptText="Choose" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="135.0" />
                               <Button fx:id="deleteEntry" layoutX="126.0" layoutY="556.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#deleteEntry" prefHeight="40.0" stylesheets="@../../../Stylesheets/Global.css" text="Delete" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
@@ -93,11 +93,36 @@
                                  </font>
                               </Button>
                               <Line endX="280.0" layoutX="12.0" layoutY="490.0" startX="16.0" stroke="#989898" strokeWidth="2.0" AnchorPane.bottomAnchor="168.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" />
-                              <Button fx:id="resetAll" layoutX="25.0" layoutY="438.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#resetSelection" prefHeight="40.0" stylesheets="@../../../Stylesheets/Global.css" text="Reset All" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="426.0">
+                              <Button fx:id="resetAll" layoutX="25.0" layoutY="438.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#resetSelection" prefHeight="40.0" stylesheets="@../../../Stylesheets/Global.css" text="Reset All" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Button>
+                              <Label layoutX="17.0" layoutY="35.0" text="E.g., &quot;Resistor&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="35.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="115.0" text="E.g., &quot;100Ω&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="200.0" text="E.g., &quot;High&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="285.0" text="E.g., &quot;2024-01-01&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="370.0" text="E.g., &quot;https://&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="370.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
                                     </children>
                                     <BorderPane.margin>
                                         <Insets />
@@ -149,7 +174,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="exportCSVButton" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="54.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleExportButtonClick" prefHeight="50.0" stylesheets="@../../../Stylesheets/Transaction.css" text="Export .CSV" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="325.0">
+                        <Button fx:id="exportCSVButton" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="54.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleCSVExport" prefHeight="50.0" stylesheets="@../../../Stylesheets/Transaction.css" text="Export as CSV" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="325.0">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -157,7 +182,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="importCSVButton" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="25.0" layoutY="430.0" mnemonicParsing="false" prefHeight="50.0" stylesheets="@../../../Stylesheets/Transaction.css" text="Import .CSV" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="375.0">
+                        <Button fx:id="viewCSVFiles" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="25.0" layoutY="430.0" mnemonicParsing="false" prefHeight="50.0" stylesheets="@../../../Stylesheets/Transaction.css" text="View CSV Files" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="375.0">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -182,12 +207,12 @@
                         <Insets left="5.0" right="5.0" top="5.0" />
                     </BorderPane.margin>
                     <children>
-                        <Button fx:id="closeButton" layoutX="1297.0" layoutY="8.0" mnemonicParsing="false" onAction="#quitOnAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❌" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="closeButton" layoutX="1297.0" layoutY="8.0" mnemonicParsing="false" onAction="#quitOnAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❌" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="3.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Button>
-                        <Button fx:id="minimizeButton" layoutX="1262.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizeAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="−" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="minimizeButton" layoutX="1262.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizeAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="−" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="3.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -205,7 +230,7 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <Button fx:id="fullScreenButton" layoutX="1222.0" mnemonicParsing="false" onAction="#fullScreenAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❐" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="fullScreenButton" layoutX="1222.0" mnemonicParsing="false" onAction="#fullScreenAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❐" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="3.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>

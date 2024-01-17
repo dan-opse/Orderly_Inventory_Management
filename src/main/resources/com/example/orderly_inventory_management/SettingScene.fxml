@@ -70,12 +70,12 @@
                   <Insets left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
                <children>
-                  <Button fx:id="closeButton" layoutX="1297.0" layoutY="8.0" mnemonicParsing="false" onAction="#quitOnAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❌" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="closeButton" layoutX="1297.0" layoutY="8.0" mnemonicParsing="false" onAction="#quitOnAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❌" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="3.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="minimizeButton" layoutX="1262.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizeAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="−" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="minimizeButton" layoutX="1262.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizeAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="−" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="3.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -93,7 +93,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="fullScreenButton" layoutX="1222.0" mnemonicParsing="false" onAction="#fullScreenAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❐" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="fullScreenButton" layoutX="1222.0" mnemonicParsing="false" onAction="#fullScreenAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❐" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="3.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -127,7 +127,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <ComboBox layoutX="63.0" layoutY="55.0" prefWidth="150.0" promptText="Default Dark" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="60.0">
+                  <ComboBox fx:id="changeTheme" layoutX="63.0" layoutY="55.0" prefWidth="150.0" promptText="Default Dark" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="60.0">
                      <effect>
                         <ColorAdjust brightness="1.0" />
                      </effect>
@@ -136,7 +136,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField layoutX="186.0" layoutY="357.0" promptText="C://User/Downloads" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="186.0" AnchorPane.topAnchor="357.0" />
+                  <TextField layoutX="186.0" layoutY="357.0" promptText="Coming soon!" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="186.0" AnchorPane.topAnchor="357.0" />
                   <Label layoutX="30.0" layoutY="168.0" text="Low quantity reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0">
                      <font>
                         <Font size="15.0" />
@@ -169,12 +169,13 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button layoutX="465.0" layoutY="473.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="475.0" />
-                  <Button layoutX="449.0" layoutY="513.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="515.0" />
+                  <Button fx:id="changeUsernameButton" layoutX="444.0" layoutY="473.0" mnemonicParsing="false" onAction="#changeUsername" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="473.0" />
+                  <Button fx:id="changePasswordButton" layoutX="444.0" layoutY="513.0" mnemonicParsing="false" onAction="#changePassword" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="513.0" />
                   <Line endX="433.0" layoutX="115.0" layoutY="417.0" startX="-100.0" stroke="#101010" />
                   <CheckBox fx:id="allBox" layoutX="490.0" layoutY="252.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
                   <CheckBox fx:id="lateSignOutBox" layoutX="490.0" layoutY="212.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
                   <CheckBox fx:id="lowQuantityBox" layoutX="490.0" layoutY="172.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
+                  <Label fx:id="currentUsername" alignment="BASELINE_LEFT" layoutX="186.0" layoutY="476.0" prefHeight="20.0" prefWidth="230.0" style="-fx-background-color: #101010; -fx-background-radius: 2;" text="E.g., John Doe" textFill="#ffffff80" AnchorPane.topAnchor="476.0" />
                </children>
             </AnchorPane>
          </center>

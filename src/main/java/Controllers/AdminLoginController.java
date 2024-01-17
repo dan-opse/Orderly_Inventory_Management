@@ -91,9 +91,12 @@ public class AdminLoginController implements Initializable {
      *   Login method
      *
      * */
+    public static String username;
+
     public void login() throws IOException {
 
-        String username = usernameField.getText();
+        // Store username * password
+        username = usernameField.getText();
         String password = passwordField.getText();
 
         // If populated
@@ -116,6 +119,7 @@ public class AdminLoginController implements Initializable {
      *
      * */
     public boolean validateLogin() {
+
         try {
             String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
             String databaseName = "ORDERLY";

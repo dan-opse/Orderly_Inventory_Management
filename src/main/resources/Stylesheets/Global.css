@@ -111,6 +111,14 @@ Targeted CSS
 Not targeted CSS
 
 */
+
+/*  DEFAULT TEXT AREA    */
+.text-area {
+    -fx-control-inner-background: #101010;
+    -fx-text-fill: white;
+}
+
+
 /*  DEFAULT TEXT FIELD  */
 .text-field {
     -fx-background-color: transparent;

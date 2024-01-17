@@ -57,32 +57,32 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tf_name" layoutX="41.0" layoutY="48.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
-                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="89.0" prefWidth="115.0" text="Item" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="100.0">
+                              <TextField fx:id="tf_name" layoutX="41.0" layoutY="48.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="55.0" />
+                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="89.0" prefWidth="115.0" text="Item" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="95.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cb_returned" layoutX="175.0" layoutY="87.0" prefHeight="25.0" prefWidth="135.0" promptText="Choose" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="300.0" />
-                              <Label alignment="BASELINE_LEFT" layoutX="45.0" layoutY="190.0" prefWidth="115.0" text="Amount" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="185.0">
+                              <ComboBox fx:id="cb_returned" layoutX="175.0" layoutY="87.0" prefHeight="30.0" prefWidth="135.0" promptText="Choose" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="305.0" />
+                              <Label alignment="BASELINE_LEFT" layoutX="45.0" layoutY="190.0" prefWidth="115.0" text="Amount" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="180.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tf_amount" layoutX="12.0" layoutY="220.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="215.0" />
-                              <Label alignment="BASELINE_LEFT" layoutX="6.0" layoutY="271.0" prefWidth="118.0" text="Returned" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0">
+                              <TextField fx:id="tf_amount" layoutX="12.0" layoutY="220.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="220.0" />
+                              <Label alignment="BASELINE_LEFT" layoutX="6.0" layoutY="271.0" prefWidth="118.0" text="Returned" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="265.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tf_item" layoutX="170.0" layoutY="145.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="130.0" />
-                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="238.0" prefWidth="115.0" text="Date" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="355.0">
+                              <TextField fx:id="tf_item" layoutX="170.0" layoutY="145.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="135.0" />
+                              <Label alignment="BASELINE_LEFT" layoutX="25.0" layoutY="238.0" prefWidth="115.0" text="Date Signed Out" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="350.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tf_date" layoutX="170.0" layoutY="195.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="385.0" />
-                              <Button fx:id="resetAll" layoutX="25.0" layoutY="438.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#resetSelection" prefHeight="40.0" stylesheets="@../../../Stylesheets/Global.css" text="Reset All" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="426.0">
+                              <TextField fx:id="tf_date" layoutX="170.0" layoutY="195.0" prefHeight="30.0" prefWidth="135.0" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="390.0" />
+                              <Button fx:id="resetAll" layoutX="25.0" layoutY="438.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#resetSelection" prefHeight="40.0" stylesheets="@../../../Stylesheets/Global.css" text="Reset All" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -98,6 +98,31 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Button>
+                              <Label layoutX="14.0" layoutY="35.0" text="E.g., &quot;John Doe&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="35.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="115.0" text="E.g., &quot;Arduino Uno&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="200.0" text="E.g., &quot;1&quot;" textFill="#ffffff80" AnchorPane.leftAnchor="15.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="285.0" text="E.g., &quot;Yes&quot;" textFill="#ffffff80">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="370.0" text="E.g., &quot;2024-01-01&quot;" textFill="#ffffff80">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
                            </children>
                            <BorderPane.margin>
                               <Insets />

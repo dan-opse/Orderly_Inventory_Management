@@ -103,8 +103,6 @@ public class StudentSignOutController implements Initializable {
     @FXML
     private TableColumn<Student, Integer> col_amount;
     @FXML
-    private TableColumn<Student, Boolean> col_returned;
-    @FXML
     private TableColumn<Student, String> col_date;
 
 

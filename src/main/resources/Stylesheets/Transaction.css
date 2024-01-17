@@ -28,11 +28,11 @@
     -fx-scale-y: 1.05;
     -fx-scale-x: 1.05;
 }
-#importCSVButton {
+#viewCSVFiles {
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
 }
-#importCSVButton:hover {
+#viewCSVFiles:hover {
     -fx-background-color:#3d3d3d;
     -fx-background-radius:5;
     -fx-text-fill:white;

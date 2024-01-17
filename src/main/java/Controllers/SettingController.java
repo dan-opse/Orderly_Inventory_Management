@@ -1,11 +1,21 @@
 package Controllers;
 
+import com.example.orderly_inventory_management.AdminAccounts;
 import com.example.orderly_inventory_management.Main;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import org.w3c.dom.events.DocumentEvent;
 
 import java.io.*;
 import java.net.URL;
@@ -16,6 +26,7 @@ public class SettingController implements Initializable {
 
 
     /*--------------------------------------------------------------------------------*/
+
 
     // Switching scenes
 
@@ -36,6 +47,7 @@ public class SettingController implements Initializable {
 
 
     /*--------------------------------------------------------------------------------*/
+
 
     // Draggable topBar + topBar actions
 
@@ -78,6 +90,7 @@ public class SettingController implements Initializable {
 
     /*--------------------------------------------------------------------------------*/
 
+
     // Settings
 
     private static final String CONFIG_FILE = "src/main/resources/Config-Files/config.settings";
@@ -87,6 +100,12 @@ public class SettingController implements Initializable {
     private CheckBox lateSignOutBox;
     @FXML
     private CheckBox allBox;
+    @FXML
+    private Button changeUsernameButton;
+    @FXML
+    private Button changePasswordButton;
+    @FXML
+    private Label currentUsername;
 
     private boolean lowQuantityBoxState;
     private boolean lateSignOutBoxState;
@@ -151,9 +170,102 @@ public class SettingController implements Initializable {
         }
     }
 
+    // Initial retrieval of username for displays purpose
+    private String currentUser = AdminLoginController.username;
+
+    @FXML
+    private void changeUsername() {
+
+        // Create text dialog object
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Change username");
+        dialog.setHeaderText("Enter a new username:");
+
+        // Get result of dialog
+        dialog.showAndWait().ifPresent(newUsername -> {
+
+            // Get current user's _id
+            currentUser = AdminLoginController.username;
+
+            ObservableList<AdminAccounts> adminAccounts = retrieveDataFromMongoDB();
+
+            // Create stream called currentAdmin, allows you to work with collections/arrays more functionally
+            AdminAccounts currentAdmin = adminAccounts.stream()
+                    .filter(admin -> admin.getUsername().equals(currentUser))
+                    .findFirst()
+                    .orElse(null);
+
+            // If currentAdmin found in stream
+            if (currentAdmin != null) {
+
+                // Get current user's objectId
+                String currentUserID = currentAdmin.getId().toString();
+
+                MongoCollection<Document> collection = getCollection("adminAccounts");
+
+                // Create queries and $set the specified fields to given values
+                Document filter = new Document("_id", new ObjectId(currentUserID));
+                Document update = new Document("$set", new Document("Username", newUsername));
+
+                // Perform update
+                collection.updateOne(filter, update);
+
+            }
+        });
+
+        // Show change confirmation
+        System.out.println("Successfully changed username!");
+    }
+
+    @FXML
+    private void changePassword() {
+
+        // Create text dialog object
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Change password");
+        dialog.setHeaderText("Enter a new password:");
+
+        // Get result of dialog
+        dialog.showAndWait().ifPresent(newPassword -> {
+
+            // Get current user's _id
+            currentUser = AdminLoginController.username;
+
+            ObservableList<AdminAccounts> adminAccounts = retrieveDataFromMongoDB();
+
+            // Create stream called currentAdmin, allows you to work with collections/arrays more functionally
+            AdminAccounts currentAdmin = adminAccounts.stream()
+                    .filter(admin -> admin.getUsername().equals(currentUser))
+                    .findFirst()
+                    .orElse(null);
+
+            // If currentAdmin found in stream
+            if (currentAdmin != null) {
+
+                // Get current user's objectId
+                String currentUserID = currentAdmin.getId().toString();
+
+                MongoCollection<Document> collection = getCollection("adminAccounts");
+
+                // Create queries and $set the specified fields to given values
+                Document filter = new Document("_id", new ObjectId(currentUserID));
+                Document update = new Document("$set", new Document("Password", newPassword));
+
+                // Perform update
+                collection.updateOne(filter, update);
+
+            }
+        });
+
+        // Show change confirmation
+        System.out.println("Successfully changed password!");
+    }
 
     /*--------------------------------------------------------------------------------*/
 
+
+    @FXML
+    private ComboBox<String> changeTheme;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -187,6 +299,53 @@ public class SettingController implements Initializable {
             handleCheckboxActions();
         });
 
+        changeTheme.setItems(FXCollections.observableArrayList("Coming soon!"));
+
+        currentUsername.setText(currentUser);
+    }
+
+    // Retrieve data from 'adminAccounts' collection in ORDERLY database
+    private ObservableList<AdminAccounts> retrieveDataFromMongoDB() {
+
+        // Database connection variables
+        String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
+        String databaseName = "ORDERLY";
+        String collectionName = "adminAccounts";
+
+        // Try connection
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase(databaseName);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+
+            var cursor = collection.find().iterator();
+
+            ObservableList<AdminAccounts> adminAccounts = FXCollections.observableArrayList();
+
+            while (cursor.hasNext()) {
+                var document = cursor.next();
+
+                AdminAccounts admin = new AdminAccounts(
+                        document.getString("Username"),
+                        document.getString("Password")
+                );
+                admin.setId(document.getObjectId("_id"));
+                adminAccounts.add(admin);
+            }
+
+            return adminAccounts;
+        }
+
+    }
+
+    // Helper method to get the MongoDB collection
+    private MongoCollection<Document> getCollection(String collectionName) {
+
+        String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
+        String databaseName = "ORDERLY";
+
+        MongoClient mongoClient = MongoClients.create(connectionString);
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
+        return database.getCollection(collectionName);
 
     }
 }
