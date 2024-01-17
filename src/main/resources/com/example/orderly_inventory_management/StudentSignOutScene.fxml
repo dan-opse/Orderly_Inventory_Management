@@ -23,7 +23,6 @@
                   <TableColumn fx:id="col_name" prefWidth="75.0" text="Name" />
                   <TableColumn fx:id="col_item" prefWidth="75.0" text="Item" />
                   <TableColumn fx:id="col_amount" prefWidth="75.0" text="Amount" />
-                  <TableColumn fx:id="col_returned" prefWidth="75.0" text="Returned" />
                   <TableColumn fx:id="col_date" prefWidth="75.0" text="Date Checked Out" />
                </columns>
                <opaqueInsets>

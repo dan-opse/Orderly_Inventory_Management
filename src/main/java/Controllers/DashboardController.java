@@ -27,7 +27,9 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
+
     /*--------------------------------------------------------------------------------*/
+
 
     // Switching Scenes
 
@@ -46,7 +48,9 @@ public class DashboardController implements Initializable {
         m.changeScene("TransactionScene.fxml");
     }
 
+
     /*--------------------------------------------------------------------------------*/
+
 
     // Draggable topBar + topBar actions
 
@@ -83,6 +87,70 @@ public class DashboardController implements Initializable {
         if (alert.showAndWait().get() == ButtonType.OK) {
             System.out.println("You successfully logged out!");
             stage.close();
+        }
+    }
+
+
+    /*--------------------------------------------------------------------------------*/
+
+
+    @FXML
+    private Button addLinks;
+    @FXML
+    private TextArea linkTab;
+    @FXML
+    private TextField amountUpdater;
+
+    @FXML
+    public void loadLinks()
+    {
+        linkTab.clear();
+        ObservableList<Items> selectedItems = table_items.getItems();
+        for (Items selectedItem : selectedItems) {
+            boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
+
+            if (isSelected) {
+                String link = col_link.getCellData(selectedItem);
+                linkTab.appendText(link+"\n");
+            }
+        }
+    }
+
+    @FXML
+    private void updateAmount() {
+        ObservableList<Items> selectedItems = table_items.getItems();
+
+
+        for (Items selectedItem : selectedItems) {
+            // Assuming col_select is a CheckBoxTableCell
+            boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
+
+
+            if (isSelected) {
+                originalId = selectedItem.getId();  // Assuming each item has an ID property
+                Bson filter = Filters.eq("_id", originalId);
+
+
+                String nComponent = col_component.getCellData(selectedItem);
+                String nValue = col_value.getCellData(selectedItem);
+                String nAmount = amountUpdater.getText();
+                String nDlb = col_dlb.getCellData(selectedItem);
+                String nLink = col_link.getCellData(selectedItem);
+
+
+                System.out.println(nComponent + " " + nValue + " " + nAmount + " " + nDlb + " " + nLink);
+
+
+                Document updatedDocument = new Document("Component", nComponent)
+                        .append("Value", nValue)
+                        .append("Amount", nAmount)
+                        .append("DateLastBought", nDlb)
+                        .append("Link", nLink);
+                Bson update = new Document("$set", updatedDocument);
+
+
+                getCollection("componentList").updateOne(filter, update);
+            }
         }
     }
 
@@ -174,7 +242,9 @@ public class DashboardController implements Initializable {
     @FXML
     private void updateEntry() {
 
+        // If entry is selected and id is not null
         if (originalEntry != null && originalEntry.getId() != null) {
+            // Store originalId
             originalId = originalEntry.getId();
 
             // Get the values from the text fields

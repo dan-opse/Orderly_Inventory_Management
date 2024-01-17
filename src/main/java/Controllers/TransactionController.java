@@ -4,6 +4,7 @@ import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,15 +15,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TransactionController implements Initializable {
@@ -101,40 +103,77 @@ public class TransactionController implements Initializable {
     *   Exporting & Importing as .CSV
     *
     * */
-    @FXML
-    public void handleExportButtonClick() {
-        System.out.println("Exporting...");
-        // MongoDB connection parameters
-        String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
-        String databaseName = "ORDERLY";
-        String collectionName = "transactionList";
 
-        // MongoDB connection
-        try (var mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase(databaseName);
-            MongoCollection<Document> collection = database.getCollection(collectionName);
+    public void handleCSVExport() {
 
-            // Query MongoDB collection
-            FindIterable<Document> documents = collection.find();
+        // Retrieve all items in table-view
+        List<Items> items = table_items.getItems();
+        exportToCSV(items, "src/main/resources/CSV-Files/transaction_data.csv");
 
-            // Export to CSV
-            exportToCSV(documents, "C:Downloads");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-    // Export CSV
-    private void exportToCSV(FindIterable<Document> documents, String filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            for (Document document : documents) {
-                // Customize this based on your document structure
-                String csvLine = document.get("field1") + "," + document.get("field2") + "\n";
-                writer.write(csvLine);
+
+//    public void handleCSVImport() {
+//
+//        // Populate list with CSV data
+//        List<Items> importedItems = importFromCSV("");
+//
+//    }
+
+    public void exportToCSV(List<Items> items, String fp) {
+        try (FileWriter fw = new FileWriter(fp)) {
+
+            // Write header
+            fw.append("Component,Value,Amount,DateLastBought,Link\n");
+
+            // Write data
+            for (Items item : items) {
+                fw.append(String.format("%s,%s,%s,%s,%s\n",
+                        item.getComponent(), item.getValue(), item.getAmount(), item.getDateLastBought(), item.getLink()));
             }
+
+            System.out.println("CSV exported successfully");
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
+
+//    public List<Items> importFromCSV(String fp) throws FileNotFoundException {
+//
+//        table_items.getItems().clear();
+//
+//        List<Items> items = new ArrayList<>();
+//
+//        FileReader fr = new FileReader(fp);
+//        try (BufferedReader br = new BufferedReader(fr)) {
+//
+//            String line;
+//            // Skip header
+//            br.readLine();
+//
+//            while((line = br.readLine()) != null) {
+//                // Split by comma
+//                String[] data = line.split(",");
+//                if (data.length == 5) {
+//                    String Component = data[0].trim();
+//                    String Value = data[1].trim();
+//                    String Amount = data[2].trim();
+//                    String DateLastBought = data[3].trim();
+//                    String Link = data[4].trim();
+//
+//                    items.add(new Items(Component, Value, Amount, DateLastBought, Link));
+//                }
+//            }
+//
+//            System.out.println("CSV Imported Successfully!");
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return items;
+//
+//    }
 
 
     /*--------------------------------------------------------------------------------*/
