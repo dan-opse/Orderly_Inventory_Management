@@ -5,7 +5,7 @@
 */
 
 
-// Static dashboardButton
+/*    Static dashboardButton/Color does not change    */
 #dashboardButton {
     -fx-background-color:#3d3d3d;
     -fx-background-radius:5;
