@@ -1,19 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
 
-
 /*
 
-@Global.css styles that most fxml files use
+@Global.css | CSS styles that almost all FXML scenes use
 
 */
-
-
-/*
-
-Targeted CSS
-
-*/
-
 
 #logo {
     -fx-text-fill: white;
@@ -29,7 +20,9 @@ Targeted CSS
 }
 
 
-/*  MENU BUTTONS    */
+/*    Targeted CSS (#)   */
+
+/*    MENU BUTTONS    */
 #dashboardButton {
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
@@ -44,6 +37,8 @@ Targeted CSS
     -fx-background-radius:5;
     -fx-text-fill:white;
 }
+
+
 #signOutButton {
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
@@ -58,6 +53,8 @@ Targeted CSS
     -fx-background-radius:5;
     -fx-text-fill:white;
 }
+
+
 #transactionButton {
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
@@ -72,18 +69,9 @@ Targeted CSS
     -fx-background-radius:5;
     -fx-text-fill:white;
 }
-#notiButton {
-    -fx-background-color:transparent;
-    -fx-text-fill:#989898;
-}
-#notiButton:hover {
-    -fx-background-color:#3d3d3d;
-    -fx-background-radius:5;
-    -fx-text-fill:white;
-}
 
 
-/* Window view buttons */
+/*    Top bar buttons    */
 #minimizeButton {
     -fx-background-color:transparent;
 }
@@ -92,6 +80,8 @@ Targeted CSS
     -fx-background-radius:3;
     -fx-border-color:transparent;
 }
+
+
 #closeButton {
     -fx-background-color:transparent;
 }
@@ -100,6 +90,8 @@ Targeted CSS
     -fx-background-radius:3;
     -fx-border-color:transparent;
 }
+
+
 #fullScreenButton {
     -fx-background-color:transparent;
 }
@@ -110,6 +102,7 @@ Targeted CSS
 }
 
 
+/*    Reset all text-fields to blank/null    */
 #resetAll {
     -fx-background-color: #3498db;
     -fx-text-fill: #fff;
@@ -124,19 +117,20 @@ Targeted CSS
 }
 
 
-
 /*
 
-Not targeted CSS
+Untargeted CSS | Target classes, e.g., .label targets all label objects
 
 */
 
-/*  DEFAULT TEXT AREA    */
+
+/*    DEFAULT TEXT AREA    */
 .text-area {
     -fx-control-inner-background: #101010;
 }
 
-/*  DEFAULT TEXT FIELD  */
+
+/*    DEFAULT TEXT FIELD    */
 .text-field {
     -fx-background-color: transparent;
     -fx-background-radius:5;
@@ -145,7 +139,9 @@ Not targeted CSS
     -fx-border-width:1;
     -fx-text-fill:white;
 }
-/*  DEFAULT BUTTON     */
+
+
+/*    DEFAULT BUTTON    */
 .button {
     -fx-cursor: hand;
     -fx-background-color: #282828;
@@ -161,7 +157,9 @@ Not targeted CSS
     -fx-background-radius:5;
     -fx-text-fill:black;
 }
-/*  Select Value || Sort  */
+
+
+/*    DEFAULT COMBO-BOX    */
 .combo-box {
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -175,7 +173,9 @@ Not targeted CSS
 .combo-box .label {
     -fx-text-fill:white;
 }
-/*  Checkbox    */
+
+
+/*    DEFAULT CHECK-BOX    */
 .check-box .box{
     -fx-background-color: transparent;
     -fx-border-color: white;
@@ -196,51 +196,37 @@ Not targeted CSS
 }
 
 
-/*
-
-Tableview
-
-*/
-
-
+/*    DEFAULT TABLE-VIEW    */
 /* Set background color for the entire TableView */
 .table-view {
     -fx-background-color: transparent; /* Light gray background color */
     -fx-text-fill:white;
 }
-
 /* Set background color for table headers */
 .table-view .column-header{
     -fx-background-color: #1c1c1c;
-    -fx-text-fill: white; /* Header text color */
+    -fx-text-fill: white;
 }
-
 .table-view .column-header .label {
     -fx-text-fill:white;
 }
-
 /* Set background color for even rows */
 .table-row-cell:even {
     -fx-background-color: #282828; /* Alternate row background color */
     -fx-border-color: transparent;
 }
-
 /* Set background color for odd rows */
 .table-row-cell:odd {
     -fx-background-color: #1c1c1c; /* Alternate row background color */
     -fx-border-color: transparent;
 }
-
 /* Set text color for cells */
 .table-cell {
     -fx-text-fill: white; /* Cell text color */
     -fx-border-color: transparent;
 }
-
 /* Set selection color for cells */
 .table-row-cell:selected {
     -fx-background-color: #2980b9; /* Selected row background color */
     -fx-text-fill: white; /* Selected cell text color */
 }
-
-

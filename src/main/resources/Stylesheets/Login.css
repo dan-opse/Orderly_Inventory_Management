@@ -6,6 +6,7 @@
 */
 
 
+/*    REMOVE THE FOLLOWING TOPBAR BUTTONS AS 'Global.css' ALREADY HAVE THEM    */
 
 /* Minimize buttons */
 #minimizeButton {
@@ -25,24 +26,6 @@
     -fx-background-radius:0;
 }
 
-/*  Checkbox    */
-#rememberDevice .box{
-    -fx-background-color: white;
-    -fx-border-radius:2;
-    -fx-background-size: 5;
-}
-#rememberDevice:selected .mark {
-    -fx-background-color:white;
-    -fx-background-radius:2;
-    -fx-shape: "M3 3 L11 11 M3 11 L11 3";
-    -fx-scale-shape: false;
-    -fx-stroke-type: outside;
-    -fx-stroke-width: 2;
-    -fx-stroke: white;
-}
-#rememberDevice:selected .box {
-    -fx-background-color:#8d99ae;
-}
 
 /* Login button */
 #loginButton {
@@ -85,5 +68,3 @@
     -fx-scale-y: 0.95;
     -fx-transition: all 0.5s ease; /* Smooth transition on click */
 }
-
-/* ----------------------------------------------------------------------- */
