@@ -2,10 +2,10 @@ package Controllers;
 
 import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
+import com.example.orderly_inventory_management.Student;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +15,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -68,17 +67,22 @@ public class DashboardController implements Initializable {
     private Button fullScreenButton;
 
     public void fullScreenAction() {
+
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
+
     }
     public void minimizeAction() {
+
         Stage stage = (Stage)minimizeButton.getScene().getWindow();
         stage.setIconified(true);
+
     }
     public void quitOnAction() {
 
         Stage stage = (Stage) closeButton.getScene().getWindow();
 
+        // Not using 'showWarning()' method because requires obtaining 'stage' to close the stage
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You're about to be logged out!");
@@ -88,6 +92,7 @@ public class DashboardController implements Initializable {
             System.out.println("You successfully logged out!");
             stage.close();
         }
+
     }
 
 
@@ -95,52 +100,65 @@ public class DashboardController implements Initializable {
 
 
     @FXML
-    private Button addLinks;
-    @FXML
     private TextArea linkTab;
     @FXML
     private TextField amountUpdater;
 
     @FXML
-    public void loadLinks()
-    {
+    public void loadLinks() {
+
+        // Clear text-area
         linkTab.clear();
+
+        // Store all selectedItems
         ObservableList<Items> selectedItems = table_items.getItems();
+
+        // Loop over items
         for (Items selectedItem : selectedItems) {
             boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
 
+            // Check if selected column is selected
             if (isSelected) {
+                // Create string to store link value and append to text-area
                 String link = col_link.getCellData(selectedItem);
                 linkTab.appendText(link+"\n");
             }
         }
+
     }
 
     @FXML
     private void updateAmount() {
+
+        // Store all selectedItems
         ObservableList<Items> selectedItems = table_items.getItems();
 
-
+        // Loop over selected items
         for (Items selectedItem : selectedItems) {
+
             // Assuming col_select is a CheckBoxTableCell
             boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
 
-
+            // Check if selected column is selected
             if (isSelected) {
-                originalId = selectedItem.getId();  // Assuming each item has an ID property
+
+                // Assuming each item has an ID property
+                originalId = selectedItem.getId();
+
+                // Create filter to identify target entry
                 Bson filter = Filters.eq("_id", originalId);
 
-
+                // Store values of selected items
                 String nComponent = col_component.getCellData(selectedItem);
                 String nValue = col_value.getCellData(selectedItem);
                 String nAmount = amountUpdater.getText();
                 String nDlb = col_dlb.getCellData(selectedItem);
                 String nLink = col_link.getCellData(selectedItem);
 
-
+                // Confirmation
                 System.out.println(nComponent + " " + nValue + " " + nAmount + " " + nDlb + " " + nLink);
 
-
+                // Create new updatedDocument and $set the update Bson
                 Document updatedDocument = new Document("Component", nComponent)
                         .append("Value", nValue)
                         .append("Amount", nAmount)
@@ -148,7 +166,7 @@ public class DashboardController implements Initializable {
                         .append("Link", nLink);
                 Bson update = new Document("$set", updatedDocument);
 
-
+                // Apply the filter and update document
                 getCollection("componentList").updateOne(filter, update);
             }
         }
@@ -177,6 +195,7 @@ public class DashboardController implements Initializable {
     @FXML
     public void addEntry() {
 
+        // Store values from text-fields
         String nComponent = tf_component.getText();
         String nValue = cb_value.getValue();
         String nAmount = tf_amount.getText();
@@ -185,14 +204,9 @@ public class DashboardController implements Initializable {
 
         // Check if any of the fields are empty
         if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Add Component Entry");
-            alert.setHeaderText("Insufficient Information.");
-            alert.setContentText("Please add the sufficient information.");
 
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                alert.close();
-            }
+            showWarning("Add Component Entry", "Insufficient Information.", "Please add the sufficient information.");
+
             return;
         }
 
@@ -217,6 +231,7 @@ public class DashboardController implements Initializable {
         for (Items selectedItem : selectedItems) {
             boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
 
+            // Check if selected column is selected
             if (isSelected) {
                 String component = col_component.getCellData(selectedItem);
                 String value = col_value.getCellData(selectedItem);
@@ -224,7 +239,12 @@ public class DashboardController implements Initializable {
                 String dateLastBought = col_dlb.getCellData(selectedItem);
                 String link = col_link.getCellData(selectedItem);
 
-                Document document = new Document("Component", component).append("Value", value).append("Amount", amount).append("DateLastBought", dateLastBought).append("Link", link);
+                // Create document to delete
+                Document document = new Document("Component", component)
+                        .append("Value", value)
+                        .append("Amount", amount)
+                        .append("DateLastBought", dateLastBought)
+                        .append("Link", link);
 
                 targetCollection.deleteOne(document);
                 refreshTableView();
@@ -264,6 +284,7 @@ public class DashboardController implements Initializable {
             Bson filter = Filters.eq("_id", originalId);
 
             // Create a new entry
+            // $set the updateDocument to binary Json to 'updateOne()'
             Document updatedDocument = new Document("Component", nComponent)
                     .append("Value", nValue)
                     .append("Amount", nAmount)
@@ -355,7 +376,11 @@ public class DashboardController implements Initializable {
         // Convert to lowercase for broader/flexible search
         String lowerCaseKeyword = keyword.toLowerCase();
 
-        // Create a filtered list & check if any item has the 'lowerCaseKeyword'
+        // Create list
+        // Predicate: Item
+        // 'Predicate' creates a filter, in this case you create an item filter
+        // and check each value in each column using .contains()
+        // The table-view is then updated
         ObservableList<Items> filteredList = retrieveDataFromMongoDB().filtered(item ->
                 item.getComponent().toLowerCase().contains(lowerCaseKeyword) ||
                         item.getValue().toLowerCase().contains(lowerCaseKeyword) ||
@@ -368,6 +393,8 @@ public class DashboardController implements Initializable {
         table_items.setItems(filteredList);
 
     }
+
+    // Initialize table-view variables
     @FXML
     private TextField keywordTextField;
     @FXML
@@ -394,14 +421,11 @@ public class DashboardController implements Initializable {
 
         // Initialize 'Select' column in table-view
         col_select.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<Items, Boolean>, ObservableValue<Boolean>>() {
-                    @Override
-                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Items, Boolean> param) {
-                        Items entry = param.getValue();
-                        SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(entry.isSelected());
-                        booleanProp.addListener((observable, oldValue, newValue) -> entry.setSelected(newValue));
-                        return booleanProp;
-                    }
+                param -> {
+                    Items entry = param.getValue();
+                    SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(entry.isSelected());
+                    booleanProp.addListener((observable, oldValue, newValue) -> entry.setSelected(newValue));
+                    return booleanProp;
                 }
         );
         col_select.setCellFactory(CheckBoxTableCell.forTableColumn(col_select));
@@ -421,9 +445,14 @@ public class DashboardController implements Initializable {
         // Add a listener to the selection property of the table view
         table_items.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+
+                // Stores the current entry chosen as a Student object and the _id as a ObjectId, this makes sure that when you are editing
+                // the text-fields on the right the update, delete, and add methods can use the ObjectId as a Bson filter
+                // instead of any other values such as "DateLastBought"
                 originalEntry = newSelection;
                 originalId = newSelection.getId();
                 System.out.println(originalId);
+
                 // Update the text fields with the properties of the selected item
                 tf_component.setText(newSelection.getComponent());
                 cb_value.setValue(newSelection.getValue());
@@ -443,6 +472,7 @@ public class DashboardController implements Initializable {
         // Initialize choice box values
         cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "100Ω", "1KΩ", "10KΩ", "100KΩ", "220Ω","220KΩ", "270Ω", "270KΩ", "470Ω", "4.7KΩ", "47KΩ", "470KΩ"));
 
+        // Grab initial list of students & populate table-view
         ObservableList<Items> componentList = retrieveDataFromMongoDB();
 
         col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));
@@ -454,9 +484,7 @@ public class DashboardController implements Initializable {
         table_items.setItems(componentList);
 
         // Search
-        keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            searchTable(newValue);
-        });
+        keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> searchTable(newValue));
 
     }
 
@@ -467,31 +495,35 @@ public class DashboardController implements Initializable {
     // Retrieve data from 'componentList' collection in ORDERLY database
     private ObservableList<Items> retrieveDataFromMongoDB() {
 
+        // Initialize connection details
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
         String collectionName = "componentList";
 
-        try (var mongoClient = MongoClients.create(connectionString)) {
-            var database = mongoClient.getDatabase(databaseName);
-            var collection = database.getCollection(collectionName);
+        // Try connection
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase(databaseName);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            var cursor = collection.find().iterator();
-
+            // Create new list to be filled with database data
             ObservableList<Items> componentList = FXCollections.observableArrayList();
 
-            while (cursor.hasNext()) {
-                var document = cursor.next();
+            // Loop through the whole database and store them in 'document'
+            for (Document document : collection.find()) {
 
-                var component = new Items(
+                // Create variable to store and kinda append to database
+                Items items = new Items(
                         document.getString("Component"),
                         document.getString("Value"),
                         document.getString("Amount"),
                         document.getString("DateLastBought"),
                         document.getString("Link")
-                        // ... add more fields based on your document structure
                 );
-                component.setId(document.getObjectId("_id"));
-                componentList.add(component);
+                // Before adding to database, set the 'ObjectId' to the one created by MongoDB
+                items.setId(document.getObjectId("_id"));
+
+                // Add to database
+                componentList.add(items);
             }
 
             return componentList;
@@ -502,11 +534,13 @@ public class DashboardController implements Initializable {
     // Helper method to get the MongoDB collection
     private MongoCollection<Document> getCollection(String collectionName) {
 
+        // Initialize connection details
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
 
         MongoClient mongoClient = MongoClients.create(connectionString);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
+
         return database.getCollection(collectionName);
 
     }

@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.w3c.dom.events.DocumentEvent;
 
 import java.io.*;
 import java.net.URL;
@@ -100,10 +99,7 @@ public class SettingController implements Initializable {
     private CheckBox lateSignOutBox;
     @FXML
     private CheckBox allBox;
-    @FXML
-    private Button changeUsernameButton;
-    @FXML
-    private Button changePasswordButton;
+
     @FXML
     private Label currentUsername;
 
@@ -201,7 +197,7 @@ public class SettingController implements Initializable {
                 // Get current user's objectId
                 String currentUserID = currentAdmin.getId().toString();
 
-                MongoCollection<Document> collection = getCollection("adminAccounts");
+                MongoCollection<Document> collection = getCollection();
 
                 // Create queries and $set the specified fields to given values
                 Document filter = new Document("_id", new ObjectId(currentUserID));
@@ -209,12 +205,16 @@ public class SettingController implements Initializable {
 
                 // Perform update
                 collection.updateOne(filter, update);
+                currentUsername.setText(newUsername);
+
+                AdminLoginController.username = newUsername;
 
             }
         });
 
         // Show change confirmation
         System.out.println("Successfully changed username!");
+
     }
 
     @FXML
@@ -245,7 +245,7 @@ public class SettingController implements Initializable {
                 // Get current user's objectId
                 String currentUserID = currentAdmin.getId().toString();
 
-                MongoCollection<Document> collection = getCollection("adminAccounts");
+                MongoCollection<Document> collection = getCollection();
 
                 // Create queries and $set the specified fields to given values
                 Document filter = new Document("_id", new ObjectId(currentUserID));
@@ -317,19 +317,19 @@ public class SettingController implements Initializable {
             MongoDatabase database = mongoClient.getDatabase(databaseName);
             MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            var cursor = collection.find().iterator();
-
             ObservableList<AdminAccounts> adminAccounts = FXCollections.observableArrayList();
 
-            while (cursor.hasNext()) {
-                var document = cursor.next();
+            // Loop through the whole database and store them in 'document'
+            for (Document document : collection.find()) {
 
+                // Create admin variable to store and kinda append to database
                 AdminAccounts admin = new AdminAccounts(
-                        document.getString("Username"),
-                        document.getString("Password")
+                        document.getString("Component"),
+                        document.getString("Value")
                 );
                 admin.setId(document.getObjectId("_id"));
                 adminAccounts.add(admin);
+
             }
 
             return adminAccounts;
@@ -338,14 +338,14 @@ public class SettingController implements Initializable {
     }
 
     // Helper method to get the MongoDB collection
-    private MongoCollection<Document> getCollection(String collectionName) {
+    private MongoCollection<Document> getCollection() {
 
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
 
         MongoClient mongoClient = MongoClients.create(connectionString);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
-        return database.getCollection(collectionName);
+        return database.getCollection("adminAccounts");
 
     }
 }

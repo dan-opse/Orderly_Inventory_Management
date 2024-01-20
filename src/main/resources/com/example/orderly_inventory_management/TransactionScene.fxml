@@ -225,7 +225,7 @@
                         <ColorAdjust brightness="1.0" />
                      </effect>
                         </ImageView>
-                        <Label alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">
+                        <Label fx:id="logo" alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>

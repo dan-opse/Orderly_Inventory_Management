@@ -18,7 +18,9 @@ import java.util.ResourceBundle;
 
 public class AdminLoginController implements Initializable {
 
+
     /*--------------------------------------------------------------------------------*/
+
 
     /*
      *
@@ -27,8 +29,13 @@ public class AdminLoginController implements Initializable {
      * */
     @FXML
     private AnchorPane root;
+
     private double x = 0;
     private double y = 0;
+
+
+    /*--------------------------------------------------------------------------------*/
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,18 +53,21 @@ public class AdminLoginController implements Initializable {
     }
 
     @FXML
-    private Button loginButton;
-    @FXML
     private Button quitButton;
     @FXML
     private Button minimizeButton;
+
     public void minimizeAction() {
+
         Stage stage = (Stage)minimizeButton.getScene().getWindow();
         stage.setIconified(true);
+
     }
     public void quitOnAction() {
+
         Stage stage = (Stage) quitButton.getScene().getWindow();
         stage.close();
+
     }
 
 
@@ -69,7 +79,6 @@ public class AdminLoginController implements Initializable {
      *   Login buttons
      *
      * */
-
     Main m = new Main();
 
     @FXML
@@ -95,13 +104,14 @@ public class AdminLoginController implements Initializable {
 
     public void login() throws IOException {
 
-        // Store username * password
+        // Store username and password
         username = usernameField.getText();
         String password = passwordField.getText();
 
-        // If populated
+        // Check for empty fields
         if (!username.isBlank() && !password.isBlank()) {
 
+            // Check if username & password are found in database entry
             if(validateLogin()) {
                 m.changeScene("DashboardScene.fxml");
             }
@@ -120,19 +130,24 @@ public class AdminLoginController implements Initializable {
      * */
     public boolean validateLogin() {
 
+        // Validate login against the database
         try {
+            // Initialize connection variables/details
             String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
             String databaseName = "ORDERLY";
             String collectionName = "adminAccounts";
 
+            // Try connection
             try (MongoClient mongoClient = MongoClients.create(connectionString)) {
                 MongoDatabase database = mongoClient.getDatabase(databaseName);
                 MongoCollection<Document> collection = database.getCollection(collectionName);
 
+                // Create a temporary document with user entered values
                 Document query = new Document("Username", usernameField.getText()).append("Password", passwordField.getText());
 
-                // Execute the query
+                // Find a document that matches the temp document above
                 try (MongoCursor<Document> cursor = collection.find(query).iterator()) {
+
                     // If a matching document is found
                     if (cursor.hasNext()) {
                         loginMessage.setText("Welcome, " + usernameField.getText());
@@ -144,6 +159,7 @@ public class AdminLoginController implements Initializable {
                 }
             }
         } catch (Exception e) {
+            //noinspection CallToPrintStackTrace
             e.printStackTrace();
         }
         return false;

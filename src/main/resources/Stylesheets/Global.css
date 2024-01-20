@@ -1,9 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
 /*
 
 @Global.css | CSS styles that almost all FXML scenes use
 
 */
 
+#logo {
+    -fx-text-fill: white;
+    -fx-font-family: 'Montserrat ExtraBold', sans-serif;
+    -fx-font-weight: 800;
+    -fx-font-size: 18;
+}
+#loginLogo {
+    -fx-text-fill: #3a405a;
+    -fx-font-family: 'Montserrat ExtraBold', sans-serif;
+    -fx-font-weight: 800;
+    -fx-font-size: 18;
+}
 
 
 /*    Targeted CSS (#)   */
@@ -113,7 +127,6 @@ Untargeted CSS | Target classes, e.g., .label targets all label objects
 /*    DEFAULT TEXT AREA    */
 .text-area {
     -fx-control-inner-background: #101010;
-    -fx-text-fill: white;
 }
 
 

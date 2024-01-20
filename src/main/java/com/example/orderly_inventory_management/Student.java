@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 
 public class Student {
 
+    // For 'select_col'
     private final SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
     public boolean isSelected() {
         return selected.get();
@@ -17,6 +18,7 @@ public class Student {
         return selected;
     }
 
+    // For retrieving 'ObjectId'
     @BsonId
     private ObjectId id;
     public ObjectId getId() {
