@@ -4,7 +4,6 @@ import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
@@ -39,6 +37,7 @@ public class TransactionController implements Initializable {
      *
      * */
     Main m = new Main();
+
     public void switchToDashboard() throws IOException {
         m.changeScene("DashboardScene.fxml");
     }
@@ -63,14 +62,17 @@ public class TransactionController implements Initializable {
      * */
     @FXML
     private AnchorPane topBar;
+
     double x = 0;
     double y = 0;
+
     @FXML
     private Button closeButton;
     @FXML
     private Button minimizeButton;
     @FXML
     private Button fullScreenButton;
+
     public void fullScreenAction() {
         Stage stage = (Stage)fullScreenButton.getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
@@ -112,13 +114,6 @@ public class TransactionController implements Initializable {
 
     }
 
-//    public void handleCSVImport() {
-//
-//        // Populate list with CSV data
-//        List<Items> importedItems = importFromCSV("");
-//
-//    }
-
     public void exportToCSV(List<Items> items, String fp) {
         try (FileWriter fw = new FileWriter(fp)) {
 
@@ -137,43 +132,6 @@ public class TransactionController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
-//    public List<Items> importFromCSV(String fp) throws FileNotFoundException {
-//
-//        table_items.getItems().clear();
-//
-//        List<Items> items = new ArrayList<>();
-//
-//        FileReader fr = new FileReader(fp);
-//        try (BufferedReader br = new BufferedReader(fr)) {
-//
-//            String line;
-//            // Skip header
-//            br.readLine();
-//
-//            while((line = br.readLine()) != null) {
-//                // Split by comma
-//                String[] data = line.split(",");
-//                if (data.length == 5) {
-//                    String Component = data[0].trim();
-//                    String Value = data[1].trim();
-//                    String Amount = data[2].trim();
-//                    String DateLastBought = data[3].trim();
-//                    String Link = data[4].trim();
-//
-//                    items.add(new Items(Component, Value, Amount, DateLastBought, Link));
-//                }
-//            }
-//
-//            System.out.println("CSV Imported Successfully!");
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return items;
-//
-//    }
 
 
     /*--------------------------------------------------------------------------------*/
@@ -226,7 +184,7 @@ public class TransactionController implements Initializable {
                 .append("Link", nLink);
 
         // Insert the document into the MongoDB collection
-        getCollection("transactionList").insertOne(document);
+        getCollection().insertOne(document);
 
         // Refresh the table view
         refreshTableView();
@@ -235,7 +193,7 @@ public class TransactionController implements Initializable {
     public void deleteEntry() {
 
         ObservableList<Items> selectedItems = table_items.getItems();
-        MongoCollection<Document> targetCollection = getCollection("transactionList");
+        MongoCollection<Document> targetCollection = getCollection();
 
         // Loop over selected items
         for (Items selectedItem : selectedItems) {
@@ -259,7 +217,7 @@ public class TransactionController implements Initializable {
         Bson filter = Filters.eq("_id", originalId);
 
         // Delete the document from the MongoDB collection
-        getCollection("transactionList").deleteOne(filter);
+        getCollection().deleteOne(filter);
 
         // Refresh the table view
         refreshTableView();
@@ -279,7 +237,7 @@ public class TransactionController implements Initializable {
             // Check if any of the fields are empty
             if (nComponent.isBlank() || nValue == null || nAmount.isBlank() || nDlb.isBlank() || nLink.isBlank()) {
                 // Show a warning or error message to the user
-                showWarning("Error", "Insufficient information", "Please fill in text fields.");
+                showWarning("Insufficient information", "Please fill in text fields.");
                 return;
             }
 
@@ -295,7 +253,7 @@ public class TransactionController implements Initializable {
             Bson update = new Document("$set", updatedDocument);
 
             // Update the document in the MongoDB collection
-            getCollection("transactionList").updateOne(filter, update);
+            getCollection().updateOne(filter, update);
             refreshTableView();
 
             // Reset entry values
@@ -303,7 +261,7 @@ public class TransactionController implements Initializable {
             originalId = null;
 
         } else {
-            showWarning("Error", "Failed to update", "Retry?");
+            showWarning("Failed to update", "Retry?");
         }
     }
     @FXML
@@ -324,9 +282,9 @@ public class TransactionController implements Initializable {
         ObservableList<Items> updatedList = retrieveDataFromMongoDB();
         table_items.setItems(updatedList);
     }
-    private void showWarning(String title, String header, String content) {
+    private void showWarning(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
+        alert.setTitle("Error");
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -343,8 +301,14 @@ public class TransactionController implements Initializable {
     * */
     @FXML
     public void searchTable(String keyword) {
+        // Convert toLower
         String lowerCaseKeyword = keyword.toLowerCase();
 
+        // Create list
+        // Predicate: Student
+        // 'Predicate' creates a filter, in this case you create an item filter
+        // and check each value in each column using .contains()
+        // The table-view is then updated
         ObservableList<Items> filteredList = retrieveDataFromMongoDB().filtered(item ->
                 item.getComponent().toLowerCase().contains(lowerCaseKeyword) ||
                         item.getValue().toLowerCase().contains(lowerCaseKeyword) ||
@@ -413,10 +377,14 @@ public class TransactionController implements Initializable {
         // Add a listener to the selection property of the table view
         table_items.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                // Update the text fields with the properties of the selected item
+
+                // Stores the current entry chosen as a Student object and the _id as a ObjectId, this makes sure that when you are editing
+                // the text-fields on the right the update, delete, and add methods can use the ObjectId as a Bson filter
+                // instead of any other values such as "DateLastBought"
                 originalEntry = newSelection;
                 originalId = newSelection.getId();
                 System.out.println(originalId);
+
                 tf_component.setText(newSelection.getComponent());
                 cb_value.setValue(newSelection.getValue());
                 tf_amount.setText(newSelection.getAmount());
@@ -465,27 +433,29 @@ public class TransactionController implements Initializable {
         String databaseName = "ORDERLY";
         String collectionName = "transactionList";
 
-        try (var mongoClient = MongoClients.create(connectionString)) {
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase(databaseName);
             MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            var cursor = collection.find().iterator();
-
+            // Create new list to be filled with database data
             ObservableList<Items> componentList = FXCollections.observableArrayList();
 
-            while (cursor.hasNext()) {
-                var document = cursor.next();
+            // Loop through the whole database and store them in 'document'
+            for (Document document : collection.find()) {
 
-                var component = new Items(
-                        document.getString("Component"),
-                        document.getString("Value"),
+                // Create variable to store and kinda append to database
+                Items items = new Items(
+                        document.getString("Name"),
+                        document.getString("Item"),
                         document.getString("Amount"),
-                        document.getString("DateLastBought"),
-                        document.getString("Link")
-                        // ... add more fields based on your document structure
+                        document.getString("Returned"),
+                        document.getString("Date")
                 );
-                component.setId(document.getObjectId("_id"));
-                componentList.add(component);
+                // Before adding to database, set the 'ObjectId' to the one created by MongoDB
+                items.setId(document.getObjectId("_id"));
+
+                // Add to database
+                componentList.add(items);
             }
 
             return componentList;
@@ -497,12 +467,12 @@ public class TransactionController implements Initializable {
     *   Helper method to get the MongoDB collection
     *
     * */
-    private MongoCollection<Document> getCollection(String collectionName) {
+    private MongoCollection<Document> getCollection() {
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
 
         MongoClient mongoClient = MongoClients.create(connectionString);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
-        return database.getCollection(collectionName);
+        return database.getCollection("transactionList");
     }
 }

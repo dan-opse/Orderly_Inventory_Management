@@ -21,6 +21,7 @@ public class StudentLoginController implements Initializable {
 
     /*--------------------------------------------------------------------------------*/
 
+
     /*
     *
     *   Draggable topBar + topBar actions
@@ -46,8 +47,6 @@ public class StudentLoginController implements Initializable {
 
     }
 
-    @FXML
-    private Button loginButton;
     @FXML
     private Button quitButton;
     @FXML
@@ -85,6 +84,7 @@ public class StudentLoginController implements Initializable {
         m.changeScene("AdminLoginScene.fxml");
     }
 
+
     /*--------------------------------------------------------------------------------*/
 
 
@@ -95,12 +95,14 @@ public class StudentLoginController implements Initializable {
     * */
     public void login() throws IOException {
 
+        // Store username and password
         String username = usernameField.getText();
         String password = passwordField.getText();
 
         // If populated
         if (!username.isBlank() && !password.isBlank()) {
 
+            // Check if username & password are found in database entry
             if(validateLogin()) {
                 m.changeScene("StudentSignOutScene.fxml");
             }
@@ -118,19 +120,25 @@ public class StudentLoginController implements Initializable {
     *
     * */
     public boolean validateLogin() {
+
+        // Validate login against the database
         try {
+            // Initialize connection variables/details
             String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
             String databaseName = "ORDERLY";
             String collectionName = "studentAccounts";
 
+            // Try connection
             try (MongoClient mongoClient = MongoClients.create(connectionString)) {
                 MongoDatabase database = mongoClient.getDatabase(databaseName);
                 MongoCollection<Document> collection = database.getCollection(collectionName);
 
+                // Create a temporary document with user entered values
                 Document query = new Document("Username", usernameField.getText()).append("Password", passwordField.getText());
 
                 // Execute the query
                 try (MongoCursor<Document> cursor = collection.find(query).iterator()) {
+
                     // If a matching document is found
                     if (cursor.hasNext()) {
                         loginMessage.setText("Welcome, " + usernameField.getText());
@@ -142,6 +150,7 @@ public class StudentLoginController implements Initializable {
                 }
             }
         } catch (Exception e) {
+            //noinspection CallToPrintStackTrace
             e.printStackTrace();
         }
         return false;

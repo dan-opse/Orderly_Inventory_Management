@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 
 public class AdminAccounts {
 
+    // For retrieving 'ObjectId'
     @BsonId
     private ObjectId id;
     public ObjectId getId() {

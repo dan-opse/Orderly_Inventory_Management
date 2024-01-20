@@ -158,7 +158,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="50.0" style="-fx-background-color: #3d3d3d; -fx-background-radius: 5; -fx-text-fill: white;" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                  <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="60.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="50.0" stylesheets="@../../../Stylesheets/Dashboard.css" text="Dashboard" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -166,7 +166,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label layoutX="14.0" layoutY="100.0" text="Main menu" textFill="#a8a8a8" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="35.0">
+                  <Label layoutX="14.0" layoutY="100.0" text="Main menu" textFill="#a6a6a680" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="35.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -209,7 +209,7 @@
                         <ColorAdjust brightness="1.0" />
                      </effect>
                   </ImageView>
-                  <Label alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">
+                  <Label fx:id="logo" alignment="TOP_CENTER" layoutX="40.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="40.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

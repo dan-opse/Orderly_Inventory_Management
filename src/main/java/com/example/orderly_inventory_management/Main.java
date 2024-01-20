@@ -28,9 +28,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        // Set application icon
         stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/Assets/AppIcon.png"))));
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("StudentLoginScene.fxml")));
+
+        // Load initial scene
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AdminLoginScene.fxml")));
         Scene scene = new Scene(root);
+
+        // Apply CSS stylesheet
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/Stylesheets/Login.css")).toExternalForm());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("ORDERLY - Login");
@@ -40,12 +45,7 @@ public class Main extends Application {
         stage.show();
         centerStage(stage);
 
-
-        /*
-        *
-        *   Prompts logout
-        *
-        * */
+        // Prompt logout
         stage.setOnCloseRequest(event -> {
             try {
                 event.consume();
@@ -67,6 +67,7 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxml)));
         Parent root = loader.load();
+        // Set to new scene
         stg.getScene().setRoot(root);
         stg.sizeToScene();
 

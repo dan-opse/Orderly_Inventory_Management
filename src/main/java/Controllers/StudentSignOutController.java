@@ -80,8 +80,14 @@ public class StudentSignOutController implements Initializable {
      * */
     @FXML
     public void searchTable(String keyword) {
+        // Convert toLower
         String lowerCaseKeyword = keyword.toLowerCase();
 
+        // Create list
+        // Predicate: Student
+        // 'Predicate' creates a filter, in this case you create a student filter
+        // and check each value in each column using .contains()
+        // The table-view is then updated
         ObservableList<Student> filteredList = retrieveDataFromMongoDB().filtered(student ->
                 student.getName().toLowerCase().contains(lowerCaseKeyword) ||
                         student.getItem().toLowerCase().contains(lowerCaseKeyword) ||
@@ -92,6 +98,8 @@ public class StudentSignOutController implements Initializable {
 
         table_students.setItems(filteredList);
     }
+
+    // Initialize all table-view fx:id's
     @FXML
     private TextField keywordTextField;
     @FXML
@@ -165,8 +173,11 @@ public class StudentSignOutController implements Initializable {
     /*--------------------------------------------------------------------------------*/
 
 
-    // Save returned value on exit
-
+    /*
+    *
+    *   Save returned value on exit
+    *
+    * */
     private static final String CONFIG_FILE = "src/main/resources/Config-Files/config.signOut";
 
     // Save states
@@ -178,9 +189,11 @@ public class StudentSignOutController implements Initializable {
             // Loop over table-view and retrieve checkbox values AND store them into CONFIG_FILE
             for (int i = 0; i < table_students.getItems().size(); i++) {
                 boolean state = table_students.getItems().get(i).isSelected();
+                // Set entry values
                 properties.setProperty("checkbox_" + i, String.valueOf(state));
             }
 
+            // Append to CONFIG_FILE
             properties.store(output, null);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -190,6 +203,7 @@ public class StudentSignOutController implements Initializable {
 
     // Load states
     private void loadStates() {
+
         try (InputStream input = new FileInputStream(CONFIG_FILE)) {
             Properties properties = new Properties();
             properties.load(input);
@@ -198,6 +212,7 @@ public class StudentSignOutController implements Initializable {
                 // If no saved states, set default values
                 setCheckboxStates();
             } else {
+                // Loop over number of config-file lines
                 for (int i = 0; i < table_students.getItems().size(); i++) {
                     String key = "checkbox_" + i;
                     boolean state = Boolean.parseBoolean(properties.getProperty(key, "false"));
@@ -216,33 +231,38 @@ public class StudentSignOutController implements Initializable {
 
     /*--------------------------------------------------------------------------------*/
 
+
     // Retrieve data from 'componentList' collection in ORDERLY database
     private ObservableList<Student> retrieveDataFromMongoDB() {
 
+        // Initialize connection variables/details
         String connectionString = "mongodb+srv://root:8298680745@cluster0.rx9njg2.mongodb.net/?retryWrites=true&w=majority";
         String databaseName = "ORDERLY";
         String collectionName = "signOutList";
 
-        try (var mongoClient = MongoClients.create(connectionString)) {
-            var database = mongoClient.getDatabase(databaseName);
-            var collection = database.getCollection(collectionName);
+        // Try connection
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase(databaseName);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            var cursor = collection.find().iterator();
-
+            // Create new list to be filled with database data
             ObservableList<Student> signOutList = FXCollections.observableArrayList();
 
-            while (cursor.hasNext()) {
-                var document = cursor.next();
+            // Loop through the whole database and store them in 'document'
+            for (Document document : collection.find()) {
 
-                var student = new Student(
+                // Create student variable to store and kinda append to database
+                Student student = new Student(
                         document.getString("Name"),
                         document.getString("Item"),
                         document.getString("Amount"),
                         document.getString("Returned"),
                         document.getString("Date")
-                        // ... add more fields based on document structure
                 );
+                // Before adding student to database, set the 'ObjectId' to the one created by MongoDB
                 student.setId(document.getObjectId("_id"));
+
+                // Add to database
                 signOutList.add(student);
             }
 
