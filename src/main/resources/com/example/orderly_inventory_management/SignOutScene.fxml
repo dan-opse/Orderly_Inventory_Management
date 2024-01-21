@@ -29,7 +29,7 @@
                      <top>
                         <AnchorPane prefHeight="52.0" prefWidth="300.0">
                            <children>
-                              <Label alignment="CENTER" layoutX="64.0" layoutY="38.0" text="MODIFICATIONS" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
+                              <Label fx:id="header" alignment="CENTER" layoutX="64.0" layoutY="38.0" stylesheets="@../../../Stylesheets/Global.css" text="Modifications" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -144,9 +144,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="signOutButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignOut" prefHeight="50.0" style="-fx-background-color: #3d3d3d; -fx-background-radius: 5; -fx-text-fill: white;" text="Student Sign-Out" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
+                  <Button fx:id="signOutButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignOut" prefHeight="50.0" stylesheets="@../../../Stylesheets/SignOut.css" text="Sign-Out" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
                      <font>
-                        <Font name="System Bold" size="17.5" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -160,7 +160,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label layoutX="14.0" layoutY="100.0" text="Main menu" textFill="#a8a8a8" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="35.0">
+                  <Label layoutX="14.0" layoutY="100.0" stylesheets="@../../../Stylesheets/Global.css" text="Main menu" textFill="#a6a6a680" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="35.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -185,12 +185,12 @@
                   <Insets left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
                <children>
-                  <Button fx:id="closeButton" layoutX="1297.0" layoutY="8.0" mnemonicParsing="false" onAction="#quitOnAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❌" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="closeButton" layoutX="1297.0" layoutY="8.0" mnemonicParsing="false" onAction="#quitOnAction" prefHeight="40.0" prefWidth="34.0" stylesheets="@../../../Stylesheets/Global.css" text="❌" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="3.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="minimizeButton" layoutX="1262.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizeAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="−" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="minimizeButton" layoutX="1262.0" layoutY="8.0" mnemonicParsing="false" onAction="#minimizeAction" prefHeight="40.0" prefWidth="34.0" stylesheets="@../../../Stylesheets/Global.css" text="−" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="3.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -203,12 +203,12 @@
                         <ColorAdjust brightness="1.0" />
                      </effect>
                   </ImageView>
-                  <Label fx:id="logo" alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">
+                  <Label fx:id="logo" alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="40.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="fullScreenButton" layoutX="1222.0" mnemonicParsing="false" onAction="#fullScreenAction" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Stylesheets/Global.css" text="❐" textFill="WHITE" AnchorPane.rightAnchor="55.0">
+                  <Button fx:id="fullScreenButton" layoutX="1222.0" mnemonicParsing="false" onAction="#fullScreenAction" prefHeight="40.0" prefWidth="34.0" stylesheets="@../../../Stylesheets/Global.css" text="❐" textFill="WHITE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="3.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -238,7 +238,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <TextField fx:id="keywordTextField" layoutX="170.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" promptText="Search" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <TextField fx:id="keywordTextField" layoutX="170.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="127.0" promptText="Search" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font size="10.0" />
                      </font>

@@ -2,7 +2,6 @@ package Controllers;
 
 import com.example.orderly_inventory_management.Items;
 import com.example.orderly_inventory_management.Main;
-import com.example.orderly_inventory_management.Student;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -168,6 +167,8 @@ public class DashboardController implements Initializable {
 
                 // Apply the filter and update document
                 getCollection("componentList").updateOne(filter, update);
+
+                refreshTableView();
             }
         }
     }
@@ -187,7 +188,6 @@ public class DashboardController implements Initializable {
     @FXML
     private TextField tf_dlb;
     @FXML
-
     private TextField tf_link;
     private ObjectId originalId;
     private Items originalEntry;
@@ -337,7 +337,7 @@ public class DashboardController implements Initializable {
                 System.out.println(component);
                 String value = col_value.getCellData(selectedItem);
                 String amount = col_amount.getCellData(selectedItem);
-                String dateLastBought = col_dlb.getCellData(selectedItem); // Adjust if needed
+                String dateLastBought = col_dlb.getCellData(selectedItem);
                 String link = col_link.getCellData(selectedItem);
 
                 // Perform export operation to MongoDB
@@ -369,7 +369,6 @@ public class DashboardController implements Initializable {
 
 
     // Tableview + keyword search
-
     @FXML
     public void searchTable(String keyword) {
 
@@ -472,7 +471,7 @@ public class DashboardController implements Initializable {
         // Initialize choice box values
         cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "100Ω", "1KΩ", "10KΩ", "100KΩ", "220Ω","220KΩ", "270Ω", "270KΩ", "470Ω", "4.7KΩ", "47KΩ", "470KΩ"));
 
-        // Grab initial list of students & populate table-view
+        // Grab initial list & populate table-view
         ObservableList<Items> componentList = retrieveDataFromMongoDB();
 
         col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));

@@ -1,5 +1,3 @@
 Component,Value,Amount,DateLastBought,Link
-LED,GREEN,Low,2022-09-11,https://aliexpress
-Piezo,N/A,Low,2023-12-02,https://aliexpress.com/bestPiezo
-Revolver,1KΩ,High,2023-01-22,https://aliexpress.com
-Piezo,N/A,High,2023-12-02,https://aliexpress.com/bestPiezo
+Photoresistor,N/A,High,2023-05-14,https://aliexpress.com
+Resistor,220Ω,Low,2024-01-03,https://aliexpress.com/bestResistor

@@ -192,24 +192,30 @@ public class SettingController implements Initializable {
                     .orElse(null);
 
             // If currentAdmin found in stream
-            if (currentAdmin != null) {
+            if (newUsername.equals(currentUser)) {
+                showWarning("Error", "Unable to change username.", "The username you entered is already taken");
 
-                // Get current user's objectId
-                String currentUserID = currentAdmin.getId().toString();
+            } else {
+                if (currentAdmin != null) {
 
-                MongoCollection<Document> collection = getCollection();
+                    // Get current user's objectId
+                    String currentUserID = currentAdmin.getId().toString();
 
-                // Create queries and $set the specified fields to given values
-                Document filter = new Document("_id", new ObjectId(currentUserID));
-                Document update = new Document("$set", new Document("Username", newUsername));
+                    MongoCollection<Document> collection = getCollection();
 
-                // Perform update
-                collection.updateOne(filter, update);
-                currentUsername.setText(newUsername);
+                    // Create queries and $set the specified fields to given values
+                    Document filter = new Document("_id", new ObjectId(currentUserID));
+                    Document update = new Document("$set", new Document("Username", newUsername));
 
-                AdminLoginController.username = newUsername;
+                    // Perform update
+                    collection.updateOne(filter, update);
+                    currentUsername.setText(newUsername);
 
+                    AdminLoginController.username = newUsername;
+
+                }
             }
+
         });
 
         // Show change confirmation
@@ -259,6 +265,16 @@ public class SettingController implements Initializable {
 
         // Show change confirmation
         System.out.println("Successfully changed password!");
+    }
+
+    private void showWarning(String title, String header, String content) {
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+
     }
 
     /*--------------------------------------------------------------------------------*/
@@ -324,8 +340,8 @@ public class SettingController implements Initializable {
 
                 // Create admin variable to store and kinda append to database
                 AdminAccounts admin = new AdminAccounts(
-                        document.getString("Component"),
-                        document.getString("Value")
+                        document.getString("Username"),
+                        document.getString("Password")
                 );
                 admin.setId(document.getObjectId("_id"));
                 adminAccounts.add(admin);
