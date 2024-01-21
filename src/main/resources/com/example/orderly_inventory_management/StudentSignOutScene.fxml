@@ -32,7 +32,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="keywordTextField" layoutX="12.0" layoutY="16.0" prefHeight="25.0" promptText="Search" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <TextField fx:id="keywordTextField" layoutX="12.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="127.0" promptText="Search" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="10.0" />
                </font>
@@ -66,7 +66,7 @@
                   <ColorAdjust brightness="1.0" />
                </effect>
             </ImageView>
-            <Label fx:id="logo" alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">
+            <Label fx:id="logo" alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="40.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -80,7 +80,7 @@
       </AnchorPane>
       <AnchorPane layoutX="1062.0" layoutY="50.0" prefHeight="713.0" prefWidth="300.0" style="-fx-background-color: #1c1c1c; -fx-background-radius: 8;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="1061.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Label alignment="CENTER" layoutX="87.0" layoutY="49.0" text="Unretruned Items" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
+            <Label fx:id="header" alignment="CENTER" layoutX="87.0" layoutY="49.0" stylesheets="@../../../Stylesheets/Global.css" text="Unretruned Items" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

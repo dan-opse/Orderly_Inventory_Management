@@ -1,11 +1,26 @@
+
+/*  LOGO  */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+/*  BUTTON TEXT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/*  HEADER TEXT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+/*  BODY TEXT   */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 
 /*
 
-@Global.css | CSS styles that almost all FXML scenes use
+@Global.css styles that most fxml files use
 
 */
 
+
+
+/*  Targeted CSS    */
 #logo {
     -fx-text-fill: white;
     -fx-font-family: 'Montserrat ExtraBold', sans-serif;
@@ -20,10 +35,11 @@
 }
 
 
-/*    Targeted CSS (#)   */
-
-/*    MENU BUTTONS    */
+/*  MENU BUTTONS    */
 #dashboardButton {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-weight: 800;
+    -fx-font-size: 18;
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
 }
@@ -32,14 +48,12 @@
     -fx-background-radius:5;
     -fx-text-fill:white;
 }
-#dashboardButton.clicked {
-    -fx-background-color:#3d3d3d;
-    -fx-background-radius:5;
-    -fx-text-fill:white;
-}
 
 
 #signOutButton {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-weight: 800;
+    -fx-font-size: 18;
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
 }
@@ -48,14 +62,12 @@
     -fx-background-radius:5;
     -fx-text-fill:white;
 }
-#signOutButton.clicked {
-    -fx-background-color:#3d3d3d;
-    -fx-background-radius:5;
-    -fx-text-fill:white;
-}
 
 
 #transactionButton {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-weight: 800;
+    -fx-font-size: 18;
     -fx-background-color:transparent;
     -fx-text-fill:#989898;
 }
@@ -64,14 +76,18 @@
     -fx-background-radius:5;
     -fx-text-fill:white;
 }
-#transactionButton.clicked {
+
+
+#settingButton {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-weight: 800;
+    -fx-font-size: 18;
     -fx-background-color:#3d3d3d;
-    -fx-background-radius:5;
     -fx-text-fill:white;
 }
 
 
-/*    Top bar buttons    */
+/* Window view buttons */
 #minimizeButton {
     -fx-background-color:transparent;
 }
@@ -102,36 +118,55 @@
 }
 
 
-/*    Reset all text-fields to blank/null    */
 #resetAll {
     -fx-background-color: #3498db;
     -fx-text-fill: #fff;
-    -fx-font-size: 16px;
     -fx-border-color: transparent;
     -fx-cursor: hand;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-weight: 800;
+    -fx-font-size: 16;
 }
 #resetAll:hover {
     -fx-background-color: #2980b9;
 }
 
 
+#header {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-weight:800;
+    -fx-font-size: 18;
+}
+
+
 /*
 
-Untargeted CSS | Target classes, e.g., .label targets all label objects
+Not targeted CSS
 
 */
 
 
-/*    DEFAULT TEXT AREA    */
-.text-area {
-    -fx-control-inner-background: #101010;
+/*  DEFAULT LABEL   */
+.label {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 14;
 }
 
 
-/*    DEFAULT TEXT FIELD    */
+/*  DEFAULT TEXT AREA    */
+.text-area {
+    -fx-control-inner-background: #101010;
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 12;
+}
+
+
+/*  DEFAULT TEXT FIELD  */
 .text-field {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 12;
     -fx-background-color: transparent;
     -fx-background-radius:5;
     -fx-border-color: #989898;
@@ -141,7 +176,7 @@ Untargeted CSS | Target classes, e.g., .label targets all label objects
 }
 
 
-/*    DEFAULT BUTTON    */
+/*  DEFAULT BUTTON     */
 .button {
     -fx-cursor: hand;
     -fx-background-color: #282828;
@@ -152,14 +187,9 @@ Untargeted CSS | Target classes, e.g., .label targets all label objects
     -fx-scale-y: 1.05;
     -fx-scale-x: 1.05;
 }
-.button.clicked {
-    -fx-background-color:white;
-    -fx-background-radius:5;
-    -fx-text-fill:black;
-}
 
 
-/*    DEFAULT COMBO-BOX    */
+/*  DEFAULT COMBO-BOX */
 .combo-box {
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -171,11 +201,14 @@ Untargeted CSS | Target classes, e.g., .label targets all label objects
     -fx-background-color: transparent;
 }
 .combo-box .label {
+    -fx-control-inner-background: #101010;
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 12;
     -fx-text-fill:white;
 }
 
 
-/*    DEFAULT CHECK-BOX    */
+/*  DEFAULT CHECK-BOX   */
 .check-box .box{
     -fx-background-color: transparent;
     -fx-border-color: white;
@@ -196,37 +229,58 @@ Untargeted CSS | Target classes, e.g., .label targets all label objects
 }
 
 
-/*    DEFAULT TABLE-VIEW    */
+
+/*
+
+Tableview
+
+*/
+
+
 /* Set background color for the entire TableView */
 .table-view {
     -fx-background-color: transparent; /* Light gray background color */
     -fx-text-fill:white;
+    -fx-control-inner-background: #101010;
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 12;
 }
+
 /* Set background color for table headers */
 .table-view .column-header{
     -fx-background-color: #1c1c1c;
-    -fx-text-fill: white;
+    -fx-text-fill: white; /* Header text color */
+    -fx-font-family: 'Inter', sans-serif;
+    -fx-font-weight:700;
+    -fx-font-size: 12;
 }
+
 .table-view .column-header .label {
     -fx-text-fill:white;
 }
+
 /* Set background color for even rows */
 .table-row-cell:even {
     -fx-background-color: #282828; /* Alternate row background color */
     -fx-border-color: transparent;
 }
+
 /* Set background color for odd rows */
 .table-row-cell:odd {
     -fx-background-color: #1c1c1c; /* Alternate row background color */
     -fx-border-color: transparent;
 }
+
 /* Set text color for cells */
 .table-cell {
     -fx-text-fill: white; /* Cell text color */
     -fx-border-color: transparent;
 }
+
 /* Set selection color for cells */
 .table-row-cell:selected {
     -fx-background-color: #2980b9; /* Selected row background color */
     -fx-text-fill: white; /* Selected cell text color */
 }
+
+

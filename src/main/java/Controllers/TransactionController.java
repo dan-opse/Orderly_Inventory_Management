@@ -5,7 +5,6 @@ import com.example.orderly_inventory_management.Main;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -100,6 +98,36 @@ public class TransactionController implements Initializable {
     /*--------------------------------------------------------------------------------*/
 
 
+    @FXML
+    private TextArea linkTab;
+
+    @FXML
+    public void loadLinks() {
+
+        // Clear text-area
+        linkTab.clear();
+
+        // Store all selectedItems
+        ObservableList<Items> selectedItems = table_items.getItems();
+
+        // Loop over items
+        for (Items selectedItem : selectedItems) {
+            boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
+
+            // Check if selected column is selected
+            if (isSelected) {
+                // Create string to store link value and append to text-area
+                String link = col_link.getCellData(selectedItem);
+                linkTab.appendText(link+"\n");
+            }
+        }
+
+    }
+
+
+    /*--------------------------------------------------------------------------------*/
+
+
     /*
     *
     *   Exporting & Importing as .CSV
@@ -137,11 +165,8 @@ public class TransactionController implements Initializable {
     /*--------------------------------------------------------------------------------*/
 
 
-    /*
-     *
-     *   Adding, deleting and modifying entries
-     *
-     * */
+    // Entry modifications
+
     @FXML
     private TextField tf_component;
     @FXML
@@ -154,6 +179,7 @@ public class TransactionController implements Initializable {
     private TextField tf_link;
     private ObjectId originalId;
     private Items originalEntry;
+
     @FXML
     public void addEntry() {
         String nComponent = tf_component.getText();
@@ -199,6 +225,7 @@ public class TransactionController implements Initializable {
         for (Items selectedItem : selectedItems) {
             boolean isSelected = col_select.getCellObservableValue(selectedItem).getValue();
 
+            // Check if selected column is selected
             if (isSelected) {
                 String component = col_component.getCellData(selectedItem);
                 String value = col_value.getCellData(selectedItem);
@@ -206,7 +233,12 @@ public class TransactionController implements Initializable {
                 String dateLastBought = col_dlb.getCellData(selectedItem);
                 String link = col_link.getCellData(selectedItem);
 
-                Document document = new Document("Component", component).append("Value", value).append("Amount", amount).append("DateLastBought", dateLastBought).append("Link", link);
+                // Create document to delete
+                Document document = new Document("Component", component)
+                        .append("Value", value)
+                        .append("Amount", amount)
+                        .append("DateLastBought", dateLastBought)
+                        .append("Link", link);
 
                 targetCollection.deleteOne(document);
                 refreshTableView();
@@ -218,9 +250,8 @@ public class TransactionController implements Initializable {
 
         // Delete the document from the MongoDB collection
         getCollection().deleteOne(filter);
-
-        // Refresh the table view
         refreshTableView();
+
     }
     @FXML
     private void updateEntry() {
@@ -279,8 +310,10 @@ public class TransactionController implements Initializable {
 
     }
     public void refreshTableView() {
+
         ObservableList<Items> updatedList = retrieveDataFromMongoDB();
         table_items.setItems(updatedList);
+
     }
     private void showWarning(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -294,11 +327,7 @@ public class TransactionController implements Initializable {
     /*--------------------------------------------------------------------------------*/
 
 
-    /*
-    *
-    *   Search Table Method
-    *
-    * */
+    // Tableview + keyword search
     @FXML
     public void searchTable(String keyword) {
         // Convert toLower
@@ -320,11 +349,7 @@ public class TransactionController implements Initializable {
         table_items.setItems(filteredList);
     }
 
-    /*
-     *
-     *   Tableview + keyword search
-     *
-     * */
+    // Initialize table-view variables
     @FXML
     private TextField keywordTextField;
     @FXML
@@ -351,14 +376,11 @@ public class TransactionController implements Initializable {
 
         // Initialize 'Select' column in table-view
         col_select.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<Items, Boolean>, ObservableValue<Boolean>>() {
-                    @Override
-                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Items, Boolean> param) {
-                        Items entry = param.getValue();
-                        SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(entry.isSelected());
-                        booleanProp.addListener((observable, oldValue, newValue) -> entry.setSelected(newValue));
-                        return booleanProp;
-                    }
+                param -> {
+                    Items entry = param.getValue();
+                    SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(entry.isSelected());
+                    booleanProp.addListener((observable, oldValue, newValue) -> entry.setSelected(newValue));
+                    return booleanProp;
                 }
         );
         col_select.setCellFactory(CheckBoxTableCell.forTableColumn(col_select));
@@ -400,9 +422,10 @@ public class TransactionController implements Initializable {
             }
         });
 
-
+        // Initialize choice box values
         cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "100Ω", "1KΩ", "10KΩ", "100KΩ", "220Ω","220KΩ", "270Ω", "270KΩ", "470Ω", "4.7KΩ", "47KΩ", "470KΩ"));
 
+        // Grab initial list & populate table-view
         ObservableList<Items> componentList = retrieveDataFromMongoDB();
 
         col_component.setCellValueFactory(new PropertyValueFactory<>("Component"));
@@ -411,6 +434,7 @@ public class TransactionController implements Initializable {
         col_dlb.setCellValueFactory(new PropertyValueFactory<>("DateLastBought"));
         col_link.setCellValueFactory(new PropertyValueFactory<>("Link"));
 
+        table_items.refresh();
         table_items.setItems(componentList);
 
         // Search
@@ -445,11 +469,11 @@ public class TransactionController implements Initializable {
 
                 // Create variable to store and kinda append to database
                 Items items = new Items(
-                        document.getString("Name"),
-                        document.getString("Item"),
+                        document.getString("Component"),
+                        document.getString("Value"),
                         document.getString("Amount"),
-                        document.getString("Returned"),
-                        document.getString("Date")
+                        document.getString("DateLastBought"),
+                        document.getString("Link")
                 );
                 // Before adding to database, set the 'ObjectId' to the one created by MongoDB
                 items.setId(document.getObjectId("_id"));

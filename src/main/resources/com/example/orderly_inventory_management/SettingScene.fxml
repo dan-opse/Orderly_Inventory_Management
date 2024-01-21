@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -29,9 +30,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="signOutButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignOut" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Student Sign-Out" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
+                  <Button fx:id="signOutButton" alignment="BASELINE_LEFT" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#switchToSignOut" prefHeight="50.0" stylesheets="@../../../Stylesheets/Global.css" text="Sign-Out" textFill="#6c757d" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
                      <font>
-                        <Font name="System Bold" size="17.5" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -45,12 +46,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label layoutX="14.0" layoutY="100.0" text="Main menu" textFill="#a8a8a8" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="35.0">
+                  <Label layoutX="14.0" layoutY="100.0" stylesheets="@../../../Stylesheets/Global.css" text="Main menu" textFill="#a6a6a680" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="35.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="settingButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToSetting" style="-fx-background-color: #4d4d4d; -fx-background-radius: 5; -fx-text-fill: white;" text="Settings" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                  <Button fx:id="settingButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToSetting" stylesheets="@../../../Stylesheets/Setting.css" text="Settings" textFill="#6c757d" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -88,7 +89,7 @@
                         <ColorAdjust brightness="1.0" />
                      </effect>
                   </ImageView>
-                  <Label fx:id="logo" alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.leftAnchor="40.0">
+                  <Label fx:id="logo" alignment="BASELINE_LEFT" layoutX="703.0" layoutY="7.0" stylesheets="@../../../Stylesheets/Global.css" text="ORDERLY" textFill="WHITE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="40.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -107,17 +108,17 @@
                   <Insets bottom="5.0" right="5.0" top="5.0" />
                </BorderPane.margin>
                <children>
-                  <Label layoutX="114.0" layoutY="49.0" text="Themes" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                  <Label fx:id="header" layoutX="114.0" layoutY="49.0" stylesheets="@../../../Stylesheets/Setting.css" text="Themes" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="123.0" text="Notifications" textFill="WHITE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="123.0">
+                  <Label fx:id="header" layoutX="14.0" layoutY="123.0" stylesheets="@../../../Stylesheets/Setting.css" text="Notifications" textFill="WHITE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="123.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="13.0" layoutY="302.0" text="Directories" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="300.0">
+                  <Label fx:id="header" layoutX="13.0" layoutY="302.0" stylesheets="@../../../Stylesheets/Setting.css" text="Directories" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="305.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -127,55 +128,57 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="changeTheme" layoutX="63.0" layoutY="55.0" prefWidth="150.0" promptText="Default Dark" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="60.0">
+                  <ComboBox fx:id="changeTheme" layoutX="63.0" layoutY="55.0" prefWidth="150.0" promptText="Default Dark" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="60.0">
                      <effect>
                         <ColorAdjust brightness="1.0" />
                      </effect>
                   </ComboBox>
-                  <Label layoutX="33.0" layoutY="360.0" text="Export .CSV Directory" textFill="WHITE" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="360.0">
+                  <Label layoutX="33.0" layoutY="360.0" stylesheets="@../../../Stylesheets/Setting.css" text="Export .CSV Directory" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="360.0">
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField layoutX="186.0" layoutY="357.0" promptText="Coming soon!" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="186.0" AnchorPane.topAnchor="357.0" />
-                  <Label layoutX="30.0" layoutY="168.0" text="Low quantity reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0">
+                  <TextField layoutX="186.0" layoutY="357.0" promptText="Coming soon!" stylesheets="@../../../Stylesheets/Global.css" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="357.0" />
+                  <Label layoutX="30.0" layoutY="168.0" stylesheets="@../../../Stylesheets/Setting.css" text="Low quantity reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Line endX="50.0" endY="-92.0" layoutX="499.0" layoutY="92.0" startX="50.0" startY="595.5" stroke="#101010" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                  <Label layoutX="15.0" layoutY="425.0" text="Accounts" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="425.0">
+                  <Label fx:id="header" layoutX="15.0" layoutY="425.0" stylesheets="@../../../Stylesheets/Setting.css" text="Accounts" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="427.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></Label>
-                  <Label layoutX="33.0" layoutY="254.0" text="All reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="250.0">
+                  <Label layoutX="33.0" layoutY="254.0" stylesheets="@../../../Stylesheets/Setting.css" text="All reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="250.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Line endX="433.0" layoutX="115.0" layoutY="111.0" startX="-100.0" stroke="#101010" AnchorPane.leftAnchor="14.5" />
-                  <Line endX="433.0" layoutX="115.0" layoutY="294.0" startX="-100.0" stroke="#101010" />
-                  <Label layoutX="30.0" layoutY="213.0" text="Late sign-out reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="210.0">
+                  <Line endX="1015.5" layoutX="115.0" layoutY="111.0" startX="-100.0" stroke="#101010" AnchorPane.leftAnchor="14.5">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis></Line>
+                  <Line endX="1015.0" layoutX="115.0" layoutY="294.0" startX="-100.0" stroke="#101010" />
+                  <Label layoutX="30.0" layoutY="213.0" stylesheets="@../../../Stylesheets/Setting.css" text="Late sign-out reminders" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="210.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="30.0" layoutY="491.0" text="Change username" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="475.0">
+                  <Label layoutX="30.0" layoutY="491.0" stylesheets="@../../../Stylesheets/Setting.css" text="Change username" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="475.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="40.0" layoutY="480.0" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="515.0">
+                  <Label layoutX="40.0" layoutY="480.0" stylesheets="@../../../Stylesheets/Setting.css" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="515.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="changeUsernameButton" layoutX="444.0" layoutY="473.0" mnemonicParsing="false" onAction="#changeUsername" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="473.0" />
-                  <Button fx:id="changePasswordButton" layoutX="444.0" layoutY="513.0" mnemonicParsing="false" onAction="#changePassword" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="513.0" />
-                  <Line endX="433.0" layoutX="115.0" layoutY="417.0" startX="-100.0" stroke="#101010" />
+                  <Button fx:id="changeUsernameButton" layoutX="471.0" layoutY="475.0" mnemonicParsing="false" onAction="#changeUsername" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="623.0" AnchorPane.topAnchor="475.0" />
+                  <Button fx:id="changePasswordButton" layoutX="471.0" layoutY="515.0" mnemonicParsing="false" onAction="#changePassword" stylesheets="@../../../Stylesheets/Global.css" text="Change" AnchorPane.rightAnchor="623.0" AnchorPane.topAnchor="515.0" />
+                  <Line endX="1015.0" layoutX="115.0" layoutY="417.0" startX="-100.0" stroke="#101010" />
                   <CheckBox fx:id="allBox" layoutX="490.0" layoutY="252.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
                   <CheckBox fx:id="lateSignOutBox" layoutX="490.0" layoutY="212.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
                   <CheckBox fx:id="lowQuantityBox" layoutX="490.0" layoutY="172.0" mnemonicParsing="false" stylesheets="@../../../Stylesheets/Global.css" />
-                  <Label fx:id="currentUsername" alignment="BASELINE_LEFT" layoutX="186.0" layoutY="476.0" prefHeight="20.0" prefWidth="230.0" style="-fx-background-color: #101010; -fx-background-radius: 2;" text="E.g., John Doe" textFill="#ffffff80" AnchorPane.topAnchor="476.0" />
+                  <Label fx:id="currentUsername" alignment="BASELINE_LEFT" layoutX="190.0" layoutY="476.0" prefHeight="20.0" prefWidth="210.0" style="-fx-background-color: #101010; -fx-background-radius: 2;" text="E.g., John Doe" textFill="#ffffff80" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="478.0" />
                </children>
             </AnchorPane>
          </center>
