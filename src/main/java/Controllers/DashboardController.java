@@ -469,7 +469,18 @@ public class DashboardController implements Initializable {
         });
 
         // Initialize choice box values
-        cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "100Ω", "1KΩ", "10KΩ", "100KΩ", "220Ω","220KΩ", "270Ω", "270KΩ", "470Ω", "4.7KΩ", "47KΩ", "470KΩ"));
+        cb_value.setItems(FXCollections.observableArrayList("N/A", "RED", "GREEN", "BLUE", "WHITE", "RGB", "NPN", "PNP", "Sensor",
+                "1μF", "0.12μF", "100μF 16V", "2.2μF", "10μF",
+                "330pF", "1nF", "10nF", "50nF", "100nF", "Diode",
+                "10Ω", "100Ω", "1KΩ", "10KΩ", "100KΩ", "1MΩ", "10MΩ",
+                "1.8Ω", "18Ω", "180Ω", "1.8KΩ", "18KΩ", "180KΩ", "1.8MΩ",
+                "2.2Ω", "22Ω","220Ω","2.2KΩ", "22KΩ","220KΩ", "2.2MΩ",
+                "3.3Ω", "33Ω", "3.3KΩ", "33KΩ", "330KΩ", "3.3MΩ",
+                "4.7Ω", "47Ω", "470Ω", "4.7KΩ", "47KΩ", "470KΩ", "4.7MΩ",
+                "5.6Ω", "56Ω", "560Ω", "5.6KΩ", "56KΩ", "560KΩ", "5.6MΩ",
+                "6.8Ω", "68Ω", "680Ω", "6.8KΩ", "68KΩ", "680KΩ", "6.8MΩ",
+                "8.2Ω", "82Ω", "820Ω", "8.2KΩ", "82KΩ", "820KΩ", "8.2MΩ",
+                ""));
 
         // Grab initial list & populate table-view
         ObservableList<Items> componentList = retrieveDataFromMongoDB();
